@@ -1,0 +1,28 @@
+{
+     "characterState":[
+        {
+          "indexCharacter" :100,
+          "Name" : "Warrior",
+          "Hp": 100,
+          "Attack": 10,
+          "attackSpeed": 2,
+          "moveSpeed": 3,
+          "AttackRange" : 2
+
+
+        },
+        
+        {
+          "indexCharacter" :200,
+          "Name" : "Bowman",
+          "Hp": 50,
+          "Attack": 15,
+          "attackSpeed": 1,
+          "moveSpeed": 2,         
+          "AttackRange" : 7
+
+        }  
+
+     ]
+
+}
