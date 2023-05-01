@@ -8,7 +8,7 @@ public class CharacterJsonRead : MonoBehaviour
     public CharacterStateList characterStateList = new CharacterStateList();
     public TextAsset textJson;
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         characterStateList = JsonUtility.FromJson<CharacterStateList>(textJson.text);
         //Debug.Log(aa.characterState[0].Name);
@@ -23,13 +23,15 @@ public class CharacterJsonRead : MonoBehaviour
     public class CharacterState
     {
         public int indexCharacter;
-        public string Name;
-        public int Hp;
+        public string positionName;
+        public string characterName;
+        public string Unlock;
+        public int healthPoint;
         public int Attack;
         public float attackSpeed;
         public float moveSpeed;
         public CharacterType characterType;
-        public float AttackRange;
+        public float attackRange;
     }
 
     // Update is called once per frame

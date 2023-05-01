@@ -2,27 +2,30 @@
      "characterState":[
         {
           "indexCharacter" :100,
-          "Name" : "Warrior",
-          "Hp": 100,
+          "positionName" : "전사",
+          "characterName" : "기사",
+          "Unlock" : "true",
+          "healthPoint": 100,
           "Attack": 10,
           "attackSpeed": 2,
           "moveSpeed": 3,
-          "AttackRange" : 2
-
+          "attackRange" : 2
 
         },
         
         {
           "indexCharacter" :200,
-          "Name" : "Bowman",
-          "Hp": 50,
+          "positionName" : "원거리",
+          "characterName" : "궁수",
+          "Unlock" : "true",
+          "healthPoint": 50,
           "Attack": 15,
           "attackSpeed": 1,
           "moveSpeed": 2,         
-          "AttackRange" : 7
+          "attackRange" : 7
 
         }  
-
+        
      ]
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum CharacterType 
+public enum CharacterType
 {
     None,
     All,
@@ -26,34 +26,45 @@ namespace Framework.UI
 
         [SerializeField] TextMeshProUGUI _dateText;
 
+        [SerializeField]
         delegate void SetGoldDelegate<T>(T t);
 
+        [SerializeField]
         static SetGoldDelegate<int> _setVoidGoldDelegate;
 
         [SerializeField]
-        private ChampionListButtonChange []champListButton;
+        private ChampionListButtonChange[] champListButton;
 
         [SerializeField]
-        private List< CharacterPersnality> characterList;
+        private List<CharacterPersnality> characterList;
+
+        [SerializeField]
+        private CharacterJsonRead characterJsonRead;
+
+        [SerializeField]
+        private ChampListSort champListSort;
+
+        
 
         public void Init()
         {
             _setVoidGoldDelegate += RefreshData;
             _setVoidGoldDelegate(100);
-            
-            for(int i = 0; i < champListButton.Length; i++)
+
+
+            for (int i = 0; i < champListButton.Length; i++)
             {
-                champListButton[i].myCharacterType = (CharacterType)i+1;
+                champListButton[i].myCharacterType = (CharacterType)i + 1;
             }
+
+            characterJsonRead.Init();
+            champListSort.Init();
 
         }
 
         public void RefreshData(int Gold)
         {
-           
             _goldText.text = "" + GameManager.PlayerInfomation.Gold;
-           
-
         }
 
         public void SetGoldDeleGate(int Gold)
