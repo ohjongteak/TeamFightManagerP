@@ -1700,6 +1700,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 893910535}
     m_Modifications:
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 558747144}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MarkMan
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ChampListSort, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4559152480162226685, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
       propertyPath: m_Name
       value: ChampTypeListBox (2)
@@ -3677,6 +3705,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 893910535}
     m_Modifications:
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 558747144}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ChampListSort, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4559152480162226685, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
       propertyPath: m_Name
       value: ChampTypeListBox (1)
@@ -4685,6 +4741,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 893910535}
     m_Modifications:
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 558747144}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: AllChamp
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ChampListSort, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -974256412163039015, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4559152480162226685, guid: 88d256f3eb90c184bb233b4e1346322c, type: 3}
       propertyPath: m_Name
       value: ChampTypeListBox
