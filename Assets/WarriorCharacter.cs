@@ -40,7 +40,6 @@ public class WarriorCharacter : CharacterPersnality
 
     private void Start()
     {
-
         Init();
     }
 
@@ -49,15 +48,6 @@ public class WarriorCharacter : CharacterPersnality
 
     private void Update()
     {
-        //for (int i = 0; i < listEnemy.Count; i++)
-        //    listEnemyDistance[i]=(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
 
-
-        //Debug.Log(listEnemy[listEnemyDistance.IndexOf(listEnemyDistance.Min())].name);
-        //int hitTargetEnemyIndex = listEnemyDistance.IndexOf(listEnemyDistance.Min());
-
-        //listEnemy[hitTargetEnemyIndex].hp -= 1;
     }
-
-
 }
