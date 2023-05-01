@@ -6,11 +6,19 @@ public enum TeamDivid
 {
     myTeam,
     enemyTeam
-
 }
 
 //[CreateAssetMenu(fileName = "CharacterPersnality" ,menuName = "scriptable Object/CharacterPersnality")]
 
+public enum CharacterState
+{
+    idle,
+    walk,
+    attack,
+    skill,
+    hit,
+    dead
+}
 
 public abstract class CharacterPersnality : MonoBehaviour
 {
@@ -26,12 +34,39 @@ public abstract class CharacterPersnality : MonoBehaviour
     public List<float> listEnemyDistance;
     public CharacterJsonRead characterJsonRead;
 
+    public CharacterState state;
+    public TeamDivid teamDivid;
+    public CharacterPersnality targetCharacter;
+
 
     public abstract void Init();
 
-  
+    private void Start()
+    {
+        state = CharacterState.idle;
+    }
 
-   
-    // Start is called before the first frame update
+    private void Update()
+    {
+        
+    }
 
+    public void TargetSerch(List<CharacterPersnality> listCharactors)
+    {
+        int targetIndex = 0;
+        float distance = Vector2.Distance(listCharactors[0].transform.position, transform.position);
+
+        for (int i = 1; i < listCharactors.Count; i++)
+        {
+            if (distance > Vector2.Distance(listCharactors[i].transform.position, transform.position))
+            {
+                targetIndex = i;
+                distance = Vector2.Distance(listCharactors[i].transform.position, transform.position);
+            }
+        }
+
+        targetCharacter = listCharactors[targetIndex];
+
+        state = CharacterState.walk;
+    }
 }

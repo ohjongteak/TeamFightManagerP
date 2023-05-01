@@ -36,15 +36,10 @@ public class WarriorCharacter : CharacterPersnality
         }
     }
 
-
-
     private void Start()
     {
         Init();
     }
-
-
-
 
     private void Update()
     {
