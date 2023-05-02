@@ -112,7 +112,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public async UniTaskVoid Ultimate()
     {
-        if (ultimateCool >= 10f)
+        if (ultimateCool >= 10f && targetCharacter.state != CharacterState.dead && state != CharacterState.dead)
         {
             ultimateCool = 0;
             Debug.Log("필살기");
@@ -120,20 +120,6 @@ public abstract class CharacterPersnality : MonoBehaviour
             await UniTask.Delay(1000);
             Debug.Log("필살기 => 기본");
             state = CharacterState.idle;
-        }
-    }
-
-    public void Hit(float damage)
-    {
-        Debug.Log("공격");
-        healthPoint -= damage;
-
-        if (healthPoint <= 0)
-        {
-            state = CharacterState.dead;
-            //gameObject.SetActive(false);
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            ReviveCharater();
         }
     }
 
@@ -160,6 +146,20 @@ public abstract class CharacterPersnality : MonoBehaviour
             if (10f <= ultimateCool) break;
 
             await UniTask.Yield();
+        }
+    }
+
+    public void Hit(float damage)
+    {
+        Debug.Log("공격");
+        healthPoint -= damage;
+
+        if (healthPoint <= 0)
+        {
+            state = CharacterState.dead;
+            //gameObject.SetActive(false);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            ReviveCharater();
         }
     }
 

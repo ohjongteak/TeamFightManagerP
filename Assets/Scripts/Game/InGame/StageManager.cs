@@ -22,7 +22,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         battleState = BattleState.ready;
-        listRTeamCharacters = spawnManager.SummonCharactor(3, TeamDivid.enemyTeam);
+        listRTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.enemyTeam);
         listLTeamCharacters = spawnManager.SummonCharactor(3, TeamDivid.myTeam);
     }
 
