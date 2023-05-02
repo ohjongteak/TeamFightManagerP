@@ -26,12 +26,18 @@ public class WarriorCharacter : CharacterPersnality
            if(CharacterStateArray[i].indexCharacter == 100) //챔피언의 인덱스 번호값이 같다면 
            {
                 //등등 스텟 넣기
-                //name = CharacterStateArray[i].Name;
-                //healthPoint = CharacterStateArray[i].Hp;
-                //attackDamage = CharacterStateArray[i].Attack;
+                name = CharacterStateArray[i].characterName;
+                healthPoint = CharacterStateArray[i].healthPoint;
+                attackDamage = CharacterStateArray[i].attackDamage;
+                attackSpeed = CharacterStateArray[i].attackSpeed;
+                moveSpeed = CharacterStateArray[i].moveSpeed;
+                attackRange = CharacterStateArray[i].attackRange;
+
+
+                attackCool = CharacterStateArray[i].attackSpeed;
                 // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
                 //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
-           }
+            }
 
         }
     }

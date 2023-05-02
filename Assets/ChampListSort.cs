@@ -21,7 +21,7 @@ public class ChampListSort : MonoBehaviour
 
         for (int i = 0; i < CharacterStateArray.Length; i++)
         {
-            if (CharacterStateArray[i].Unlock == "true")
+            if (CharacterStateArray[i].unlock == "true")
             {
                 GameObject ChampBox = Instantiate(champBoxPrefab, champListPanel);
                 champIntroBox.Add(ChampBox);
