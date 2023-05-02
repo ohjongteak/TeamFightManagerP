@@ -4,9 +4,9 @@
           "indexCharacter" :100,
           "positionName" : "전사",
           "characterName" : "기사",
-          "Unlock" : "true",
+          "unlock" : "true",
           "healthPoint": 100,
-          "Attack": 10,
+          "attackDamage": 10,
           "attackSpeed": 2,
           "moveSpeed": 3,
           "attackRange" : 2
@@ -17,9 +17,9 @@
           "indexCharacter" :200,
           "positionName" : "원거리",
           "characterName" : "궁수",
-          "Unlock" : "true",
+          "unlock" : "true",
           "healthPoint": 50,
-          "Attack": 15,
+          "attackDamage": 15,
           "attackSpeed": 1,
           "moveSpeed": 2,         
           "attackRange" : 7

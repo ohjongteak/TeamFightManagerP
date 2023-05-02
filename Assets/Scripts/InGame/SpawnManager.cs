@@ -7,49 +7,39 @@ using UnityEngine.UI;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private Image objStage;
-    [SerializeField] InGameManager inGameManager;
        
     [Header("유닛소환좌표용 오브젝트")]
     [SerializeField] private GameObject objSpawnR;
     [SerializeField] private GameObject objSpawnL;
-    
-    private List<Vector3> listV3SpawnPosR;
-    private List<Vector3> listV3SpawnPosL;
+    [SerializeField] private GameObject objSpawnBox;
+
+    private List<Vector3> listV3SpawnPos;
 
 
     [Header("테스트용")]
     [SerializeField] GameObject objTestPrefab;
 
-    public void SummonCharactor()
+    public List<CharacterPersnality> SummonCharactor(int unitCount, TeamDivid teamDivid)
     {
-        // 추후 함수 압축필요
-        int rTeamUnitCount = 1;//listV3SpawnPosL.Count;
-        int lTeamUnitCount = 1;//listV3SpawnPosL.Count;
+        List<CharacterPersnality> characterPersnalities = new List<CharacterPersnality>();
+        Vector2 v2SummonPos = teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;
 
-        listV3SpawnPosR = ListSpwanPos(objSpawnR.transform.position, rTeamUnitCount);
-        listV3SpawnPosL = ListSpwanPos(objSpawnL.transform.position, lTeamUnitCount);
+        listV3SpawnPos = ListSpwanPos(v2SummonPos, unitCount);
 
-        for (int i = 0; i < rTeamUnitCount; i++)
+        for (int i = 0; i < unitCount; i++)
         {
-            Vector3 spawnPos = Camera.main.ScreenToWorldPoint(listV3SpawnPosR[i]);
+            Vector3 spawnPos = Camera.main.ScreenToWorldPoint(listV3SpawnPos[i]);
 
             //임시(생성만 냅둬야됨)
-            CharacterPersnality characterPersnality = Instantiate(objTestPrefab, new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity).GetComponent<CharacterPersnality>();
+            CharacterPersnality characterPersnality = Instantiate(objTestPrefab, new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
             characterPersnality.state = CharacterState.idle;
-            inGameManager.listRTeamCharacters.Add(characterPersnality);
+            characterPersnalities.Add(characterPersnality);
         }
-        for (int i = 0; i < lTeamUnitCount; i++)
-        {
-            Vector3 spawnPos = Camera.main.ScreenToWorldPoint(listV3SpawnPosL[i]);
 
-            //임시(생성만 냅둬야됨)
-            CharacterPersnality characterPersnality = Instantiate(objTestPrefab, new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity).GetComponent<CharacterPersnality>();
-            characterPersnality.state = CharacterState.idle;
-            inGameManager.listLTeamCharacters.Add(characterPersnality);
-        }
+        return characterPersnalities;
     }
 
-    public void ReviveCharator(CharacterPersnality character)
+    public void ReviveCharater(CharacterPersnality character)
     {
         Vector2 spawnCenterPos = character.teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;
 
