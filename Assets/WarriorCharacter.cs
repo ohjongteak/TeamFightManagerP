@@ -34,7 +34,7 @@ public class WarriorCharacter : CharacterPersnality
                 attackRange = CharacterStateArray[i].attackRange;
 
 
-                coolTime = CharacterStateArray[i].attackSpeed;
+                attackCool = CharacterStateArray[i].attackSpeed;
                 // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
                 //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
             }

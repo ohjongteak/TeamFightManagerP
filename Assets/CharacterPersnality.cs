@@ -40,10 +40,45 @@ public abstract class CharacterPersnality : MonoBehaviour
     public TeamDivid teamDivid;
     public CharacterPersnality targetCharacter;
 
-    [HideInInspector] public float coolTime;
+    [HideInInspector] public float attackCool;
+    [HideInInspector] public float skillCool;
+    private float ultimateCool;
 
 
     public abstract void Init();
+
+    public void BattleStart()
+    {
+        UltimateCoolTime();
+    }
+
+    public void CharaterAction(List<CharacterPersnality> characterPersnalities)
+    {
+        Ultimate();
+
+        switch (state)
+        {
+            case CharacterState.idle:
+                TargetSerch(characterPersnalities);
+                break;
+
+            case CharacterState.walk:
+                Move();
+                break;
+
+            case CharacterState.attack:
+
+                if (targetCharacter.state == CharacterState.dead)
+                {
+                    Debug.Log("공격 => 이동");
+                    state = CharacterState.idle;
+                    return;
+                }
+
+                Attack();
+                break;
+        }
+    }
 
     public void Move()
     {
@@ -62,7 +97,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void Attack()
     {
-        if(coolTime >= attackSpeed)
+        if(attackCool >= attackSpeed)
         {
             targetCharacter.Hit(attackDamage);
             AttackCoolTime();
@@ -70,6 +105,19 @@ public abstract class CharacterPersnality : MonoBehaviour
         else
         {
             state = CharacterState.walk;
+        }
+    }
+
+    public async UniTaskVoid Ultimate()
+    {
+        if (ultimateCool >= 10f)
+        {
+            ultimateCool = 0;
+            Debug.Log("필살기");
+            state = CharacterState.ultimate;
+            await UniTask.Delay(3000);
+            Debug.Log("필살기 => 기본");
+            state = CharacterState.idle;
         }
     }
 
@@ -87,12 +135,25 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     private async UniTaskVoid AttackCoolTime()
     {
-        coolTime = 0f;
-        while (attackSpeed > coolTime)
+        attackCool = 0f;
+        while (attackSpeed > attackCool)
         {
-            coolTime += Time.deltaTime;
+            attackCool += Time.deltaTime;
 
-            if (attackSpeed <= coolTime) break;
+            if (attackSpeed <= attackCool) break;
+
+            await UniTask.Yield();
+        }
+    }
+
+    private async UniTaskVoid UltimateCoolTime()
+    {
+        ultimateCool = 0f;
+        while (10f > ultimateCool)
+        {
+            ultimateCool += Time.deltaTime;
+
+            if (10f <= ultimateCool) break;
 
             await UniTask.Yield();
         }
