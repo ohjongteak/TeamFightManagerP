@@ -30,7 +30,7 @@ public class WarriorCharacter : CharacterPersnality
                 healthPoint = CharacterStateArray[i].healthPoint;
                 attackDamage = CharacterStateArray[i].attackDamage;
                 attackSpeed = CharacterStateArray[i].attackSpeed;
-                moveSpeed = CharacterStateArray[i].moveSpeed;
+                moveSpeed = CharacterStateArray[i].moveSpeed * 0.5f;
                 attackRange = CharacterStateArray[i].attackRange;
 
 

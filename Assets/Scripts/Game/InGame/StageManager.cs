@@ -9,7 +9,7 @@ public enum BattleState
     endBattle
 }
 
-public class CharacterManager : MonoBehaviour
+public class StageManager : MonoBehaviour
 {
     [HideInInspector] BattleState battleState;
     [SerializeField] private SpawnManager spawnManager;
@@ -22,7 +22,7 @@ public class CharacterManager : MonoBehaviour
     void Start()
     {
         battleState = BattleState.ready;
-        listRTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.enemyTeam);
+        listRTeamCharacters = spawnManager.SummonCharactor(3, TeamDivid.enemyTeam);
         listLTeamCharacters = spawnManager.SummonCharactor(3, TeamDivid.myTeam);
     }
 
@@ -36,6 +36,11 @@ public class CharacterManager : MonoBehaviour
                 {
                     listRTeamCharacters[i].BattleStart();
                 }
+
+                for (int i = 0; i < listLTeamCharacters.Count; i++)
+                {
+                    listLTeamCharacters[i].BattleStart();
+                }
                 battleState = BattleState.battle;
                 break;
 
@@ -43,6 +48,11 @@ public class CharacterManager : MonoBehaviour
                 for (int i = 0; i < listRTeamCharacters.Count; i++)
                 {
                     listRTeamCharacters[i].CharaterAction(listLTeamCharacters);
+                }
+
+                for (int i = 0; i < listLTeamCharacters.Count; i++)
+                {
+                    listLTeamCharacters[i].CharaterAction(listRTeamCharacters);
                 }
                 break;
 

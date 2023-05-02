@@ -44,6 +44,8 @@ public abstract class CharacterPersnality : MonoBehaviour
     [HideInInspector] public float skillCool;
     private float ultimateCool;
 
+    public Vector2 v2SpawnPoint;
+
 
     public abstract void Init();
 
@@ -115,7 +117,7 @@ public abstract class CharacterPersnality : MonoBehaviour
             ultimateCool = 0;
             Debug.Log("필살기");
             state = CharacterState.ultimate;
-            await UniTask.Delay(3000);
+            await UniTask.Delay(1000);
             Debug.Log("필살기 => 기본");
             state = CharacterState.idle;
         }
@@ -129,7 +131,9 @@ public abstract class CharacterPersnality : MonoBehaviour
         if (healthPoint <= 0)
         {
             state = CharacterState.dead;
-            Debug.Log("사망");
+            //gameObject.SetActive(false);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            ReviveCharater();
         }
     }
 
@@ -180,5 +184,22 @@ public abstract class CharacterPersnality : MonoBehaviour
         targetCharacter = listCharactors[targetIndex];
 
         state = CharacterState.walk;
+    }
+
+    public async UniTaskVoid ReviveCharater()
+    {
+        await UniTask.Delay(5000);
+
+        gameObject.SetActive(true);
+
+        Vector2 spawnPos = Camera.main.ScreenToWorldPoint(new Vector2(v2SpawnPoint.x + Random.Range(-75.0f, 75.1f), v2SpawnPoint.y + Random.Range(-150.0f, 150.1f)));
+
+        transform.position = new Vector3(spawnPos.x, spawnPos.y, 0f);
+
+        //-----------------체력등 초기화 스크립트 작성필요-------------------
+        Init();
+        state = CharacterState.idle;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        Debug.Log("캐릭터 리젠");
     }
 }

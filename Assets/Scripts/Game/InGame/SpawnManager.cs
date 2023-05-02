@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Cysharp.Threading.Tasks;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -34,23 +34,11 @@ public class SpawnManager : MonoBehaviour
             CharacterPersnality characterPersnality = Instantiate(objTestPrefab, new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
             characterPersnality.state = CharacterState.idle;
             characterPersnalities.Add(characterPersnality);
+
+            characterPersnality.v2SpawnPoint = teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;
         }
 
         return characterPersnalities;
-    }
-
-    public void ReviveCharater(CharacterPersnality character)
-    {
-        Vector2 spawnCenterPos = character.teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;
-
-        Vector2 spawnPos = Camera.main.ScreenToWorldPoint(new Vector2(spawnCenterPos.x + Random.Range(-75.0f, 75.1f), spawnCenterPos.y + Random.Range(-150.0f, 150.1f)));
-
-        character.transform.position = new Vector3(spawnPos.x, spawnPos.y, 0f);
-
-
-        //-----------------체력등 초기화 스크립트 작성필요-------------------
-
-
     }
 
     private List<Vector3> ListSpwanPos(Vector2 spawnCenterPos, int _n)
