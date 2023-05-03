@@ -33,6 +33,7 @@ public class SpawnManager : MonoBehaviour
             //ÀÓ½Ã(»ý¼º¸¸ ³ÀµÖ¾ßµÊ)
             CharacterPersnality characterPersnality = Instantiate(objTestPrefab, new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
             characterPersnality.state = CharacterState.idle;
+            characterPersnality.teamDivid = teamDivid;
             characterPersnalities.Add(characterPersnality);
 
             characterPersnality.v2SpawnPoint = teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;

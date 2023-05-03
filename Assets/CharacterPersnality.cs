@@ -24,6 +24,8 @@ public enum CharacterState
 
 public abstract class CharacterPersnality : MonoBehaviour
 {
+    [HideInInspector] public StageManager stageManager;
+
     public int indexCharacter;
     public float healthPoint;
     public float defense;
@@ -160,6 +162,7 @@ public abstract class CharacterPersnality : MonoBehaviour
             //gameObject.SetActive(false);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             ReviveCharater();
+            stageManager.KillScoreRefresh(teamDivid);
         }
     }
 
