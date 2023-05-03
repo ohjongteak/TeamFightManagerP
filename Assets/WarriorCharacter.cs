@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-
-
-
 
 public class WarriorCharacter : CharacterPersnality
 {
@@ -26,19 +22,11 @@ public class WarriorCharacter : CharacterPersnality
            {
                 //등등 스텟 넣기
                 name = CharacterStateArray[i].characterName;
-                //healthPoint = CharacterStateArray[i].healthPoint;
-                //attackDamage = CharacterStateArray[i].attackDamage;
-                //attackSpeed = CharacterStateArray[i].attackSpeed;
-                //moveSpeed = CharacterStateArray[i].moveSpeed * 0.5f;
-                //attackRange = CharacterStateArray[i].attackRange;
-
-                // 임시 테스트용
-                healthPoint = Random.Range(30, CharacterStateArray[i].healthPoint);
-                attackDamage = Random.Range(10, CharacterStateArray[i].attackDamage);
-                attackSpeed = Random.Range(5, CharacterStateArray[i].attackSpeed);
-                moveSpeed = Random.Range(1, CharacterStateArray[i].moveSpeed * 0.5f);
-                attackRange = Random.Range(CharacterStateArray[i].attackRange, 4f);
-
+                healthPoint = CharacterStateArray[i].healthPoint;
+                attackDamage = CharacterStateArray[i].attackDamage;
+                attackSpeed = CharacterStateArray[i].attackSpeed;
+                moveSpeed = CharacterStateArray[i].moveSpeed * 0.5f;
+                attackRange = CharacterStateArray[i].attackRange;
 
                 attackCool = attackSpeed;
                 // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리

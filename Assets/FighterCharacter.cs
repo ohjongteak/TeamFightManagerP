@@ -15,8 +15,6 @@ public class FighterCharacter : CharacterPersnality
         attackRange = 10;
         myCharacterType = CharacterType.MarkMan;
 
-        for (int i = 0; i < listEnemy.Count; i++)
-            listEnemyDistance.Add(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
 
     }
 

@@ -35,12 +35,13 @@ public abstract class CharacterPersnality : MonoBehaviour
     public float attackRange;
     public CharacterType myCharacterType;
     public List<CharacterPersnality> listEnemy;
-    public List<float> listEnemyDistance;
     public CharacterJsonRead characterJsonRead;
 
     public CharacterState state;
     public TeamDivid teamDivid;
-    public CharacterPersnality targetCharacter;
+    [HideInInspector] public CharacterPersnality targetCharacter;
+
+    [SerializeField] private GameObject objBullet;
 
     [HideInInspector] public float attackCool;
     [HideInInspector] public float skillCool;
@@ -103,7 +104,16 @@ public abstract class CharacterPersnality : MonoBehaviour
     {
         if(attackCool >= attackSpeed)
         {
-            targetCharacter.Hit(attackDamage);
+            if (attackRange <= 3)
+            {
+                targetCharacter.Hit(attackDamage);
+            }
+            else
+            {
+                Bullet bullet = Instantiate(objBullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.SetBullet(3, attackDamage, targetCharacter);
+            }
+
             AttackCoolTime();
         }
         else

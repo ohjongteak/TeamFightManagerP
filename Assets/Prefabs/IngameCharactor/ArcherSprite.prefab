@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1069667293104830341}
   - component: {fileID: 1069667293104830340}
-  - component: {fileID: 1069667293104830350}
-  - component: {fileID: -8371450567592194952}
-  - component: {fileID: -3092738936383297034}
+  - component: {fileID: -3333320440564261069}
+  - component: {fileID: -8708408063477660643}
+  - component: {fileID: -7714691795229278410}
   m_Layer: 5
-  m_Name: KnightSprite
+  m_Name: ArcherSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eeb0485fa2a7f7e4e82b4766df8f5880, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 069c02b66542adb488db9f829e478f62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1069667293104830350
+--- !u!114 &-3333320440564261069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1069667293104830339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61112794ad693a14dba52312e817c176, type: 3}
+  m_Script: {fileID: 11500000, guid: b29e59187af3aa64ea72da8456967150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stageManager: {fileID: 0}
@@ -106,18 +106,16 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   myCharacterType: 0
-  listEnemy:
-  - {fileID: 0}
-  - {fileID: 0}
+  listEnemy: []
   characterJsonRead: {fileID: 0}
   state: 0
   teamDivid: 0
   targetCharacter: {fileID: 0}
-  objBullet: {fileID: 0}
+  objBullet: {fileID: 7016315583850653528, guid: a9ad4044d0d191c459e3b4ed68740623, type: 3}
   attackCool: 0
   skillCool: 0
   v2SpawnPoint: {x: 0, y: 0}
---- !u!61 &-8371450567592194952
+--- !u!61 &-8708408063477660643
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.86, y: 1.86}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1.86, y: 1.86}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -143,7 +141,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.8}
   m_EdgeRadius: 0
---- !u!50 &-3092738936383297034
+--- !u!50 &-7714691795229278410
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

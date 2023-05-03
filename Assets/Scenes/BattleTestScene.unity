@@ -613,7 +613,9 @@ MonoBehaviour:
   objSpawnR: {fileID: 1263335873}
   objSpawnL: {fileID: 1668261310}
   objSpawnBox: {fileID: 1731692416}
-  objTestPrefab: {fileID: 1069667293104830339, guid: 96a1e96467bca1041930c0a1150e0de4, type: 3}
+  listObjTestPrefab:
+  - {fileID: 1069667293104830339, guid: 96a1e96467bca1041930c0a1150e0de4, type: 3}
+  - {fileID: 1069667293104830339, guid: 2c9b83f7f3c3a1a4db2b083f1f62b4c1, type: 3}
 --- !u!1 &333142184
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
 
 
     [Header("Å×½ºÆ®¿ë")]
-    [SerializeField] GameObject objTestPrefab;
+    [SerializeField] List<GameObject> listObjTestPrefab;
 
     public List<CharacterPersnality> SummonCharactor(int unitCount, TeamDivid teamDivid)
     {
@@ -31,7 +31,7 @@ public class SpawnManager : MonoBehaviour
             Vector3 spawnPos = Camera.main.ScreenToWorldPoint(listV3SpawnPos[i]);
 
             //ÀÓ½Ã(»ý¼º¸¸ ³ÀµÖ¾ßµÊ)
-            CharacterPersnality characterPersnality = Instantiate(objTestPrefab, new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            CharacterPersnality characterPersnality = Instantiate(listObjTestPrefab[1], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
             characterPersnality.state = CharacterState.idle;
             characterPersnality.teamDivid = teamDivid;
             characterPersnalities.Add(characterPersnality);
