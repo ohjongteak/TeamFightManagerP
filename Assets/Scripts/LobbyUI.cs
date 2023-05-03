@@ -46,6 +46,8 @@ namespace Framework.UI
 
         
 
+        
+
         public void Init()
         {
             _setVoidGoldDelegate += RefreshData;
@@ -59,6 +61,7 @@ namespace Framework.UI
 
             characterJsonRead.Init();
             champListSort.Init();
+            
 
         }
 

@@ -1,0 +1,25 @@
+{
+    "summonerCharacterState": [
+        {
+            "name": "육육종택",
+            "atttack": 9,
+            "defend": 6,
+            "mainHero": [],
+            "hairIndex": 0
+        },
+        {
+            "name": "칠칠종택",
+            "atttack": 8,
+            "defend": 7,
+            "mainHero": [],
+            "hairIndex": 0
+        },
+        {
+            "name": "팔팔종택",
+            "atttack": 7,
+            "defend": 8,
+            "mainHero": [],
+            "hairIndex": 0
+        }
+    ]
+}
