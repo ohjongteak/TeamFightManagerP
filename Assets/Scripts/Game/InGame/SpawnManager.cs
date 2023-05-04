@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private Image objStage;
+    [SerializeField] private RectTransform rtStage;
        
     [Header("유닛소환좌표용 오브젝트")]
     [SerializeField] private GameObject objSpawnR;
@@ -23,8 +23,13 @@ public class SpawnManager : MonoBehaviour
     {
         List<CharacterPersnality> characterPersnalities = new List<CharacterPersnality>();
         Vector2 v2SummonPos = teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;
-
         listV3SpawnPos = ListSpwanPos(v2SummonPos, unitCount);
+
+        float width = rtStage.rect.width * 0.5f;
+        float height = rtStage.rect.height * 0.5f;
+        Vector2 v2MinPos = Camera.main.ScreenToWorldPoint(new Vector2(rtStage.position.x - width, rtStage.position.y - height));
+        Vector2 v2MaxPos = Camera.main.ScreenToWorldPoint(new Vector2(rtStage.position.x + width, rtStage.position.y + height));
+
 
         for (int i = 0; i < unitCount; i++)
         {
@@ -34,9 +39,10 @@ public class SpawnManager : MonoBehaviour
             CharacterPersnality characterPersnality = Instantiate(listObjTestPrefab[1], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
             characterPersnality.state = CharacterState.idle;
             characterPersnality.teamDivid = teamDivid;
-            characterPersnalities.Add(characterPersnality);
-
+            characterPersnality.SetLimitMoveStage(v2MinPos, v2MaxPos);
             characterPersnality.v2SpawnPoint = teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;
+
+            characterPersnalities.Add(characterPersnality);
         }
 
         return characterPersnalities;

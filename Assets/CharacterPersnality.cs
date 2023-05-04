@@ -49,6 +49,9 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public Vector2 v2SpawnPoint;
 
+    // 이동제한용
+    private float minX, maxX, minY, maxY;
+
 
     public abstract void Init();
 
@@ -83,6 +86,8 @@ public abstract class CharacterPersnality : MonoBehaviour
                 Attack();
                 break;
         }
+
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY));
     }
 
     public void Move()
@@ -124,7 +129,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public async UniTaskVoid Ultimate()
     {
-        if (ultimateCool >= 10f && targetCharacter.state != CharacterState.dead && state != CharacterState.dead)
+        if (ultimateCool >= 10f && targetCharacter != null && targetCharacter.state != CharacterState.dead && state != CharacterState.dead)
         {
             ultimateCool = 0;
             Debug.Log("필살기");
@@ -214,5 +219,13 @@ public abstract class CharacterPersnality : MonoBehaviour
         state = CharacterState.idle;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         Debug.Log("캐릭터 리젠");
+    }
+
+    public void SetLimitMoveStage(Vector2 v2MinPos, Vector2 v2MaxPos)
+    {
+        minX = v2MinPos.x * 0.9f;
+        minY = v2MinPos.y * 0.9f;
+        maxX = v2MaxPos.x * 0.9f;
+        maxY = v2MaxPos.y * 0.9f;
     }
 }
