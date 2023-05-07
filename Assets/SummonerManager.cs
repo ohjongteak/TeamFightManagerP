@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.UI;
 namespace Framework.UI
 {
     [System.Serializable]
@@ -31,22 +32,14 @@ namespace Framework.UI
         [SerializeField]
         SummonerCharacter summonerCharacter;
         
-
-
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.H))
-            {
-                Init();
-            }
-        }
+       
+        
         public void Init()
         {
             SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
 
             summonerCharacter = summonerLoadManager.summonerCharacterList;
             var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
-            // for(int i =0; i < summonerLoadManager.summonerCharacter.summonerCharacterState.Length; i++)
 
             if (summonerStateList.Length > 0)//저장된 세이브 파일이 있다면
             {
@@ -76,15 +69,41 @@ namespace Framework.UI
                 summonerCharacter.summonerCharacterState[2].name = "팔팔종택";
                 summonerCharacter.summonerCharacterState[2].atttack = 7;
                 summonerCharacter.summonerCharacterState[2].defend = 8;
-
+ 
                  summonerStateList = summonerCharacter.summonerCharacterState;
             }
 
+            Transform mainCanvas = GameObject.Find("MainCanvas").GetComponent<Transform>();
+            for (int i = 0; i < summonerStateList.Length; i++)
+            {
+                GameObject playerSummoner = Instantiate(summonerPrefab, new Vector3((i*20)-20,-10,0),Quaternion.identity,mainCanvas);
+                DontDestroyOnLoad(playerSummoner);//선수진이 바뀌지 않는이상 캐릭터 외형이 바뀌지 않으므로 씬 전환 시 매번 생성 해줄 필요는 없다.
+                playerSummoner.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.hairSpirte[summonerStateList[i].hairIndex];
+                playerSummoner.transform.GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = summonerStateList[i].name;
+            }
+
+        }
+
+        public void StateToLoadManager()
+        {
+            
+            SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
+          
+            summonerCharacter = summonerLoadManager.summonerCharacterList;
+            var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
+            summonerCharacter.summonerCharacterState = new SummonerCharacterState[summonerStateList.Length];
+
+            for (int i = 0; i < summonerStateList.Length; i++)
+            {
+               summonerCharacter.summonerCharacterState[i] = summonerStateList[i];
+            }
         }
 
         public SummonerCharacter GetSummonerCharacter()
         {
             return summonerCharacter;
         }
+
+       
     }
 }

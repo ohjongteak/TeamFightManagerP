@@ -9,34 +9,22 @@ namespace Framework.UI
     {
         [SerializeField]
         public SummonerCharacter summonerCharacterList = new SummonerCharacter();
-        public TextAsset textJson;
+        public TextAsset summonerStateText;
 
       
         // Start is called before the first frame update
         public void Init()
         {
-            
-
             try
             {
-                textJson = Resources.Load("PlayerSummoner") as TextAsset;
-                summonerCharacterList = JsonUtility.FromJson<SummonerCharacter>(textJson.text);
+                summonerStateText = Resources.Load("PlayerSummoner") as TextAsset;
+                summonerCharacterList = JsonUtility.FromJson<SummonerCharacter>(summonerStateText.text);
             }
             catch
             {
                
             }
-            
 
-           
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Init();
-            }
         }
     }
 }
