@@ -35,8 +35,14 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 spawnPos = Camera.main.ScreenToWorldPoint(listV3SpawnPos[i]);
 
+            CharacterPersnality characterPersnality = null;
+
             //ÀÓ½Ã(»ý¼º¸¸ ³ÀµÖ¾ßµÊ)
-            CharacterPersnality characterPersnality = Instantiate(listObjTestPrefab[1], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            if (teamDivid == TeamDivid.myTeam)
+                characterPersnality = Instantiate(listObjTestPrefab[1], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            else
+                characterPersnality = Instantiate(listObjTestPrefab[0], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+
             characterPersnality.state = CharacterState.idle;
             characterPersnality.teamDivid = teamDivid;
             characterPersnality.SetLimitMoveStage(v2MinPos, v2MaxPos);

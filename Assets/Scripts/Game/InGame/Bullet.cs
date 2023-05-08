@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed;
-    public float damage;
-    public CharacterPersnality target;
+    private float speed;
+    private float damage;
+    private CharacterPersnality target;
+    public ObjectPool objectPool;
 
     void FixedUpdate()
     {
@@ -33,14 +34,17 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject == target.gameObject)
         {
             target.Hit(damage);
-            gameObject.SetActive(false);
+            objectPool.ReturnObject(this);
+            //gameObject.SetActive(false);
         }
     }
 
-    public void SetBullet(float bulletSpeed, float bulletDamage, CharacterPersnality targetCharacter)
+    public void SetBullet(float bulletSpeed, float bulletDamage, CharacterPersnality targetCharacter, ObjectPool objectPool)
     {
         speed = bulletSpeed;
         damage = bulletDamage;
         target = targetCharacter;
+
+        if(this.objectPool == null) this.objectPool = objectPool;
     }
 }

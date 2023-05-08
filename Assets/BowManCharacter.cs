@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class BowManCharacter : CharacterPersnality
 {
+    private ObjectPool objectPool;
+
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
@@ -32,12 +35,14 @@ public class BowManCharacter : CharacterPersnality
                 attackCool = attackSpeed;
                 // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
                 //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
+
             }
         }
     }
 
     private void Start()
     {
+        objectPool = this.GetComponent<ObjectPool>();
         Init();
     }
 
@@ -45,4 +50,31 @@ public class BowManCharacter : CharacterPersnality
     {
 
     }
+
+    public override void CharacterAttack()
+    {
+        Bullet bullet = objectPool.GetObject();
+        bullet.transform.position = transform.position;
+        bullet.SetBullet(5f, attackDamage, targetCharacter, objectPool);
+    }
+
+    public override IEnumerator CharacterUltimate()
+    {
+        float ultimateTime = 2.5f;
+
+        while (ultimateTime > 0f)
+        {
+            if (targetCharacter != null && targetCharacter.state != CharacterState.dead)
+            {
+                CharacterAttack();
+            }
+            else
+                TargetSerch();
+
+            yield return new WaitForSeconds(0.1f);
+
+            ultimateTime -= 0.1f;
+            Debug.Log(ultimateTime);
+        }
+    }    
 }

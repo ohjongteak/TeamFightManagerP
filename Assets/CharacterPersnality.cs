@@ -41,8 +41,6 @@ public abstract class CharacterPersnality : MonoBehaviour
     public TeamDivid teamDivid;
     [HideInInspector] public CharacterPersnality targetCharacter;
 
-    [SerializeField] private GameObject objBullet;
-
     [HideInInspector] public float attackCool;
     [HideInInspector] public float skillCool;
     private float ultimateCool;
@@ -54,20 +52,26 @@ public abstract class CharacterPersnality : MonoBehaviour
 
 
     public abstract void Init();
+    public abstract void CharacterAttack();
+    public abstract IEnumerator CharacterUltimate();
 
-    public void BattleStart()
+    private List<CharacterPersnality> listEnemyCharacters;
+
+    public void BattleStart(List<CharacterPersnality> characterPersnalities)
     {
+        listEnemyCharacters = characterPersnalities;
+        // 스킬쿨타임도 추가필요
         UltimateCoolTime();
     }
 
-    public void CharaterAction(List<CharacterPersnality> characterPersnalities)
+    public void CharaterAction()
     {
         Ultimate();
 
         switch (state)
         {
             case CharacterState.idle:
-                TargetSerch(characterPersnalities);
+                TargetSerch();
                 break;
 
             case CharacterState.walk:
@@ -109,15 +113,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     {
         if(attackCool >= attackSpeed)
         {
-            if (attackRange <= 3)
-            {
-                targetCharacter.Hit(attackDamage);
-            }
-            else
-            {
-                Bullet bullet = Instantiate(objBullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
-                bullet.SetBullet(3, attackDamage, targetCharacter);
-            }
+            CharacterAttack();
 
             AttackCoolTime();
         }
@@ -134,7 +130,9 @@ public abstract class CharacterPersnality : MonoBehaviour
             ultimateCool = 0;
             Debug.Log("필살기");
             state = CharacterState.ultimate;
-            await UniTask.Delay(1000);
+
+            await CharacterUltimate();
+
             Debug.Log("필살기 => 기본");
             state = CharacterState.idle;
         }
@@ -153,7 +151,7 @@ public abstract class CharacterPersnality : MonoBehaviour
         }
     }
 
-    private async UniTaskVoid UltimateCoolTime()
+    public async UniTaskVoid UltimateCoolTime()
     {
         ultimateCool = 0f;
         while (10f > ultimateCool)
@@ -181,25 +179,25 @@ public abstract class CharacterPersnality : MonoBehaviour
         }
     }
 
-    public void TargetSerch(List<CharacterPersnality> listCharactors)
+    public void TargetSerch()
     {
         int targetIndex = -1;
         float distance = 1000f;
 
-        for (int i = 0; i < listCharactors.Count; i++)
+        for (int i = 0; i < listEnemyCharacters.Count; i++)
         {
-            if (listCharactors[i].state == CharacterState.dead) continue;
+            if (listEnemyCharacters[i].state == CharacterState.dead) continue;
 
-            if (distance > Vector2.Distance(listCharactors[i].transform.position, transform.position))
+            if (distance > Vector2.Distance(listEnemyCharacters[i].transform.position, transform.position))
             {
                 targetIndex = i;
-                distance = Vector2.Distance(listCharactors[i].transform.position, transform.position);
+                distance = Vector2.Distance(listEnemyCharacters[i].transform.position, transform.position);
             }
         }
 
         if (targetIndex < 0) return;
 
-        targetCharacter = listCharactors[targetIndex];
+        targetCharacter = listEnemyCharacters[targetIndex];
 
         state = CharacterState.walk;
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class FighterCharacter : CharacterPersnality
 { 
@@ -18,5 +19,12 @@ public class FighterCharacter : CharacterPersnality
 
     }
 
-    
+    public override void CharacterAttack()
+    {
+    }
+
+    public override IEnumerator CharacterUltimate()
+    {
+        yield return null;
+    }
 }

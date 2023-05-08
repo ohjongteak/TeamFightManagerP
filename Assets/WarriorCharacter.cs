@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class WarriorCharacter : CharacterPersnality
 {
@@ -45,4 +46,14 @@ public class WarriorCharacter : CharacterPersnality
     {
 
     }
+
+    public override void CharacterAttack()
+    {
+        targetCharacter.Hit(attackDamage);
+    }
+
+    public override IEnumerator CharacterUltimate()
+    {
+        yield return null;
+    }   
 }

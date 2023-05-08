@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069667293104830339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.75, y: -0.94, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,14 +106,11 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   myCharacterType: 0
-  listEnemy:
-  - {fileID: 0}
-  - {fileID: 0}
+  listEnemy: []
   characterJsonRead: {fileID: 0}
   state: 0
   teamDivid: 0
   targetCharacter: {fileID: 0}
-  objBullet: {fileID: 0}
   attackCool: 0
   skillCool: 0
   v2SpawnPoint: {x: 0, y: 0}

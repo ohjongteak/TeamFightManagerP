@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1069667293104830341}
   - component: {fileID: 1069667293104830340}
-  - component: {fileID: -3333320440564261069}
+  - component: {fileID: -6084291859701102225}
+  - component: {fileID: -7295945935835041809}
   - component: {fileID: -8708408063477660643}
   - component: {fileID: -7714691795229278410}
   m_Layer: 5
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069667293104830339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.75, y: -0.94, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +86,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3333320440564261069
+--- !u!114 &-6084291859701102225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069667293104830339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa16bbbb5121de741a7e69bea3ff89b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolingObjectPrefab: {fileID: 7016315583850653528, guid: a9ad4044d0d191c459e3b4ed68740623, type: 3}
+--- !u!114 &-7295945935835041809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +125,6 @@ MonoBehaviour:
   state: 0
   teamDivid: 0
   targetCharacter: {fileID: 0}
-  objBullet: {fileID: 7016315583850653528, guid: a9ad4044d0d191c459e3b4ed68740623, type: 3}
   attackCool: 0
   skillCool: 0
   v2SpawnPoint: {x: 0, y: 0}

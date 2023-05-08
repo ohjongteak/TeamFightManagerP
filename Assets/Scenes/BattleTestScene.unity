@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee213d5fb7d74247a2a44c5048e7a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objStage: {fileID: 1013779210}
+  rtStage: {fileID: 1013779209}
   objSpawnR: {fileID: 1263335873}
   objSpawnL: {fileID: 1668261310}
   objSpawnBox: {fileID: 1731692416}
@@ -1483,8 +1483,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4, y: -122}
-  m_SizeDelta: {x: 1092.0522, y: 644}
+  m_AnchoredPosition: {x: 0, y: -122}
+  m_SizeDelta: {x: 1100, y: 644}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1013779210
 MonoBehaviour:

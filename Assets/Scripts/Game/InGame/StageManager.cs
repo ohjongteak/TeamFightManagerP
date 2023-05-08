@@ -40,7 +40,7 @@ public class StageManager : MonoBehaviour
         arrTmpKillScore[0].text = arrTmpKillScore[1].text = "0";
 
         battleState = BattleState.ready;
-        listRTeamCharacters = spawnManager.SummonCharactor(0, TeamDivid.enemyTeam);
+        listRTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.enemyTeam);
         listLTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.myTeam);
 
         BattleStart();
@@ -53,12 +53,12 @@ public class StageManager : MonoBehaviour
         {
             for (int i = 0; i < listRTeamCharacters.Count; i++)
             {
-                listRTeamCharacters[i].CharaterAction(listLTeamCharacters);
+                listRTeamCharacters[i].CharaterAction();
             }
 
             for (int i = 0; i < listLTeamCharacters.Count; i++)
             {
-                listLTeamCharacters[i].CharaterAction(listRTeamCharacters);
+                listLTeamCharacters[i].CharaterAction();
             }
         }
     }
@@ -69,13 +69,13 @@ public class StageManager : MonoBehaviour
 
         for (int i = 0; i < listRTeamCharacters.Count; i++)
         {
-            listRTeamCharacters[i].BattleStart();
+            listRTeamCharacters[i].BattleStart(listLTeamCharacters);
             listRTeamCharacters[i].stageManager = this;
         }
 
         for (int i = 0; i < listLTeamCharacters.Count; i++)
         {
-            listLTeamCharacters[i].BattleStart();
+            listLTeamCharacters[i].BattleStart(listRTeamCharacters);
             listLTeamCharacters[i].stageManager = this;
         }
 
