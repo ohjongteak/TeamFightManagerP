@@ -5,21 +5,21 @@
             "atttack": 9,
             "defend": 6,
             "mainHero": [],
-            "hairIndex": 0
+            "hairIndex": 4
         },
         {
             "name": "칠칠종택",
             "atttack": 8,
             "defend": 7,
             "mainHero": [],
-            "hairIndex": 0
+            "hairIndex": 6
         },
         {
             "name": "팔팔종택",
             "atttack": 7,
             "defend": 8,
             "mainHero": [],
-            "hairIndex": 0
+            "hairIndex": 8
         }
     ]
 }

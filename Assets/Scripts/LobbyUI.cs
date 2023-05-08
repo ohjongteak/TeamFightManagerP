@@ -44,9 +44,17 @@ namespace Framework.UI
         [SerializeField]
         private ChampListSort champListSort;
 
-        
+        [SerializeField]
+        private SummonerLoadManager summonerLoadManager;
 
-        
+        [SerializeField]
+        private SummonerManager summonerManager;
+
+        [SerializeField]
+        private SummonerListSort summonerListSort;
+
+        [SerializeField]
+        private Canvas mainCanvas;
 
         public void Init()
         {
@@ -61,8 +69,9 @@ namespace Framework.UI
 
             characterJsonRead.Init();
             champListSort.Init();
-            
-
+            summonerLoadManager.Init();//로드 먼저 실행 후 매니저 Init 실행
+            summonerManager.Init();
+            summonerListSort.Init();
         }
 
         public void RefreshData(int Gold)
