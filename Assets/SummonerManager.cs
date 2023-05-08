@@ -4,12 +4,24 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.UI;
+
+public enum SummonerCondition
+{
+    None,
+    VeryLow,
+    Low,
+    Normal,
+    High,
+    VeryHigh
+
+}
+
 namespace Framework.UI
 {
     [System.Serializable]
     public class SummonerCharacter
     {
-        public SummonerCharacterState[] summonerCharacterState;
+        public List<SummonerCharacterState> summonerCharacterState;
 
     }
     [System.Serializable]
@@ -20,7 +32,8 @@ namespace Framework.UI
         public int defend;
         public int[] mainHero;
         public int hairIndex;
-
+        public int Age;
+        public SummonerCondition summonerCondition;
     }
 
     public class SummonerManager : MonoBehaviour
@@ -37,15 +50,16 @@ namespace Framework.UI
         public void Init()
         {
             SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
-
+           
             summonerCharacter = summonerLoadManager.summonerCharacterList;
             var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
 
-            if (summonerStateList.Length > 0)//저장된 세이브 파일이 있다면
+            if (summonerStateList.Count > 0)//저장된 세이브 파일이 있다면
             {
-                summonerCharacter.summonerCharacterState = new SummonerCharacterState[summonerStateList.Length];
-                for (int i = 0; i < summonerStateList.Length; i++)
+                summonerCharacter.summonerCharacterState = new List<SummonerCharacterState>();
+                for (int i = 0; i < summonerStateList.Count; i++)
                 {
+                    summonerCharacter.summonerCharacterState.Add(new SummonerCharacterState());
                     summonerCharacter.summonerCharacterState[i] = new SummonerCharacterState();
                     summonerCharacter.summonerCharacterState[i] = summonerStateList[i];
                 }
@@ -53,28 +67,32 @@ namespace Framework.UI
             else//조건: 선수단의 정보(세이브Json파일이)가 없으면 선수단 3명 랜덤 생성 랜덤 아직 미구현
             {
                 //소환사 랜덤 생성
-                summonerCharacter.summonerCharacterState = new SummonerCharacterState[3];
-                summonerCharacter.summonerCharacterState[0] = new SummonerCharacterState();
-                summonerCharacter.summonerCharacterState[1] = new SummonerCharacterState();
-                summonerCharacter.summonerCharacterState[2] = new SummonerCharacterState();
+                summonerCharacter.summonerCharacterState = new List<SummonerCharacterState>();
+
+                int DefaultCount = 3;
+                for (int i = 0; i < DefaultCount; i++)
+                    summonerCharacter.summonerCharacterState.Add(new SummonerCharacterState());
 
                 summonerCharacter.summonerCharacterState[0].name = "육종택";
                 summonerCharacter.summonerCharacterState[0].atttack = 9;
                 summonerCharacter.summonerCharacterState[0].defend = 6;
+                summonerCharacter.summonerCharacterState[0].Age = 16;
 
                 summonerCharacter.summonerCharacterState[1].name = "칠종택";
                 summonerCharacter.summonerCharacterState[1].atttack = 8;
                 summonerCharacter.summonerCharacterState[1].defend = 7;
+                summonerCharacter.summonerCharacterState[1].Age = 17;
 
                 summonerCharacter.summonerCharacterState[2].name = "팔팔종택";
                 summonerCharacter.summonerCharacterState[2].atttack = 7;
                 summonerCharacter.summonerCharacterState[2].defend = 8;
- 
-                 summonerStateList = summonerCharacter.summonerCharacterState;
+                summonerCharacter.summonerCharacterState[2].Age = 18;
+
+                summonerStateList = summonerCharacter.summonerCharacterState;
             }
 
             Transform mainCanvas = GameObject.Find("MainCanvas").GetComponent<Transform>();
-            for (int i = 0; i < summonerStateList.Length; i++)
+            for (int i = 0; i < summonerStateList.Count; i++)
             {
                 GameObject playerSummoner = Instantiate(summonerPrefab, new Vector3((i*20)-20,-10,0),Quaternion.identity,mainCanvas);
                 DontDestroyOnLoad(playerSummoner);//선수진이 바뀌지 않는이상 캐릭터 외형이 바뀌지 않으므로 씬 전환 시 매번 생성 해줄 필요는 없다.
@@ -91,9 +109,9 @@ namespace Framework.UI
           
             summonerCharacter = summonerLoadManager.summonerCharacterList;
             var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
-            summonerCharacter.summonerCharacterState = new SummonerCharacterState[summonerStateList.Length];
+            summonerCharacter.summonerCharacterState = new List<SummonerCharacterState>();
 
-            for (int i = 0; i < summonerStateList.Length; i++)
+            for (int i = 0; i < summonerStateList.Count; i++)
             {
                summonerCharacter.summonerCharacterState[i] = summonerStateList[i];
             }
