@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public enum SummonerCondition
 {
-    None,
+  
     VeryLow,
     Low,
     Normal,
@@ -33,7 +33,8 @@ namespace Framework.UI
         public int[] mainHero;
         public int hairIndex;
         public int Age;
-        public SummonerCondition summonerCondition;
+        public int condition;
+        public int cost;
     }
 
     public class SummonerManager : MonoBehaviour
@@ -41,7 +42,7 @@ namespace Framework.UI
         [SerializeField]
         private ImageManager imgManager;
         [SerializeField]
-        private GameObject summonerPrefab;
+       public GameObject summonerPrefab;
         [SerializeField]
         SummonerCharacter summonerCharacter;
         
@@ -77,25 +78,29 @@ namespace Framework.UI
                 summonerCharacter.summonerCharacterState[0].atttack = 9;
                 summonerCharacter.summonerCharacterState[0].defend = 6;
                 summonerCharacter.summonerCharacterState[0].Age = 16;
-
+                summonerCharacter.summonerCharacterState[0].condition = (int)SummonerCondition.VeryLow;
+                summonerCharacter.summonerCharacterState[0].cost = 96;
                 summonerCharacter.summonerCharacterState[1].name = "칠종택";
                 summonerCharacter.summonerCharacterState[1].atttack = 8;
                 summonerCharacter.summonerCharacterState[1].defend = 7;
                 summonerCharacter.summonerCharacterState[1].Age = 17;
-
+                summonerCharacter.summonerCharacterState[1].condition = (int)SummonerCondition.VeryHigh;
+                summonerCharacter.summonerCharacterState[1].cost = 96;
                 summonerCharacter.summonerCharacterState[2].name = "팔팔종택";
                 summonerCharacter.summonerCharacterState[2].atttack = 7;
                 summonerCharacter.summonerCharacterState[2].defend = 8;
                 summonerCharacter.summonerCharacterState[2].Age = 18;
+                summonerCharacter.summonerCharacterState[2].condition = (int)SummonerCondition.Normal;
+                summonerCharacter.summonerCharacterState[2].cost = 96;
 
                 summonerStateList = summonerCharacter.summonerCharacterState;
             }
 
             Transform mainCanvas = GameObject.Find("MainCanvas").GetComponent<Transform>();
-            for (int i = 0; i < summonerStateList.Count; i++)
+            for(int i = 0; i < summonerStateList.Count; i++)
             {
                 GameObject playerSummoner = Instantiate(summonerPrefab, new Vector3((i*20)-20,-10,0),Quaternion.identity,mainCanvas);
-                DontDestroyOnLoad(playerSummoner);//선수진이 바뀌지 않는이상 캐릭터 외형이 바뀌지 않으므로 씬 전환 시 매번 생성 해줄 필요는 없다.
+               //DontDestroyOnLoad(playerSummoner);//선수진이 바뀌지 않는이상 캐릭터 외형이 바뀌지 않으므로 씬 전환 시 매번 생성 해줄 필요는 없다.
                 playerSummoner.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.hairSpirte[summonerStateList[i].hairIndex];
                 playerSummoner.transform.GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = summonerStateList[i].name;
             }
@@ -122,6 +127,33 @@ namespace Framework.UI
             return summonerCharacter;
         }
 
-       
+        public GameObject InstantiateSummoner(Transform parent = null, int i =0)
+        {
+            SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
+            var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
+            GameObject playerSummoner = Instantiate(summonerPrefab, parent);
+            playerSummoner.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.hairSpirte[summonerStateList[i].hairIndex];
+
+
+
+            return playerSummoner;
+        }
+
+        //public int SummonerConditionState(int i)
+        //{
+        //    SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
+        //    var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
+
+        //    return summonerStateList[i].condition;
+        //}
+
+        //public int SummonerCost(int i)
+        //{
+        //    SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
+        //    var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
+
+        //    return summonerStateList[i].cost;
+        //}
+
     }
 }

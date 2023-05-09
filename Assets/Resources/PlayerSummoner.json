@@ -5,21 +5,27 @@
             "atttack": 9,
             "defend": 6,
             "mainHero": [],
-            "hairIndex": 4
+            "hairIndex": 4,
+            "condition": 0,
+            "cost" : 96
         },
         {
             "name": "칠칠종택",
             "atttack": 8,
             "defend": 7,
             "mainHero": [],
-            "hairIndex": 6
+            "hairIndex": 6,
+            "condition": 1,
+            "cost" : 96
         },
         {
             "name": "팔팔종택",
             "atttack": 7,
             "defend": 8,
             "mainHero": [],
-            "hairIndex": 8
+            "hairIndex": 8,
+            "condition": 2,
+            "cost" : 96
         }
     ]
 }
