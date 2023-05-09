@@ -54,6 +54,27 @@ public class WarriorCharacter : CharacterPersnality
 
     public override IEnumerator CharacterUltimate()
     {
+        float ultimateTime = 4f;
+
+        Debug.Log("기사 궁극기 : 방증");
+
+        for(int i = 0; i < listTeamCharacters.Count; i++)
+        {
+            listTeamCharacters[i].defense += 5f;
+        }
+
+        Debug.Log("필살기 => 기본");
+        state = CharacterState.idle;
+
+        yield return new WaitForSeconds(5f);
+
+        for (int i = 0; i < listTeamCharacters.Count; i++)
+        {
+            listTeamCharacters[i].defense -= 5f;
+        }
+
+        Debug.Log("기사 궁극기 종료");
+
         yield return null;
     }   
 }

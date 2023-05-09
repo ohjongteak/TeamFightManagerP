@@ -69,13 +69,13 @@ public class StageManager : MonoBehaviour
 
         for (int i = 0; i < listRTeamCharacters.Count; i++)
         {
-            listRTeamCharacters[i].BattleStart(listLTeamCharacters);
+            listRTeamCharacters[i].BattleStart(listRTeamCharacters, listLTeamCharacters);
             listRTeamCharacters[i].stageManager = this;
         }
 
         for (int i = 0; i < listLTeamCharacters.Count; i++)
         {
-            listLTeamCharacters[i].BattleStart(listRTeamCharacters);
+            listLTeamCharacters[i].BattleStart(listLTeamCharacters, listRTeamCharacters);
             listLTeamCharacters[i].stageManager = this;
         }
 
@@ -111,7 +111,6 @@ public class StageManager : MonoBehaviour
 
     public void KillScoreRefresh(TeamDivid teamDivid)
     {
-        Debug.Log("킬카운트증가 " + teamDivid);
         int teamIndex = teamDivid != TeamDivid.myTeam ? 0 : 1;
 
         arrKillScore[teamIndex]++;

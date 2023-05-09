@@ -16,7 +16,7 @@ public class BowManCharacter : CharacterPersnality
         //    listEnemyDistance.Add(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
 
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
-
+        
         //Debug.Log(CharacterStateList[0]);
 
         for (int i = 0; i < CharacterStateArray.Length; i++)
@@ -42,7 +42,7 @@ public class BowManCharacter : CharacterPersnality
 
     private void Start()
     {
-        objectPool = this.GetComponent<ObjectPool>();
+        objectPool = GetComponent<ObjectPool>();
         Init();
     }
 
@@ -74,7 +74,9 @@ public class BowManCharacter : CharacterPersnality
             yield return new WaitForSeconds(0.1f);
 
             ultimateTime -= 0.1f;
-            Debug.Log(ultimateTime);
         }
+
+        Debug.Log("필살기 => 기본");
+        state = CharacterState.idle;
     }    
 }

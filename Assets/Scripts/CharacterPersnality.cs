@@ -34,8 +34,8 @@ public abstract class CharacterPersnality : MonoBehaviour
     public float moveSpeed;
     public float attackRange;
     public CharacterType myCharacterType;
-    public List<CharacterPersnality> listEnemy;
     public CharacterJsonRead characterJsonRead;
+    private float shield;
 
     public CharacterState state;
     public TeamDivid teamDivid;
@@ -55,11 +55,14 @@ public abstract class CharacterPersnality : MonoBehaviour
     public abstract void CharacterAttack();
     public abstract IEnumerator CharacterUltimate();
 
+    [HideInInspector] public List<CharacterPersnality> listTeamCharacters;
     private List<CharacterPersnality> listEnemyCharacters;
+    
 
-    public void BattleStart(List<CharacterPersnality> characterPersnalities)
+    public void BattleStart(List<CharacterPersnality> listTeam, List<CharacterPersnality> listEnemy)
     {
-        listEnemyCharacters = characterPersnalities;
+        listTeamCharacters = listTeam;
+        listEnemyCharacters = listEnemy;
         // 스킬쿨타임도 추가필요
         UltimateCoolTime();
     }
@@ -82,7 +85,6 @@ public abstract class CharacterPersnality : MonoBehaviour
 
                 if (targetCharacter.state == CharacterState.dead)
                 {
-                    Debug.Log("공격 => 이동");
                     state = CharacterState.idle;
                     return;
                 }
@@ -166,7 +168,6 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void Hit(float damage)
     {
-        Debug.Log("공격");
         healthPoint -= damage;
 
         if (healthPoint <= 0)

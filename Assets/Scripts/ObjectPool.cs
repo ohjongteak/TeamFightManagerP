@@ -40,7 +40,6 @@ public class ObjectPool : MonoBehaviour
         if (Instance.poolingObjectQueue.Count > 0)
         {
             var obj = Instance.poolingObjectQueue.Dequeue();
-            Debug.Log("============== " + (obj == null));
             obj.transform.SetParent(null);
             obj.gameObject.SetActive(true);
             return obj;
