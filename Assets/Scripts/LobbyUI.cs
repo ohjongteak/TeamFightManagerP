@@ -56,6 +56,12 @@ namespace Framework.UI
         [SerializeField]
         private Canvas mainCanvas;
 
+        [SerializeField]
+        private TrainingManager trainingManager;
+
+        [SerializeField]
+        private TrainingSummonerSort trainingSummonerSort;
+
         public void Init()
         {
             _setVoidGoldDelegate += RefreshData;
@@ -72,6 +78,8 @@ namespace Framework.UI
             summonerLoadManager.Init();//로드 먼저 실행 후 매니저 Init 실행
             summonerManager.Init();
             summonerListSort.Init();
+            trainingManager.Init();
+            trainingSummonerSort.init();
         }
 
         public void RefreshData(int Gold)

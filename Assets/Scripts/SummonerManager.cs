@@ -16,6 +16,16 @@ public enum SummonerCondition
 
 }
 
+public enum SummonerGift
+{
+    Local,
+    Excellent,
+    RisingStar,
+    veteran,
+    SuperRookie
+
+}
+
 namespace Framework.UI
 {
     [System.Serializable]
@@ -30,11 +40,20 @@ namespace Framework.UI
         public string name;
         public int atttack;
         public int defend;
-        public int[] mainHero;
-        public int hairIndex;
-        public int Age;
-        public int condition;
-        public int cost;
+        public List<int> mainHero;//메인히어로의 번호 100= 기사 /200= 궁수... 
+        public int hairIndex;//헤어
+        public int Age;//나이
+        public int condition;//컨디션
+        public int cost;//재계약 비용
+        public int gift; //선수의 재능
+        public float statusAttackAdvantage;//재능이 최소 보정 해주는 공격력 스텟
+        public float statusDefendAdvantage;//재능이 최소 보정 해주는 방어력 스텟
+        public float[] heroAdventage = new float[4]; //메인히어로 최소 보정 스텟 
+        public int[] heroUpPoint = new int[4];//메인히어로 상승확정된 업그레이드 포인트
+        public int[] statInvestPoint =new int[2];//포인트를공격력에 투자했는지 방어력에 투자했는지
+        public int[] heroInvestPoint = new int[4];//포인트를 어떤 히어로에 투자했는지.
+        public int remainPoint;//투자한 포인트 /3개가 최대 투자를 안했다면/ 1이라도 남아있음/ 모두 투자했다면 0
+
     }
 
     public class SummonerManager : MonoBehaviour
@@ -42,7 +61,7 @@ namespace Framework.UI
         [SerializeField]
         private ImageManager imgManager;
         [SerializeField]
-       public GameObject summonerPrefab;
+       private GameObject summonerPrefab;
         [SerializeField]
         SummonerCharacter summonerCharacter;
         
@@ -127,7 +146,7 @@ namespace Framework.UI
             return summonerCharacter;
         }
 
-        public GameObject InstantiateSummoner(Transform parent = null, int i =0)
+        public GameObject InstantiateSummoner(Transform parent = null, int i =0)// 프리팹으로 선수들 초상화 불러오는게 아니라 그림으로만 절반 잘라서 생성해줘도 되기 떄문에 나중에 수정필요
         {
             SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
             var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;

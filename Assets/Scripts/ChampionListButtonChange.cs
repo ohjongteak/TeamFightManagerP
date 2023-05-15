@@ -37,4 +37,6 @@ public class ChampionListButtonChange : MonoBehaviour
         this.transform.localScale = new Vector3(this.transform.localScale.x *1.2f, this.transform.localScale.y * 1.2f, this.transform.localScale.z);
 
     }
+
+   
 }
