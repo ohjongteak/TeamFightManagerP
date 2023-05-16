@@ -8,8 +8,10 @@ namespace Framework.UI
     public class SummonerInfoBox : MonoBehaviour
     {
 
-        
         public TrainingSummonerSort trainingSummonerSort;
+        [SerializeField]
+        public TrainingManager trainingManager;
+       
 
         // Start is called before the first frame update
         private void OnMouseEnter()
@@ -51,6 +53,11 @@ namespace Framework.UI
         public void PassThisName()
         {
             trainingSummonerSort.SummonerBox(GetThisName());
+            trainingManager.SummonerBox(GetThisName());
         }
+
+        
+
+
     }
 }

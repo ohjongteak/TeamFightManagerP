@@ -77,8 +77,7 @@ namespace Framework.UI
             champListSort.Init();
             summonerLoadManager.Init();//로드 먼저 실행 후 매니저 Init 실행
             summonerManager.Init();
-            summonerListSort.Init();
-            trainingManager.Init();
+            summonerListSort.Init();          
             trainingSummonerSort.init();
         }
 

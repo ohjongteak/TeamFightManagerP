@@ -21,6 +21,10 @@ namespace Framework.UI
         [SerializeField]
         private TextMeshProUGUI summonerDefend;
         [SerializeField]
+        private TextMeshProUGUI summonerAgeText;
+        [SerializeField]
+        private Transform summonerFacePanel;
+        [SerializeField]
         private GameObject summonerPrefab;
         public void init()
         {
@@ -32,25 +36,36 @@ namespace Framework.UI
                GameObject summomerInfoBox = Instantiate(summonerTraningBox, summonerPanel);
                summonerInfoList.Add(summomerInfoBox.GetComponent<SummonerInfoBox>());
                summonerInfoList[i].trainingSummonerSort = this;
+                summonerInfoList[i].trainingManager = this.GetComponent<TrainingManager>();
                summomerInfoBox.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = summonerInfo[i].name;
                summomerInfoBox.transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = summonerInfo[i].remainPoint.ToString(); 
             }
+
+            Destroy((summonerPrefab = summonerManager.InstantiateSummoner(summonerFacePanel.transform)).transform.GetChild(1).gameObject);
+            summonerName.text = summonerInfo[0].name;
+            summonerAttack.text = summonerInfo[0].atttack.ToString();
+            summonerDefend.text = summonerInfo[0].defend.ToString();
+            summonerAgeText.text = summonerInfo[0].Age.ToString() +"¼¼";
         }
 
         public void SummonerBox(string name)
         {
             var summonerInfo = summonerManager.GetSummonerCharacter().summonerCharacterState;
 
+            Destroy(summonerPrefab);
             for (int i =0; i < summonerInfoList.Count; i++)
             {
-               if( summonerInfo[i].name == name)
-                {
+               if(summonerInfo[i].name == name)
+               {
                     summonerName.text = summonerInfo[i].name;
                     summonerAttack.text = summonerInfo[i].atttack.ToString();
                     summonerDefend.text = summonerInfo[i].defend.ToString();
-                }
+                    summonerAgeText.text = summonerInfo[i].Age.ToString()+"¼¼";
+                    Destroy((summonerPrefab = summonerManager.InstantiateSummoner(summonerFacePanel.transform,i)).transform.GetChild(1).gameObject);
+               }
+
             }
-            
+
         }
 
     }

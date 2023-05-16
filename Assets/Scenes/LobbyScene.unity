@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 24193578}
   - component: {fileID: 24193577}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TraitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1941,6 +1941,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8615238054990368720, guid: 13248bd53830db24d9b534acabf70af7, type: 3}
   m_PrefabInstance: {fileID: 323953500}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &332315540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8533120410900369862, guid: af0bec3302a214e40a01f67769bd7b69, type: 3}
+  m_PrefabInstance: {fileID: 711775378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &343477281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,6 +2259,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369687084}
   m_CullTransparentMesh: 1
+--- !u!114 &385901148 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8533120411561331648, guid: af0bec3302a214e40a01f67769bd7b69, type: 3}
+  m_PrefabInstance: {fileID: 969626726}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &391889667
 GameObject:
   m_ObjectHideFlags: 0
@@ -4701,6 +4717,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summonerManager: {fileID: 1407865543}
   summonerGridPanel: {fileID: 369687085}
+  remainText: {fileID: 215201720}
+  attackPointText: {fileID: 1326485705}
+  defendPointText: {fileID: 385901148}
+  statBoxes:
+  - {fileID: 981619479}
+  - {fileID: 2070573930}
+  - {fileID: 1640535537}
+  - {fileID: 332315540}
 --- !u!114 &819745949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4720,7 +4744,9 @@ MonoBehaviour:
   summonerName: {fileID: 1833339500}
   summonerAttack: {fileID: 2138885190}
   summonerDefend: {fileID: 252598012}
-  summonerPrefab: {fileID: 6957409326905924287, guid: 2c87ca95b629d1045889a15b5c9e4ec9, type: 3}
+  summonerAgeText: {fileID: 1380917547}
+  summonerFacePanel: {fileID: 1739498610}
+  summonerPrefab: {fileID: 0}
 --- !u!1 &820016782
 GameObject:
   m_ObjectHideFlags: 0
@@ -5933,6 +5959,11 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8533120410900369857, guid: af0bec3302a214e40a01f67769bd7b69, type: 3}
   m_PrefabInstance: {fileID: 969626726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &981619479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8533120410900369862, guid: af0bec3302a214e40a01f67769bd7b69, type: 3}
+  m_PrefabInstance: {fileID: 1361512660}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &987206302
 GameObject:
@@ -7154,6 +7185,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1326485705 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8533120411561331648, guid: af0bec3302a214e40a01f67769bd7b69, type: 3}
+  m_PrefabInstance: {fileID: 8533120411050778229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1343564039
 GameObject:
   m_ObjectHideFlags: 0
@@ -7166,7 +7208,7 @@ GameObject:
   - component: {fileID: 1343564042}
   - component: {fileID: 1343564041}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: SummonerFaceImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7418,7 +7460,7 @@ GameObject:
   - component: {fileID: 1380917548}
   - component: {fileID: 1380917547}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AgeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8181,6 +8223,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591885371}
   m_CullTransparentMesh: 1
+--- !u!1 &1640535537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8533120410900369862, guid: af0bec3302a214e40a01f67769bd7b69, type: 3}
+  m_PrefabInstance: {fileID: 1008649287}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1644995988
 GameObject:
   m_ObjectHideFlags: 0
@@ -10438,7 +10485,7 @@ GameObject:
   - component: {fileID: 2042001332}
   - component: {fileID: 2042001331}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TraitImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10577,6 +10624,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047514241}
   m_CullTransparentMesh: 1
+--- !u!1 &2070573930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8533120410900369862, guid: af0bec3302a214e40a01f67769bd7b69, type: 3}
+  m_PrefabInstance: {fileID: 712555587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2074542915
 GameObject:
   m_ObjectHideFlags: 0
