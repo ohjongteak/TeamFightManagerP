@@ -13,13 +13,13 @@ public enum TeamDivid
 
 public enum CharacterState
 {
-    idle,
-    walk,
-    attack,
-    skill,
-    ultimate,
-    hit,
-    dead
+    idle = 0,
+    walk = 1,
+    attack = 2,
+    skill = 3,
+    ultimate = 4,
+    hit = 5,
+    dead = 6
 }
 
 public abstract class CharacterPersnality : MonoBehaviour
@@ -36,6 +36,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
     private float shield;
+    public bool isDead = false;
 
     public CharacterState state;
     public TeamDivid teamDivid;
@@ -47,6 +48,11 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public Vector2 v2SpawnPoint;
 
+    [HideInInspector] public List<CharacterPersnality> listTeamCharacters;
+    private List<CharacterPersnality> listEnemyCharacters;
+    [HideInInspector] public Animator animator;
+    private int parameterCount;
+
     // 이동제한용
     private float minX, maxX, minY, maxY;
 
@@ -55,26 +61,33 @@ public abstract class CharacterPersnality : MonoBehaviour
     public abstract void CharacterAttack();
     public abstract IEnumerator CharacterUltimate();
 
-    [HideInInspector] public List<CharacterPersnality> listTeamCharacters;
-    private List<CharacterPersnality> listEnemyCharacters;
-    
 
     public void BattleStart(List<CharacterPersnality> listTeam, List<CharacterPersnality> listEnemy)
     {
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
+        parameterCount = animator.parameterCount;
         // 스킬쿨타임도 추가필요
         UltimateCoolTime();
     }
 
     public void CharaterAction()
     {
+        if (state == CharacterState.dead) return;
+
         Ultimate();
 
         switch (state)
         {
             case CharacterState.idle:
-                TargetSerch();
+                if (targetCharacter == null || targetCharacter.state == CharacterState.dead)
+                {
+                    TargetSerch();
+                }
+                else
+                {
+                    if (attackCool >= attackSpeed) ChangeState((int)CharacterState.attack);
+                }
                 break;
 
             case CharacterState.walk:
@@ -85,7 +98,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
                 if (targetCharacter.state == CharacterState.dead)
                 {
-                    state = CharacterState.idle;
+                    ChangeState(((int)CharacterState.idle));
                     return;
                 }
 
@@ -93,12 +106,12 @@ public abstract class CharacterPersnality : MonoBehaviour
                 break;
         }
 
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY));
+        //transform.position = new Vector2(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY));
     }
 
     public void Move()
     {
-        if (targetCharacter.state == CharacterState.dead) state = CharacterState.idle;
+        if (targetCharacter.state == CharacterState.dead) ChangeState(((int)CharacterState.idle));
         else
         {
             if (Vector2.Distance(transform.position, targetCharacter.transform.position) > attackRange * 0.5f)
@@ -106,38 +119,26 @@ public abstract class CharacterPersnality : MonoBehaviour
             else
             {
                 // 스킬과 공격 조건문 추가필요
-                state = CharacterState.attack;
+                ChangeState(((int)CharacterState.attack));
             }
         }
     }
-
+    
     public void Attack()
     {
         if(attackCool >= attackSpeed)
         {
-            CharacterAttack();
+            // 궁수 테스트용//////////////////////////////////////
+            if(indexCharacter == 100)
+                CharacterAttack();
 
             AttackCoolTime();
         }
-        else
-        {
-            state = CharacterState.walk;
-        }
-    }
-
-    public async UniTaskVoid Ultimate()
-    {
-        if (ultimateCool >= 10f && targetCharacter != null && targetCharacter.state != CharacterState.dead && state != CharacterState.dead)
-        {
-            ultimateCool = 0;
-            Debug.Log("필살기");
-            state = CharacterState.ultimate;
-
-            await CharacterUltimate();
-
-            Debug.Log("필살기 => 기본");
-            state = CharacterState.idle;
-        }
+        //else if(!animator.GetBool("Attack"))
+        //{
+        //    Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
+        //    ChangeState(((int)CharacterState.idle));
+        //}
     }
 
     private async UniTaskVoid AttackCoolTime()
@@ -152,6 +153,18 @@ public abstract class CharacterPersnality : MonoBehaviour
             await UniTask.Yield();
         }
     }
+    
+    public async UniTaskVoid Ultimate()
+    {
+        if (ultimateCool >= 10f && targetCharacter != null && targetCharacter.isDead && isDead)
+        {
+            ultimateCool = 0;
+            Debug.Log("필살기");
+            ChangeState(((int)CharacterState.ultimate));
+
+            await CharacterUltimate();
+        }
+    }    
 
     public async UniTaskVoid UltimateCoolTime()
     {
@@ -168,11 +181,12 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void Hit(float damage)
     {
-        healthPoint -= damage;
+        healthPoint -= damage - defense;
 
         if (healthPoint <= 0)
         {
-            state = CharacterState.dead;
+            isDead = true;
+            ChangeState(((int)CharacterState.dead));
             //gameObject.SetActive(false);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             ReviveCharater();
@@ -200,7 +214,13 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         targetCharacter = listEnemyCharacters[targetIndex];
 
-        state = CharacterState.walk;
+        if (Vector2.Distance(transform.position, targetCharacter.transform.position) > attackRange * 0.5f)
+            ChangeState(((int)CharacterState.walk));
+        else
+            ChangeState(((int)CharacterState.attack));
+
+
+        //ChangeStage(((int)CharacterState.walk));
     }
 
     public async UniTaskVoid ReviveCharater()
@@ -215,7 +235,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         //-----------------체력등 초기화 스크립트 작성필요-------------------
         Init();
-        state = CharacterState.idle;
+        ChangeState((int)CharacterState.idle);
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         Debug.Log("캐릭터 리젠");
     }
@@ -226,5 +246,43 @@ public abstract class CharacterPersnality : MonoBehaviour
         minY = v2MinPos.y * 0.9f;
         maxX = v2MaxPos.x * 0.9f;
         maxY = v2MaxPos.y * 0.9f;
+    }
+
+    public void ChangeState(int stateNum)
+    {
+        animator.SetBool("Idle", false);
+        animator.SetBool("Move", false);
+        animator.SetBool("Attack", false);
+        animator.SetBool("Skill", false);
+        animator.SetBool("Ultimate", false);
+        animator.SetBool("Hit", false);
+        animator.SetBool("Dead", false);
+
+        state = (CharacterState)stateNum;
+
+        switch (state)
+        {
+            case CharacterState.idle:
+                animator.SetBool("Idle", true);
+                break;
+            case CharacterState.walk:
+                animator.SetBool("Move", true);
+                break;
+            case CharacterState.attack:
+                animator.SetBool("Attack", true);
+                break;
+            case CharacterState.skill:
+                animator.SetBool("Skill", true);
+                break;
+            case CharacterState.ultimate:
+                animator.SetBool("Ultimate", true);
+                break;
+            case CharacterState.hit:
+                animator.SetBool("Hit", true);
+                break;
+            case CharacterState.dead:
+                animator.SetBool("Dead", true);
+                break;
+        }
     }
 }

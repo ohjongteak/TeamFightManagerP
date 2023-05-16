@@ -43,6 +43,7 @@ public class BowManCharacter : CharacterPersnality
     private void Start()
     {
         objectPool = GetComponent<ObjectPool>();
+        animator = GetComponent<Animator>();
         Init();
     }
 
@@ -64,6 +65,8 @@ public class BowManCharacter : CharacterPersnality
 
         while (ultimateTime > 0f)
         {
+            if (isDead) break;
+
             if (targetCharacter != null && targetCharacter.state != CharacterState.dead)
             {
                 CharacterAttack();
@@ -77,6 +80,5 @@ public class BowManCharacter : CharacterPersnality
         }
 
         Debug.Log("필살기 => 기본");
-        state = CharacterState.idle;
-    }    
+    }
 }

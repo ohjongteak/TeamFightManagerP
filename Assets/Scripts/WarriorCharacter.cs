@@ -50,6 +50,7 @@ public class WarriorCharacter : CharacterPersnality
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
+        ChangeState((int)CharacterState.idle);
     }
 
     public override IEnumerator CharacterUltimate()

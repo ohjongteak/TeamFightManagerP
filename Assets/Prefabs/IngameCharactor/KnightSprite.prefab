@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eeb0485fa2a7f7e4e82b4766df8f5880, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 1.86, y: 1.86}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1069667293104830350
@@ -106,7 +106,6 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   myCharacterType: 0
-  listEnemy: []
   characterJsonRead: {fileID: 0}
   state: 0
   teamDivid: 0
@@ -114,6 +113,8 @@ MonoBehaviour:
   attackCool: 0
   skillCool: 0
   v2SpawnPoint: {x: 0, y: 0}
+  listTeamCharacters: []
+  animator: {fileID: 0}
 --- !u!61 &-8371450567592194952
 BoxCollider2D:
   m_ObjectHideFlags: 0
