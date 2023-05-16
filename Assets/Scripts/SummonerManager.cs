@@ -7,12 +7,22 @@ using UnityEngine.UI;
 
 public enum SummonerCondition
 {
-    None,
+  
     VeryLow,
     Low,
     Normal,
     High,
     VeryHigh
+
+}
+
+public enum SummonerGift
+{
+    Local,
+    Excellent,
+    RisingStar,
+    veteran,
+    SuperRookie
 
 }
 
@@ -30,10 +40,20 @@ namespace Framework.UI
         public string name;
         public int atttack;
         public int defend;
-        public int[] mainHero;
-        public int hairIndex;
-        public int Age;
-        public SummonerCondition summonerCondition;
+        public List<int> mainHero;//메인히어로의 번호 100= 기사 /200= 궁수... 
+        public int hairIndex;//헤어
+        public int Age;//나이
+        public int condition;//컨디션
+        public int cost;//재계약 비용
+        public int gift; //선수의 재능
+        public float statusAttackAdvantage;//재능이 최소 보정 해주는 공격력 스텟
+        public float statusDefendAdvantage;//재능이 최소 보정 해주는 방어력 스텟
+        public float[] heroAdventage = new float[4]; //메인히어로 최소 보정 스텟 
+        public int[] heroUpPoint = new int[4];//메인히어로 상승확정된 업그레이드 포인트
+        public int[] statInvestPoint =new int[2];//포인트를공격력에 투자했는지 방어력에 투자했는지
+        public int[] heroInvestPoint = new int[4];//포인트를 어떤 히어로에 투자했는지.
+        public int remainPoint;//투자한 포인트 /3개가 최대 투자를 안했다면/ 1이라도 남아있음/ 모두 투자했다면 0
+
     }
 
     public class SummonerManager : MonoBehaviour
@@ -41,7 +61,7 @@ namespace Framework.UI
         [SerializeField]
         private ImageManager imgManager;
         [SerializeField]
-        private GameObject summonerPrefab;
+       private GameObject summonerPrefab;
         [SerializeField]
         SummonerCharacter summonerCharacter;
         
@@ -77,25 +97,29 @@ namespace Framework.UI
                 summonerCharacter.summonerCharacterState[0].atttack = 9;
                 summonerCharacter.summonerCharacterState[0].defend = 6;
                 summonerCharacter.summonerCharacterState[0].Age = 16;
-
+                summonerCharacter.summonerCharacterState[0].condition = (int)SummonerCondition.VeryLow;
+                summonerCharacter.summonerCharacterState[0].cost = 96;
                 summonerCharacter.summonerCharacterState[1].name = "칠종택";
                 summonerCharacter.summonerCharacterState[1].atttack = 8;
                 summonerCharacter.summonerCharacterState[1].defend = 7;
                 summonerCharacter.summonerCharacterState[1].Age = 17;
-
+                summonerCharacter.summonerCharacterState[1].condition = (int)SummonerCondition.VeryHigh;
+                summonerCharacter.summonerCharacterState[1].cost = 96;
                 summonerCharacter.summonerCharacterState[2].name = "팔팔종택";
                 summonerCharacter.summonerCharacterState[2].atttack = 7;
                 summonerCharacter.summonerCharacterState[2].defend = 8;
                 summonerCharacter.summonerCharacterState[2].Age = 18;
+                summonerCharacter.summonerCharacterState[2].condition = (int)SummonerCondition.Normal;
+                summonerCharacter.summonerCharacterState[2].cost = 96;
 
                 summonerStateList = summonerCharacter.summonerCharacterState;
             }
 
             Transform mainCanvas = GameObject.Find("MainCanvas").GetComponent<Transform>();
-            for (int i = 0; i < summonerStateList.Count; i++)
+            for(int i = 0; i < summonerStateList.Count; i++)
             {
                 GameObject playerSummoner = Instantiate(summonerPrefab, new Vector3((i*20)-20,-10,0),Quaternion.identity,mainCanvas);
-                DontDestroyOnLoad(playerSummoner);//선수진이 바뀌지 않는이상 캐릭터 외형이 바뀌지 않으므로 씬 전환 시 매번 생성 해줄 필요는 없다.
+               //DontDestroyOnLoad(playerSummoner);//선수진이 바뀌지 않는이상 캐릭터 외형이 바뀌지 않으므로 씬 전환 시 매번 생성 해줄 필요는 없다.
                 playerSummoner.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.hairSpirte[summonerStateList[i].hairIndex];
                 playerSummoner.transform.GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = summonerStateList[i].name;
             }
@@ -122,6 +146,33 @@ namespace Framework.UI
             return summonerCharacter;
         }
 
-       
+        public GameObject InstantiateSummoner(Transform parent = null, int i =0)// 프리팹으로 선수들 초상화 불러오는게 아니라 그림으로만 절반 잘라서 생성해줘도 되기 떄문에 나중에 수정필요
+        {
+            SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
+            var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
+            GameObject playerSummoner = Instantiate(summonerPrefab, parent);
+            playerSummoner.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.hairSpirte[summonerStateList[i].hairIndex];
+
+
+
+            return playerSummoner;
+        }
+
+        //public int SummonerConditionState(int i)
+        //{
+        //    SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
+        //    var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
+
+        //    return summonerStateList[i].condition;
+        //}
+
+        //public int SummonerCost(int i)
+        //{
+        //    SummonerLoadManager summonerLoadManager = GameObject.Find("SummonerLoadManager").GetComponent<SummonerLoadManager>();
+        //    var summonerStateList = summonerLoadManager.summonerCharacterList.summonerCharacterState;
+
+        //    return summonerStateList[i].cost;
+        //}
+
     }
 }
