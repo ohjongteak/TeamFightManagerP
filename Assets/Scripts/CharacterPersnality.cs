@@ -33,6 +33,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     public float attackSpeed;
     public float moveSpeed;
     public float attackRange;
+    [HideInInspector] public float maxSkillCool = 7f;
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
     private float shield;
@@ -43,7 +44,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     [HideInInspector] public CharacterPersnality targetCharacter;
 
     [HideInInspector] public float attackCool;
-    [HideInInspector] public float skillCool;
+    private float skillCool;
     private float ultimateCool;
 
     public Vector2 v2SpawnPoint;
@@ -60,6 +61,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     public abstract void Init();
     public abstract void CharacterAttack();
     public abstract IEnumerator CharacterUltimate();
+    public abstract IEnumerator CharacterSkill();
 
 
     public void BattleStart(List<CharacterPersnality> listTeam, List<CharacterPersnality> listEnemy)
@@ -69,24 +71,29 @@ public abstract class CharacterPersnality : MonoBehaviour
         parameterCount = animator.parameterCount;
         // 스킬쿨타임도 추가필요
         UltimateCoolTime();
+        AttackCoolTime();
+        SkillCoolTime();
     }
 
     public void CharaterAction()
     {
-        if (state == CharacterState.dead) return;
-
-        Ultimate();
+        if (isDead) return;
 
         switch (state)
         {
             case CharacterState.idle:
-                if (targetCharacter == null || targetCharacter.state == CharacterState.dead)
+                if (targetCharacter == null || targetCharacter.isDead)
                 {
                     TargetSerch();
                 }
-                else
+                else if (!targetCharacter.isDead)
                 {
-                    if (attackCool >= attackSpeed) ChangeState((int)CharacterState.attack);
+                    if (ultimateCool >= 10f)
+                    {
+                        Ultimate();
+                    }
+                    else if (skillCool >= maxSkillCool) ChangeState((int)CharacterState.skill);
+                    else if (attackCool >= attackSpeed) ChangeState((int)CharacterState.attack);
                 }
                 break;
 
@@ -96,13 +103,20 @@ public abstract class CharacterPersnality : MonoBehaviour
 
             case CharacterState.attack:
 
-                if (targetCharacter.state == CharacterState.dead)
+                if (targetCharacter.isDead)
                 {
                     ChangeState(((int)CharacterState.idle));
                     return;
                 }
 
-                Attack();
+                if (attackCool >= attackSpeed)
+                    AttackCoolTime();
+
+                break;
+            case CharacterState.skill:
+
+                if(skillCool >= maxSkillCool)
+                    SkillCoolTime();
                 break;
         }
 
@@ -111,7 +125,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void Move()
     {
-        if (targetCharacter.state == CharacterState.dead) ChangeState(((int)CharacterState.idle));
+        if (targetCharacter.isDead) ChangeState(((int)CharacterState.idle));
         else
         {
             if (Vector2.Distance(transform.position, targetCharacter.transform.position) > attackRange * 0.5f)
@@ -124,22 +138,6 @@ public abstract class CharacterPersnality : MonoBehaviour
         }
     }
     
-    public void Attack()
-    {
-        if(attackCool >= attackSpeed)
-        {
-            // 궁수 테스트용//////////////////////////////////////
-            if(indexCharacter == 100)
-                CharacterAttack();
-
-            AttackCoolTime();
-        }
-        //else if(!animator.GetBool("Attack"))
-        //{
-        //    Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
-        //    ChangeState(((int)CharacterState.idle));
-        //}
-    }
 
     private async UniTaskVoid AttackCoolTime()
     {
@@ -153,10 +151,23 @@ public abstract class CharacterPersnality : MonoBehaviour
             await UniTask.Yield();
         }
     }
-    
+
+    private async UniTaskVoid SkillCoolTime()
+    {
+        skillCool = 0f;
+        while (maxSkillCool > skillCool)
+        {
+            skillCool += Time.deltaTime;
+
+            if (maxSkillCool <= skillCool) break;
+
+            await UniTask.Yield();
+        }
+    }
+
     public async UniTaskVoid Ultimate()
     {
-        if (ultimateCool >= 10f && targetCharacter != null && targetCharacter.isDead && isDead)
+        if (ultimateCool >= 10f && !targetCharacter.isDead && !isDead)
         {
             ultimateCool = 0;
             Debug.Log("필살기");
@@ -192,6 +203,10 @@ public abstract class CharacterPersnality : MonoBehaviour
             ReviveCharater();
             stageManager.KillScoreRefresh(teamDivid);
         }
+        else if(state == CharacterState.hit)
+        {
+            // 넉백추가
+        }
     }
 
     public void TargetSerch()
@@ -201,7 +216,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         for (int i = 0; i < listEnemyCharacters.Count; i++)
         {
-            if (listEnemyCharacters[i].state == CharacterState.dead) continue;
+            if (listEnemyCharacters[i].isDead) continue;
 
             if (distance > Vector2.Distance(listEnemyCharacters[i].transform.position, transform.position))
             {
@@ -214,9 +229,11 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         targetCharacter = listEnemyCharacters[targetIndex];
 
+        if (state == CharacterState.ultimate) return;
+
         if (Vector2.Distance(transform.position, targetCharacter.transform.position) > attackRange * 0.5f)
             ChangeState(((int)CharacterState.walk));
-        else
+        else if(attackCool >= attackSpeed)
             ChangeState(((int)CharacterState.attack));
 
 

@@ -77,5 +77,10 @@ public class WarriorCharacter : CharacterPersnality
         Debug.Log("기사 궁극기 종료");
 
         yield return null;
-    }   
+    }
+
+    public override IEnumerator CharacterSkill()
+    {
+        yield return null;
+    }
 }

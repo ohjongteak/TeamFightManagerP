@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     {
         if (target != null)
         {
-            if (target.state != CharacterState.dead)
+            if (!target.isDead)
             {
                 Vector3 dir = target.transform.position - transform.position;
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

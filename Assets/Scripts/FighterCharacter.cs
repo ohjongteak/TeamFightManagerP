@@ -27,4 +27,9 @@ public class FighterCharacter : CharacterPersnality
     {
         yield return null;
     }
+
+    public override IEnumerator CharacterSkill()
+    {
+        yield return null;
+    }
 }

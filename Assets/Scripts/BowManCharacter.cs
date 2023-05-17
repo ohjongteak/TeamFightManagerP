@@ -54,24 +54,23 @@ public class BowManCharacter : CharacterPersnality
 
     public override void CharacterAttack()
     {
-        Bullet bullet = objectPool.GetObject();
-        bullet.transform.position = transform.position;
-        bullet.SetBullet(5f, attackDamage, targetCharacter, objectPool);
+        if (!targetCharacter.isDead)
+        {
+            Bullet bullet = objectPool.GetObject();
+            bullet.transform.position = transform.position;
+            bullet.SetBullet(7f, attackDamage, targetCharacter, objectPool);
+        }
     }
 
     public override IEnumerator CharacterUltimate()
     {
-        float ultimateTime = 2.5f;
+        float ultimateTime = 3f;
 
         while (ultimateTime > 0f)
         {
             if (isDead) break;
 
-            if (targetCharacter != null && targetCharacter.state != CharacterState.dead)
-            {
-                CharacterAttack();
-            }
-            else
+            if(targetCharacter.isDead)
                 TargetSerch();
 
             yield return new WaitForSeconds(0.1f);
@@ -79,6 +78,23 @@ public class BowManCharacter : CharacterPersnality
             ultimateTime -= 0.1f;
         }
 
+        ChangeState((int)CharacterState.idle);
+        Debug.Log("필살기 => 기본");
+    }
+
+    public override IEnumerator CharacterSkill()
+    {
+        Vector3 dir = targetCharacter.transform.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+
+        while (true)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, targetCharacter.transform.position, 2f * Time.deltaTime);
+            yield return null;
+        }
+
+        ChangeState((int)CharacterState.idle);
         Debug.Log("필살기 => 기본");
     }
 }
