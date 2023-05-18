@@ -61,6 +61,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     public abstract void CharacterAttack();
     public abstract IEnumerator CharacterUltimate();
     public abstract IEnumerator CharacterSkill();
+    public abstract bool isCanSkill();
 
 
     public void BattleStart(List<CharacterPersnality> listTeam, List<CharacterPersnality> listEnemy)
@@ -91,7 +92,7 @@ public abstract class CharacterPersnality : MonoBehaviour
                     {
                         Ultimate();
                     }
-                    else if (skillCool >= maxSkillCool) ChangeState((int)CharacterState.skill);
+                    else if (skillCool >= maxSkillCool && isCanSkill()) ChangeState((int)CharacterState.skill);
                     else if (attackCool >= attackSpeed && isCanAttackRange()) ChangeState((int)CharacterState.attack);
                     else if (!isCanAttackRange()) ChangeState((int)CharacterState.walk);
                 }

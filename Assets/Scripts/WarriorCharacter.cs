@@ -83,4 +83,10 @@ public class WarriorCharacter : CharacterPersnality
     {
         yield return null;
     }
+
+    public override bool isCanSkill()
+    {
+
+        return true;
+    }
 }

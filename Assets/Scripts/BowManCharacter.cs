@@ -61,7 +61,7 @@ public class BowManCharacter : CharacterPersnality
         {
             Bullet bullet = objectPool.GetObject();
             bullet.transform.position = transform.position;
-            bullet.SetBullet(7f, attackDamage, targetCharacter, objectPool);
+            bullet.SetBullet(10f, attackDamage, targetCharacter, objectPool);
         }
     }
 
@@ -69,6 +69,7 @@ public class BowManCharacter : CharacterPersnality
     {
         yield return new WaitForSeconds(3f);
 
+        TargetSerch();
         ChangeState((int)CharacterState.idle);
         Debug.Log("필살기 => 기본");
     }
@@ -84,6 +85,31 @@ public class BowManCharacter : CharacterPersnality
             yield return null;
         }
         Debug.Log("스킬 => 기본");
+    }
+
+    // 스킬 사용가능 체크
+    public override bool isCanSkill()
+    {
+        CharacterPersnality tempCharacter = null;
+        float tempDistance = 100f;
+
+        // targetCharacter = listEnemyCharacters[i];
+        for (int i = 0; i < listEnemyCharacters.Count; i++)
+        {
+            float distance = Vector2.Distance(transform.position, listEnemyCharacters[i].transform.position);
+            if (distance < 1f && distance < tempDistance)
+            {
+                tempCharacter = listEnemyCharacters[i];
+            }
+        }
+
+        if (tempCharacter != null)
+        {
+            targetCharacter = tempCharacter;
+            return true;
+        }
+
+        return false;
     }
 
     // 궁극기 타겟 세팅
