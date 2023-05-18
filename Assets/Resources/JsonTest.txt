@@ -18,10 +18,10 @@
           "positionName" : "원거리",
           "characterName" : "궁수",
           "unlock" : "true",
-          "healthPoint": 50,
+          "healthPoint": 501111111111,
           "attackDamage": 15,
           "attackSpeed": 1,
-          "moveSpeed": 2,         
+          "moveSpeed": 2,
           "attackRange" : 7
 
         }  

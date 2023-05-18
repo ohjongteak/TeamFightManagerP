@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 public class BowManCharacter : CharacterPersnality
 {
     private ObjectPool objectPool;
+    private int enemyIndex = 0;
 
     public override void Init()
     {
@@ -54,6 +55,8 @@ public class BowManCharacter : CharacterPersnality
 
     public override void CharacterAttack()
     {
+        if (state == CharacterState.ultimate) UltimateTarget();
+
         if (!targetCharacter.isDead)
         {
             Bullet bullet = objectPool.GetObject();
@@ -64,19 +67,7 @@ public class BowManCharacter : CharacterPersnality
 
     public override IEnumerator CharacterUltimate()
     {
-        float ultimateTime = 3f;
-
-        while (ultimateTime > 0f)
-        {
-            if (isDead) break;
-
-            if(targetCharacter.isDead)
-                TargetSerch();
-
-            yield return new WaitForSeconds(0.1f);
-
-            ultimateTime -= 0.1f;
-        }
+        yield return new WaitForSeconds(3f);
 
         ChangeState((int)CharacterState.idle);
         Debug.Log("필살기 => 기본");
@@ -84,17 +75,43 @@ public class BowManCharacter : CharacterPersnality
 
     public override IEnumerator CharacterSkill()
     {
-        Vector3 dir = targetCharacter.transform.position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+        Vector3 v3MovePoint = targetCharacter.transform.position - transform.position;
+        v3MovePoint = v3MovePoint.normalized;
 
-        while (true)
+        while (state == CharacterState.skill)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetCharacter.transform.position, 2f * Time.deltaTime);
+            transform.position -= v3MovePoint * 1f * Time.deltaTime;
             yield return null;
         }
+        Debug.Log("스킬 => 기본");
+    }
 
-        ChangeState((int)CharacterState.idle);
-        Debug.Log("필살기 => 기본");
+    // 궁극기 타겟 세팅
+    private void UltimateTarget()
+    {
+        if (!listEnemyCharacters[enemyIndex].isDead)
+        {
+            targetCharacter = listEnemyCharacters[enemyIndex];
+        }
+        else
+        {
+            CharacterPersnality tempEnemy = null;
+
+            for (int i = 0; i < listEnemyCharacters.Count; i++)
+            {
+                if (i == enemyIndex) continue;
+
+                if (!listEnemyCharacters[i].isDead)
+                {
+                    if (i < enemyIndex && tempEnemy == null) tempEnemy = listEnemyCharacters[i];
+                    else if (i > enemyIndex) tempEnemy = listEnemyCharacters[i];
+                }
+
+                targetCharacter = tempEnemy;
+            }
+        }
+
+        enemyIndex++;
+        if (listEnemyCharacters.Count <= enemyIndex) enemyIndex = 0;
     }
 }

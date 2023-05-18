@@ -33,7 +33,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     public float attackSpeed;
     public float moveSpeed;
     public float attackRange;
-    [HideInInspector] public float maxSkillCool = 7f;
+    [HideInInspector] public float maxSkillCool = 10f; //스킬쿨 임시추가
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
     private float shield;
@@ -50,9 +50,8 @@ public abstract class CharacterPersnality : MonoBehaviour
     public Vector2 v2SpawnPoint;
 
     [HideInInspector] public List<CharacterPersnality> listTeamCharacters;
-    private List<CharacterPersnality> listEnemyCharacters;
+    [HideInInspector] public List<CharacterPersnality> listEnemyCharacters;
     [HideInInspector] public Animator animator;
-    private int parameterCount;
 
     // 이동제한용
     private float minX, maxX, minY, maxY;
@@ -68,7 +67,6 @@ public abstract class CharacterPersnality : MonoBehaviour
     {
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
-        parameterCount = animator.parameterCount;
         // 스킬쿨타임도 추가필요
         UltimateCoolTime();
         AttackCoolTime();
@@ -77,7 +75,8 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void CharaterAction()
     {
-        if (isDead) return;
+        if (teamDivid == TeamDivid.enemyTeam) return;
+        if (isDead || state == CharacterState.hit) return;
 
         switch (state)
         {
@@ -93,7 +92,8 @@ public abstract class CharacterPersnality : MonoBehaviour
                         Ultimate();
                     }
                     else if (skillCool >= maxSkillCool) ChangeState((int)CharacterState.skill);
-                    else if (attackCool >= attackSpeed) ChangeState((int)CharacterState.attack);
+                    else if (attackCool >= attackSpeed && isCanAttackRange()) ChangeState((int)CharacterState.attack);
+                    else if (!isCanAttackRange()) ChangeState((int)CharacterState.walk);
                 }
                 break;
 
@@ -128,7 +128,7 @@ public abstract class CharacterPersnality : MonoBehaviour
         if (targetCharacter.isDead) ChangeState(((int)CharacterState.idle));
         else
         {
-            if (Vector2.Distance(transform.position, targetCharacter.transform.position) > attackRange * 0.5f)
+            if (!isCanAttackRange())
                 transform.position = Vector2.MoveTowards(transform.position, targetCharacter.transform.position, moveSpeed * Time.deltaTime);
             else
             {
@@ -203,12 +203,31 @@ public abstract class CharacterPersnality : MonoBehaviour
             ReviveCharater();
             stageManager.KillScoreRefresh(teamDivid);
         }
-        else if(state == CharacterState.hit)
+    }
+
+    public async UniTaskVoid KnockBack(Vector3 v3AttackPos)
+    {
+        ChangeState((int)CharacterState.hit);
+        Vector3 v3MovePoint = v3AttackPos - transform.position;
+        v3MovePoint = v3MovePoint.normalized;
+
+        while (state == CharacterState.hit && !isDead)
         {
-            // 넉백추가
+            transform.position -= v3MovePoint * 0.5f * Time.deltaTime;
+            await UniTask.Yield();
         }
     }
 
+    //공격가능범위체크
+    private bool isCanAttackRange()
+    {
+        if (Vector2.Distance(transform.position, targetCharacter.transform.position) <= attackRange * 0.5f)
+            return true;
+
+        return false;
+    }
+
+    //적 탐색
     public void TargetSerch()
     {
         int targetIndex = -1;
@@ -240,6 +259,7 @@ public abstract class CharacterPersnality : MonoBehaviour
         //ChangeStage(((int)CharacterState.walk));
     }
 
+    //부활
     public async UniTaskVoid ReviveCharater()
     {
         await UniTask.Delay(5000);
@@ -257,6 +277,7 @@ public abstract class CharacterPersnality : MonoBehaviour
         Debug.Log("캐릭터 리젠");
     }
 
+    //이동제한
     public void SetLimitMoveStage(Vector2 v2MinPos, Vector2 v2MaxPos)
     {
         minX = v2MinPos.x * 0.9f;
@@ -265,15 +286,33 @@ public abstract class CharacterPersnality : MonoBehaviour
         maxY = v2MaxPos.y * 0.9f;
     }
 
+    //캐릭터 상태변환
     public void ChangeState(int stateNum)
     {
-        animator.SetBool("Idle", false);
-        animator.SetBool("Move", false);
-        animator.SetBool("Attack", false);
-        animator.SetBool("Skill", false);
-        animator.SetBool("Ultimate", false);
-        animator.SetBool("Hit", false);
-        animator.SetBool("Dead", false);
+        switch (state)
+        {
+            case CharacterState.idle:
+                animator.SetBool("Idle", false);
+                break;
+            case CharacterState.walk:
+                animator.SetBool("Move", false);
+                break;
+            case CharacterState.attack:
+                animator.SetBool("Attack", false);
+                break;
+            case CharacterState.skill:
+                animator.SetBool("Skill", false);
+                break;
+            case CharacterState.ultimate:
+                animator.SetBool("Ultimate", false);
+                break;
+            case CharacterState.hit:
+                animator.SetBool("Hit", false);
+                break;
+            case CharacterState.dead:
+                animator.SetBool("Dead", false);
+                break;
+        }
 
         state = (CharacterState)stateNum;
 
@@ -281,24 +320,31 @@ public abstract class CharacterPersnality : MonoBehaviour
         {
             case CharacterState.idle:
                 animator.SetBool("Idle", true);
+                animator.Play("Idle");
                 break;
             case CharacterState.walk:
                 animator.SetBool("Move", true);
+                animator.Play("Move");
                 break;
             case CharacterState.attack:
                 animator.SetBool("Attack", true);
+                animator.Play("Attack");
                 break;
             case CharacterState.skill:
                 animator.SetBool("Skill", true);
+                animator.Play("Skill");
                 break;
             case CharacterState.ultimate:
                 animator.SetBool("Ultimate", true);
+                animator.Play("Ultimate");
                 break;
             case CharacterState.hit:
                 animator.SetBool("Hit", true);
+                animator.Play("Hit");
                 break;
             case CharacterState.dead:
                 animator.SetBool("Dead", true);
+                animator.Play("Dead");
                 break;
         }
     }
