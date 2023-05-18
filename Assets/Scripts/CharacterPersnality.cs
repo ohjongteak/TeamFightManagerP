@@ -76,7 +76,6 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void CharaterAction()
     {
-        if (teamDivid == TeamDivid.enemyTeam) return;
         if (isDead || state == CharacterState.hit) return;
 
         switch (state)
