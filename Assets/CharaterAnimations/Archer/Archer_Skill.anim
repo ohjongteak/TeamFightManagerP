@@ -90,6 +90,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.16666667
+    functionName: CharacterSkill
+    data: 
+    objectReferenceParameter: {fileID: 7016315583850653528, guid: a9ad4044d0d191c459e3b4ed68740623, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.33333334
     functionName: CharacterAttack
     data: 
@@ -97,7 +104,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.75
+  - time: 0.5833333
     functionName: ChangeState
     data: 
     objectReferenceParameter: {fileID: 1069667293104830339, guid: 2c9b83f7f3c3a1a4db2b083f1f62b4c1, type: 3}
