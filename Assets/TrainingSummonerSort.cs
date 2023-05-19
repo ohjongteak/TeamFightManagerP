@@ -28,7 +28,7 @@ namespace Framework.UI
         private GameObject summonerPrefab;
         public void init()
         {
-            var summonerInfo = summonerManager.GetSummonerCharacter().summonerCharacterState;
+            var summonerInfo = summonerManager.GetSummonerInfo();
 
             for(int i = 0; i <summonerInfo.Count; i++)
             {
@@ -50,7 +50,7 @@ namespace Framework.UI
 
         public void SummonerBox(string name)
         {
-            var summonerInfo = summonerManager.GetSummonerCharacter().summonerCharacterState;
+            var summonerInfo = summonerManager.GetSummonerInfo();
 
             Destroy(summonerPrefab);
             for (int i =0; i < summonerInfoList.Count; i++)

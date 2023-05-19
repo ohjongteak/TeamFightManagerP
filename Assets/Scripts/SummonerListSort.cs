@@ -15,7 +15,7 @@ namespace Framework.UI
 
         public void Init()
         {
-            var summonerInfo = summonerManager.GetSummonerCharacter().summonerCharacterState;
+            var summonerInfo = summonerManager.GetSummonerInfo();
             Transform sortBox = this.transform.GetChild(0).transform.GetChild(0);
             for( int i = 0; i < summonerInfo.Count; i++)
             {
