@@ -41,7 +41,7 @@ public class StageManager : MonoBehaviour
 
         battleState = BattleState.ready;
         listLTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.myTeam);
-        listRTeamCharacters = spawnManager.SummonCharactor(3, TeamDivid.enemyTeam);        
+        listRTeamCharacters = spawnManager.SummonCharactor(2, TeamDivid.enemyTeam);        
 
         BattleStart();
     }

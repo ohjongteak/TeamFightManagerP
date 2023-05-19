@@ -41,17 +41,20 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public CharacterState state;
     public TeamDivid teamDivid;
-    [HideInInspector] public CharacterPersnality targetCharacter;
+    //[HideInInspector] 
+    public CharacterPersnality targetCharacter;
 
     [HideInInspector] public float attackCool;
     private float skillCool;
     private float ultimateCool;
+    private bool isRevive = false;
 
     public Vector2 v2SpawnPoint;
 
     [HideInInspector] public List<CharacterPersnality> listTeamCharacters;
     [HideInInspector] public List<CharacterPersnality> listEnemyCharacters;
     [HideInInspector] public Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     // 이동제한용
     private float minX, maxX, minY, maxY;
@@ -76,7 +79,14 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void CharaterAction()
     {
-        if (isDead || state == CharacterState.hit) return;
+        if (isDead || state == CharacterState.hit || isRevive) return;
+
+        // 좌우반전
+        if (targetCharacter != null && !targetCharacter.isDead)
+        {
+            if (targetCharacter.transform.position.x > transform.position.x) transform.localScale = new Vector3(1, 1, 1);
+            else if (targetCharacter.transform.position.x < transform.position.x) transform.localScale = new Vector3(-1, 1, 1);
+        }
 
         switch (state)
         {
@@ -144,6 +154,8 @@ public abstract class CharacterPersnality : MonoBehaviour
         attackCool = 0f;
         while (attackSpeed > attackCool)
         {
+            if (isDead) return;
+
             attackCool += Time.deltaTime;
 
             if (attackSpeed <= attackCool) break;
@@ -157,6 +169,8 @@ public abstract class CharacterPersnality : MonoBehaviour
         skillCool = 0f;
         while (maxSkillCool > skillCool)
         {
+            if (isDead) return;
+
             skillCool += Time.deltaTime;
 
             if (maxSkillCool <= skillCool) break;
@@ -198,10 +212,6 @@ public abstract class CharacterPersnality : MonoBehaviour
         {
             isDead = true;
             ChangeState(((int)CharacterState.dead));
-            //gameObject.SetActive(false);
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            ReviveCharater();
-            stageManager.KillScoreRefresh(teamDivid);
         }
     }
 
@@ -216,6 +226,17 @@ public abstract class CharacterPersnality : MonoBehaviour
             transform.position -= v3MovePoint * 0.5f * Time.deltaTime;
             await UniTask.Yield();
         }
+    }
+
+    public void Retire()
+    {
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        ReviveCharater();
+        stageManager.KillScoreRefresh(teamDivid);
+        spriteRenderer.enabled = false;
+        animator.enabled = false;
+        isRevive = true;
+        targetCharacter = null;
     }
 
     //공격가능범위체크
@@ -244,7 +265,11 @@ public abstract class CharacterPersnality : MonoBehaviour
             }
         }
 
-        if (targetIndex < 0) return;
+        if (targetIndex < 0)
+        {
+            targetCharacter = null;
+            return;
+        }
 
         targetCharacter = listEnemyCharacters[targetIndex];
 
@@ -254,9 +279,6 @@ public abstract class CharacterPersnality : MonoBehaviour
             ChangeState(((int)CharacterState.walk));
         else if(attackCool >= attackSpeed)
             ChangeState(((int)CharacterState.attack));
-
-
-        //ChangeStage(((int)CharacterState.walk));
     }
 
     //부활
@@ -272,8 +294,17 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         //-----------------체력등 초기화 스크립트 작성필요-------------------
         Init();
+        animator.enabled = true;
+        spriteRenderer.enabled = true;
+        isDead = false;
         ChangeState((int)CharacterState.idle);
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        AttackCoolTime();
+        SkillCoolTime();
+
+
+        await UniTask.Delay(1000);
+
+        isRevive = false;
         Debug.Log("캐릭터 리젠");
     }
 

@@ -120,15 +120,18 @@ MonoBehaviour:
   attackSpeed: 0
   moveSpeed: 0
   attackRange: 0
+  maxSkillCool: 10
   myCharacterType: 0
   characterJsonRead: {fileID: 0}
+  isDead: 0
   state: 0
   teamDivid: 0
   targetCharacter: {fileID: 0}
   attackCool: 0
-  skillCool: 0
   v2SpawnPoint: {x: 0, y: 0}
   listTeamCharacters: []
+  listEnemyCharacters: []
+  animator: {fileID: 0}
 --- !u!61 &-8708408063477660643
 BoxCollider2D:
   m_ObjectHideFlags: 0
