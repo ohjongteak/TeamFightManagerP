@@ -27,16 +27,17 @@ public abstract class CharacterPersnality : MonoBehaviour
     [HideInInspector] public StageManager stageManager;
 
     public int indexCharacter;
+    public float maxHealthPoint;
     public float healthPoint;
     public float defense;
     public float attackDamage;
     public float attackSpeed;
     public float moveSpeed;
     public float attackRange;
-    [HideInInspector] public float maxSkillCool = 10f; //스킬쿨 임시추가
+    [HideInInspector] public float maxSkillCool = 7f; //스킬쿨 임시추가
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
-    private float shield;
+    public float shield;
     public bool isDead = false;
 
     public CharacterState state;
@@ -204,8 +205,17 @@ public abstract class CharacterPersnality : MonoBehaviour
         }
     }
 
-    public void Hit(float damage)
+    public void Hit(float attackDamage)
     {
+        float damage = attackDamage;
+
+        if(shield > 0)
+        {
+            shield -= damage - defense;
+
+            if (shield < 0) damage = damage - shield + defense;
+        }
+
         healthPoint -= damage - defense;
 
         if (healthPoint <= 0)

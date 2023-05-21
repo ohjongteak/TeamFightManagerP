@@ -26,6 +26,7 @@ public class BowManCharacter : CharacterPersnality
             {
                 //등등 스텟 넣기
                 name = CharacterStateArray[i].characterName;
+                maxHealthPoint = CharacterStateArray[i].healthPoint;
                 healthPoint = CharacterStateArray[i].healthPoint;
                 attackDamage = CharacterStateArray[i].attackDamage;
                 attackSpeed = CharacterStateArray[i].attackSpeed;

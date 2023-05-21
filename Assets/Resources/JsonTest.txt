@@ -24,7 +24,20 @@
           "moveSpeed": 2,
           "attackRange" : 7
 
-        }  
+        },
+
+        {
+          "indexCharacter" :300,
+          "positionName" : "전사",
+          "characterName" : "몽크",
+          "unlock" : "true",
+          "healthPoint": 200,
+          "attackDamage": 10,
+          "attackSpeed": 3,
+          "moveSpeed": 3,
+          "attackRange" : 2
+
+        }
         
      ]
 
