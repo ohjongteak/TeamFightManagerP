@@ -53,6 +53,7 @@ public class MonkCharacter : CharacterPersnality
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
+        AttackCoolTime();
     }
 
     public override IEnumerator CharacterUltimate()
@@ -92,9 +93,8 @@ public class MonkCharacter : CharacterPersnality
             }
         }
 
-        yield return null;
-
         Debug.Log("스킬 => 기본");
+        yield break;
     }
 
     // 스킬 사용가능 체크
@@ -105,6 +105,14 @@ public class MonkCharacter : CharacterPersnality
             if (!listTeamCharacters[i].isDead && listTeamCharacters[i].healthPoint < listTeamCharacters[i].maxHealthPoint)
                 return true;
         }
+
+        return false;
+    }
+
+    public override bool isCanUltimate()
+    {
+        if (targetCharacter != null && !targetCharacter.isDead)
+            return true;
 
         return false;
     }

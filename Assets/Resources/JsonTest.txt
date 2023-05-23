@@ -37,6 +37,19 @@
           "moveSpeed": 3,
           "attackRange" : 2
 
+        },
+        
+        {
+          "indexCharacter" :400,
+          "positionName" : "암살자",
+          "characterName" : "닌자",
+          "unlock" : "true",
+          "healthPoint": 70,
+          "attackDamage": 20,
+          "attackSpeed": 0.5,
+          "moveSpeed": 4,
+          "attackRange" : 2
+
         }
         
      ]

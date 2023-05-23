@@ -97,7 +97,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6666667
+  - time: 0.75
     functionName: ChangeState
     data: 
     objectReferenceParameter: {fileID: 1069667293104830339, guid: 5df266c5207e0a143b85190c1e70a45c, type: 3}

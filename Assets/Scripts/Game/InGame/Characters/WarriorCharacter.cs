@@ -87,7 +87,14 @@ public class WarriorCharacter : CharacterPersnality
 
     public override bool isCanSkill()
     {
-
         return true;
+    }
+
+    public override bool isCanUltimate()
+    {
+        if (targetCharacter != null && !targetCharacter.isDead)
+            return true;
+
+        return false;
     }
 }
