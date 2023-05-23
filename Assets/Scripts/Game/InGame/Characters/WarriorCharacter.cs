@@ -23,6 +23,7 @@ public class WarriorCharacter : CharacterPersnality
            {
                 //등등 스텟 넣기
                 name = CharacterStateArray[i].characterName;
+                maxHealthPoint = CharacterStateArray[i].healthPoint;
                 healthPoint = CharacterStateArray[i].healthPoint;
                 attackDamage = CharacterStateArray[i].attackDamage;
                 attackSpeed = CharacterStateArray[i].attackSpeed;
@@ -86,7 +87,14 @@ public class WarriorCharacter : CharacterPersnality
 
     public override bool isCanSkill()
     {
-
         return true;
+    }
+
+    public override bool isCanUltimate()
+    {
+        if (targetCharacter != null && !targetCharacter.isDead)
+            return true;
+
+        return false;
     }
 }

@@ -88,7 +88,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.6666667
-    functionName: ChangeState
+    functionName: Retire
     data: 
     objectReferenceParameter: {fileID: 1069667293104830339, guid: 2c9b83f7f3c3a1a4db2b083f1f62b4c1, type: 3}
     floatParameter: 0

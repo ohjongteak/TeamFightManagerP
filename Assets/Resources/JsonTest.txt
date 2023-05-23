@@ -24,7 +24,33 @@
           "moveSpeed": 2,
           "attackRange" : 7
 
-        }  
+        },
+
+        {
+          "indexCharacter" :300,
+          "positionName" : "전사",
+          "characterName" : "몽크",
+          "unlock" : "true",
+          "healthPoint": 200,
+          "attackDamage": 10,
+          "attackSpeed": 3,
+          "moveSpeed": 3,
+          "attackRange" : 2
+
+        },
+        
+        {
+          "indexCharacter" :400,
+          "positionName" : "암살자",
+          "characterName" : "닌자",
+          "unlock" : "true",
+          "healthPoint": 70,
+          "attackDamage": 20,
+          "attackSpeed": 0.5,
+          "moveSpeed": 4,
+          "attackRange" : 2
+
+        }
         
      ]
 

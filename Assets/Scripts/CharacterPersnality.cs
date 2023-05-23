@@ -27,25 +27,27 @@ public abstract class CharacterPersnality : MonoBehaviour
     [HideInInspector] public StageManager stageManager;
 
     public int indexCharacter;
+    public float maxHealthPoint;
     public float healthPoint;
     public float defense;
     public float attackDamage;
     public float attackSpeed;
     public float moveSpeed;
     public float attackRange;
-    [HideInInspector] public float maxSkillCool = 10f; //스킬쿨 임시추가
+    [HideInInspector] public float maxSkillCool = 7f; //스킬쿨 임시추가
+    [HideInInspector] public float maxUltimateCool = 15f;
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
-    private float shield;
+    public float shield;
     public bool isDead = false;
+    public bool isFakeUnit;
 
     public CharacterState state;
     public TeamDivid teamDivid;
-    //[HideInInspector] 
-    public CharacterPersnality targetCharacter;
+    [HideInInspector] public CharacterPersnality targetCharacter;
 
     [HideInInspector] public float attackCool;
-    private float skillCool;
+    [HideInInspector] public float skillCool;
     private float ultimateCool;
     private bool isRevive = false;
 
@@ -57,7 +59,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     // 이동제한용
-    private float minX, maxX, minY, maxY;
+    [HideInInspector] public float minX, maxX, minY, maxY;
 
 
     public abstract void Init();
@@ -65,6 +67,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     public abstract IEnumerator CharacterUltimate();
     public abstract IEnumerator CharacterSkill();
     public abstract bool isCanSkill();
+    public abstract bool isCanUltimate();
 
 
     public void BattleStart(List<CharacterPersnality> listTeam, List<CharacterPersnality> listEnemy)
@@ -97,7 +100,7 @@ public abstract class CharacterPersnality : MonoBehaviour
                 }
                 else if (!targetCharacter.isDead)
                 {
-                    if (ultimateCool >= 10f)
+                    if (ultimateCool >= maxUltimateCool && isCanUltimate())
                     {
                         Ultimate();
                     }
@@ -119,9 +122,6 @@ public abstract class CharacterPersnality : MonoBehaviour
                     return;
                 }
 
-                if (attackCool >= attackSpeed)
-                    AttackCoolTime();
-
                 break;
             case CharacterState.skill:
 
@@ -130,7 +130,7 @@ public abstract class CharacterPersnality : MonoBehaviour
                 break;
         }
 
-        //transform.position = new Vector2(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY));
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY));
     }
 
     public void Move()
@@ -139,17 +139,26 @@ public abstract class CharacterPersnality : MonoBehaviour
         else
         {
             if (!isCanAttackRange())
-                transform.position = Vector2.MoveTowards(transform.position, targetCharacter.transform.position, moveSpeed * Time.deltaTime);
+            {
+                if (ultimateCool >= maxUltimateCool && isCanUltimate())
+                {
+                    Ultimate();
+                }
+                else if (skillCool >= maxSkillCool && isCanSkill())
+                    ChangeState((int)CharacterState.skill);
+                else 
+                    transform.position = Vector2.MoveTowards(transform.position, targetCharacter.transform.position, moveSpeed * Time.deltaTime);
+            }
             else
             {
                 // 스킬과 공격 조건문 추가필요
-                ChangeState(((int)CharacterState.attack));
+                ChangeState(((int)CharacterState.idle));
             }
         }
     }
-    
 
-    private async UniTaskVoid AttackCoolTime()
+
+    public async UniTaskVoid AttackCoolTime()
     {
         attackCool = 0f;
         while (attackSpeed > attackCool)
@@ -169,8 +178,6 @@ public abstract class CharacterPersnality : MonoBehaviour
         skillCool = 0f;
         while (maxSkillCool > skillCool)
         {
-            if (isDead) return;
-
             skillCool += Time.deltaTime;
 
             if (maxSkillCool <= skillCool) break;
@@ -181,31 +188,40 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public async UniTaskVoid Ultimate()
     {
-        if (ultimateCool >= 10f && !targetCharacter.isDead && !isDead)
+        if (ultimateCool >= maxUltimateCool && !targetCharacter.isDead && !isDead)
         {
             ultimateCool = 0;
             Debug.Log("필살기");
             ChangeState(((int)CharacterState.ultimate));
-
-            await CharacterUltimate();
         }
     }    
 
     public async UniTaskVoid UltimateCoolTime()
     {
+        if (isFakeUnit) return;
+
         ultimateCool = 0f;
-        while (10f > ultimateCool)
+        while (maxUltimateCool > ultimateCool)
         {
             ultimateCool += Time.deltaTime;
 
-            if (10f <= ultimateCool) break;
+            if (maxUltimateCool <= ultimateCool) break;
 
             await UniTask.Yield();
         }
     }
 
-    public void Hit(float damage)
+    public void Hit(float attackDamage)
     {
+        float damage = attackDamage;
+
+        if(shield > 0)
+        {
+            shield -= damage - defense;
+
+            if (shield < 0) damage = damage - shield + defense;
+        }
+
         healthPoint -= damage - defense;
 
         if (healthPoint <= 0)
@@ -230,6 +246,12 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public void Retire()
     {
+        if (isFakeUnit)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
         ReviveCharater();
         stageManager.KillScoreRefresh(teamDivid);
@@ -298,11 +320,8 @@ public abstract class CharacterPersnality : MonoBehaviour
         spriteRenderer.enabled = true;
         isDead = false;
         ChangeState((int)CharacterState.idle);
-        AttackCoolTime();
-        SkillCoolTime();
 
-
-        await UniTask.Delay(1000);
+        await UniTask.Delay(300);
 
         isRevive = false;
         Debug.Log("캐릭터 리젠");

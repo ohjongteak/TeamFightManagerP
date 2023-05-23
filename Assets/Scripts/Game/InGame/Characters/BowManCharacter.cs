@@ -26,6 +26,7 @@ public class BowManCharacter : CharacterPersnality
             {
                 //등등 스텟 넣기
                 name = CharacterStateArray[i].characterName;
+                maxHealthPoint = CharacterStateArray[i].healthPoint;
                 healthPoint = CharacterStateArray[i].healthPoint;
                 attackDamage = CharacterStateArray[i].attackDamage;
                 attackSpeed = CharacterStateArray[i].attackSpeed;
@@ -63,6 +64,7 @@ public class BowManCharacter : CharacterPersnality
             bullet.transform.position = transform.position;
             bullet.SetBullet(10f, attackDamage, targetCharacter, objectPool);
         }
+        AttackCoolTime();
     }
 
     public override IEnumerator CharacterUltimate()
@@ -139,5 +141,13 @@ public class BowManCharacter : CharacterPersnality
 
         enemyIndex++;
         if (listEnemyCharacters.Count <= enemyIndex) enemyIndex = 0;
+    }
+
+    public override bool isCanUltimate()
+    {
+        if (targetCharacter != null && !targetCharacter.isDead)
+            return true;
+
+        return false;
     }
 }
