@@ -13,7 +13,7 @@ namespace Framework.UI
         [SerializeField]
         private Transform summonerPanel;
         [SerializeField]
-        private List<SummonerInfoBox> summonerInfoList;
+        private List<SummonerInfoBox> listSummonerInfo;
         [SerializeField]
         private TextMeshProUGUI summonerName;
         [SerializeField]
@@ -34,9 +34,9 @@ namespace Framework.UI
             {
 
                GameObject summomerInfoBox = Instantiate(summonerTraningBox, summonerPanel);
-               summonerInfoList.Add(summomerInfoBox.GetComponent<SummonerInfoBox>());
-               summonerInfoList[i].trainingSummonerSort = this;
-                summonerInfoList[i].trainingManager = this.GetComponent<TrainingManager>();
+               listSummonerInfo.Add(summomerInfoBox.GetComponent<SummonerInfoBox>());
+               listSummonerInfo[i].trainingSummonerSort = this;
+                listSummonerInfo[i].trainingManager = this.GetComponent<TrainingManager>();
                summomerInfoBox.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = summonerInfo[i].name;
                summomerInfoBox.transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = summonerInfo[i].remainPoint.ToString(); 
             }
@@ -53,7 +53,7 @@ namespace Framework.UI
             var summonerInfo = summonerManager.GetSummonerInfo();
 
             Destroy(summonerPrefab);
-            for (int i =0; i < summonerInfoList.Count; i++)
+            for (int i =0; i < listSummonerInfo.Count; i++)
             {
                if(summonerInfo[i].name == name)
                {

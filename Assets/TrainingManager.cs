@@ -14,43 +14,43 @@ namespace Framework.UI
         [SerializeField]
         private TextMeshProUGUI remainText;
         [SerializeField]
-        private TextMeshProUGUI[] investPoint;
+        private TextMeshProUGUI[] arrInvestPoint;
         [SerializeField]
-        private GameObject[] statBoxes;
+        private GameObject[] arrStatBoxes;
         [SerializeField]
-        private RectTransform[] advantageGuage;
+        private RectTransform[] arrAdvantageGuage;
         [SerializeField]
-        private Slider[] savePointGuage;
+        private Slider[] arrSavePointGuage;
         [SerializeField]
-        private Image[] remainPointImage;
+        private Image[] arrRemainPointImage;
         public void SummonerBox(string name)
         {
             remainText.text = "0";
             Image[] PointInvestImage = new Image[18];
             Color Black;
             ColorUtility.TryParseHtmlString("#383a40", out Black);
-            for (int i = 0; i < statBoxes.Length; i++)
+            for (int i = 0; i < arrStatBoxes.Length; i++)
             {
-                statBoxes[i].gameObject.SetActive(true);
-                investPoint[i].text = "0";
-                advantageGuage[i].sizeDelta = new Vector2(1, advantageGuage[i].rect.height);
-                savePointGuage[i].value = 0;
-                statBoxes[i].transform.Find("LeftArrow").GetComponent<Button>().onClick.RemoveAllListeners();
-                statBoxes[i].transform.Find("RightArrow").GetComponent<Button>().onClick.RemoveAllListeners();
+                arrStatBoxes[i].gameObject.SetActive(true);
+                arrInvestPoint[i].text = "0";
+                arrAdvantageGuage[i].sizeDelta = new Vector2(1, arrAdvantageGuage[i].rect.height);
+                arrSavePointGuage[i].value = 0;
+                arrStatBoxes[i].transform.Find("LeftArrow").GetComponent<Button>().onClick.RemoveAllListeners();
+                arrStatBoxes[i].transform.Find("RightArrow").GetComponent<Button>().onClick.RemoveAllListeners();
 
                 
                 for (int x = 0; x < 3; x++)
                 {
-                    PointInvestImage[i * 3 + x] = statBoxes[i].transform.GetChild(6 + x).GetComponent<Image>();
+                    PointInvestImage[i * 3 + x] = arrStatBoxes[i].transform.GetChild(6 + x).GetComponent<Image>();
                     PointInvestImage[i * 3 + x].color = Black;
                 }
             }
             Color HardBlack;
             ColorUtility.TryParseHtmlString("#22252a", out HardBlack);
 
-            for (int i = 0; i< remainPointImage.Length;i++)
+            for (int i = 0; i< arrRemainPointImage.Length;i++)
             {
-                remainPointImage[i].color = HardBlack;
+                arrRemainPointImage[i].color = HardBlack;
             }
             //-------------------------------------ÃÊ±âÈ­----------------------------------------------------
             var summonerInfo = summonerManager.GetSummonerInfo();
@@ -62,14 +62,14 @@ namespace Framework.UI
                 {
                     remainText.text = summonerInfo[i].remainPoint + "/3";
 
-                    for (int z = 0; z < statBoxes.Length; z++)
+                    for (int z = 0; z < arrStatBoxes.Length; z++)
                     {
-                        investPoint[z].text = summonerInfo[i].investPoint[z].ToString();
+                        arrInvestPoint[z].text = summonerInfo[i].investPoint[z].ToString();
                         int Index = z;
-                        statBoxes[z].transform.Find("LeftArrow").GetComponent<Button>().onClick.AddListener
-                            (delegate { GetIndexCount(statBoxes[Index].transform,"LeftArrow",summonerInfo[i],PointInvestImage);});
-                        statBoxes[z].transform.Find("RightArrow").GetComponent<Button>().onClick.AddListener
-                            (delegate { GetIndexCount(statBoxes[Index].transform,"RightArrow",summonerInfo[i],PointInvestImage);});
+                        arrStatBoxes[z].transform.Find("LeftArrow").GetComponent<Button>().onClick.AddListener
+                            (delegate { GetIndexCount(arrStatBoxes[Index].transform,"LeftArrow",summonerInfo[i],PointInvestImage);});
+                        arrStatBoxes[z].transform.Find("RightArrow").GetComponent<Button>().onClick.AddListener
+                            (delegate { GetIndexCount(arrStatBoxes[Index].transform,"RightArrow",summonerInfo[i],PointInvestImage);});
                     }
 
                     ChangeRemainPointColor(summonerInfo[i]);
@@ -77,14 +77,14 @@ namespace Framework.UI
 
                     for (int z = summonerInfo[i].mainHero.Count; z <= 2; z++)
                     {
-                        statBoxes[z + 3].gameObject.SetActive(false);
+                        arrStatBoxes[z + 3].gameObject.SetActive(false);
                     }
 
-                    for (int z = 0; z < advantageGuage.Length; z++)
+                    for (int z = 0; z < arrAdvantageGuage.Length; z++)
                     {
                         float advantageValue = summonerInfo[i].adventagePoint[z];
-                        advantageGuage[z].sizeDelta = new Vector2(165 * advantageValue, advantageGuage[i].rect.height);
-                        savePointGuage[z].value = summonerInfo[i].savePoint[z];
+                        arrAdvantageGuage[z].sizeDelta = new Vector2(165 * advantageValue, arrAdvantageGuage[i].rect.height);
+                        arrSavePointGuage[z].value = summonerInfo[i].savePoint[z];
                     }
 
                     break;
@@ -125,9 +125,9 @@ namespace Framework.UI
                     Color HardBlack;
                     ColorUtility.TryParseHtmlString("#22252a", out HardBlack);
 
-                    for (int i = 0; i < remainPointImage.Length; i++)
+                    for (int i = 0; i < arrRemainPointImage.Length; i++)
                     {
-                        remainPointImage[i].color = HardBlack;
+                        arrRemainPointImage[i].color = HardBlack;
                     }
 
                     if (SummonerInfo.remainPoint > 0)
@@ -139,7 +139,7 @@ namespace Framework.UI
                     break;
            }
 
-           investPoint[Index].text = SummonerInfo.investPoint[Index].ToString();
+           arrInvestPoint[Index].text = SummonerInfo.investPoint[Index].ToString();
            remainText.text = SummonerInfo.remainPoint + "/3";
            ChangePointColor(SummonerInfo,PointInvestImage);
            ChangeRemainPointColor(SummonerInfo);
@@ -167,7 +167,7 @@ namespace Framework.UI
 
             for (int z = 0; z < summonerInfo.remainPoint; z++)
             {
-                remainPointImage[z].color = Yellow;
+                arrRemainPointImage[z].color = Yellow;
             }
         }
 
