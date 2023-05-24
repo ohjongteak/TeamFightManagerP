@@ -23,9 +23,10 @@ public class ChampListSort : MonoBehaviour
         {
             if (CharacterStateArray[i].unlock == "true")
             {
+                
                 GameObject ChampBox = Instantiate(champBoxPrefab, champListPanel);
                 champIntroBox.Add(ChampBox);
-                ChampBox.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.champSprite[i];
+               // ChampBox.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.champSprite[i];
                 ChampBox.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = CharacterStateArray[i].positionName;
                 ChampBox.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = CharacterStateArray[i].characterName;
 

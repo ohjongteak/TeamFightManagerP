@@ -15,11 +15,11 @@ namespace Framework.UI
     [System.Serializable]
     public class ScoutList
     {
-        public List<summonerScout> summonerScout;
+        public List<playerScout> summonerScout;
 
     }
     [System.Serializable]
-    public class summonerScout
+    public class playerScout
     {
         public string name;
         public string ment;
@@ -33,7 +33,7 @@ namespace Framework.UI
     {
 
         public ScoutList scoutList = new ScoutList();
-        [SerializeField]
+    
         public TextAsset scoutText;
         // Start is called before the first frame update
 
@@ -49,6 +49,7 @@ namespace Framework.UI
         public TextMeshProUGUI[] arrScoutCountText;
         public TextMeshProUGUI[] arrDateCountText;
         public TextMeshProUGUI[] arrCostCountText;
+        public GameObject[] arrLockImage;
         private void Start()
         {
             Init();
@@ -70,8 +71,9 @@ namespace Framework.UI
                 arrScoutTitleText[i].text = scoutList.summonerScout[0].name;
                 arrDateCountText[i].text = scoutList.summonerScout[0].date+"аж";
                 arrCostCountText[i].text = scoutList.summonerScout[0].cost.ToString();
+              
             }
-
+            LockImage();
 
            
         }
@@ -104,6 +106,21 @@ namespace Framework.UI
             arrDateCountText[Index].text = scoutList.summonerScout[arrNowLukieNumber[Index]].date + "аж";
             arrCostCountText[Index].text = scoutList.summonerScout[arrNowLukieNumber[Index]].cost.ToString();
 
+        }
+
+        public void LockImage()
+        {
+            for(int i = 0; i<arrlimitScout.Length; i++)
+            {
+                if(arrlimitScout[i] == LimitScout.Lock)
+                {
+                    arrLockImage[i].gameObject.SetActive(true);
+                }
+                else if(arrlimitScout[i] == LimitScout.Can)
+                {
+                    arrLockImage[i].gameObject.SetActive(false);
+                }
+            }
         }
 
     }

@@ -10,8 +10,8 @@ namespace Framework.UI
         [SerializeField]
         public SummonerCharacter summonerCharacterList = new SummonerCharacter();
         public TextAsset summonerStateText;
-
-      
+        
+     
         // Start is called before the first frame update
         public void Init()
         {
