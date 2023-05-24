@@ -50,6 +50,19 @@
           "moveSpeed": 4,
           "attackRange" : 2
 
+        },
+        
+        {
+          "indexCharacter" :500,
+          "positionName" : "원거리",
+          "characterName" : "소총수",
+          "unlock" : "true",
+          "healthPoint": 60,
+          "attackDamage": 15,
+          "attackSpeed": 1.5,
+          "moveSpeed": 2,
+          "attackRange" : 9
+
         }
         
      ]
