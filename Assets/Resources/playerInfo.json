@@ -1,28 +1,29 @@
 {
-    "playerInfo": 
-    {
-        "Name": "카를프란츠",
-        "TeamName": "오이동",
-        "TeamLogo": 1,
-        "Date": "2023-02-17",
-        "Gold": 1111,
-        "OpenScoutSlot": 1,
-        "Win": 4,
-        "Lose": 1,
-        "RanKing": 1,
-        "League": 4,
-        "OpenSponSlot": 1,
-        "ScoutRemainDate": [
-          2,
-          9,
-          9,
-          9
-         
-        ],
-        "hairIndex": 1
+  "playerInfo": {
+    "Name": "카를프란츠",
+    "TeamName": "오이동",
+    "TeamLogo": 1,
+    "Year": 2023,
+    "Month": 1,
+    "Week": 1,
+    "Gold": 1111,
+    "OpenScoutSlot": 1,
+    "Win": 4,
+    "Lose": 1,
+    "RanKing": 1,
+    "League": 4,
+    "OpenSponSlot": 1,
+    "ScoutRemainDate": [
+      2,
+      9,
+      9,
+      9
+
+    ],
+    "HairIndex": 1
 
 
-    }
+  }
        
     
 }

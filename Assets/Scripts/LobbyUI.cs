@@ -62,6 +62,10 @@ namespace Framework.UI
         [SerializeField]
         private TrainingSummonerSort trainingSummonerSort;
 
+        [SerializeField]
+        private PlayerInformation playerInformation;
+        [SerializeField]
+        private ScoutManager scoutManger;
         public void Init()
         {
             _setVoidGoldDelegate += RefreshData;
@@ -79,6 +83,8 @@ namespace Framework.UI
             summonerManager.Init();
             summonerListSort.Init();          
             trainingSummonerSort.init();
+            playerInformation.Init();
+            scoutManger.Init();
         }
 
         public void RefreshData(int Gold)

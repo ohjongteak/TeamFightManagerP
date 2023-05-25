@@ -9,6 +9,10 @@ namespace Framework.UI
     {
         [SerializeField]
         SummonerManager summonerManager;
+        [SerializeField]
+        PlayerInformation playerInformation;
+        [SerializeField]
+        TrainingManager trainingManager;
         void PlayerSummonerSave()
         {
             SummonerCharacter summonerCharacter = summonerManager.GetSummonerCharacter();
@@ -18,11 +22,20 @@ namespace Framework.UI
 
         }
 
+        void PlayerInformationSave()
+        {
+            playerInformation.AfterWeek(000, 0, 1);
+
+
+        }
+
         private void Update()
         {
             if(Input.GetKeyDown(KeyCode.R))//юс╫ц
             {
                 PlayerSummonerSave();
+                PlayerInformationSave();
+                trainingManager.SaveTraining();
 
             }
         }

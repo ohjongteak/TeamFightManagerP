@@ -98,9 +98,6 @@ namespace Framework.UI
         {
             int Index = (MySelf.transform.GetSiblingIndex());
 
-           
-
-
            switch(Arrow)
            {
                 case "LeftArrow":
@@ -169,6 +166,19 @@ namespace Framework.UI
             {
                 arrRemainPointImage[z].color = Yellow;
             }
+        }
+
+        public void SaveTraining()
+        {
+            var summonerInfo = summonerManager.GetSummonerInfo();
+
+
+            for(int i = 0; i < summonerInfo.Count;i++)
+            {
+                for(int z = 0; z<summonerInfo[i].savePoint.Length; z++)
+                summonerInfo[i].savePoint[z] += summonerInfo[i].investPoint[z] * 0.03f;
+            }
+            //summonerInfo
         }
 
     }

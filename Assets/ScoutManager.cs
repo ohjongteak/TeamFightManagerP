@@ -50,10 +50,7 @@ namespace Framework.UI
         public TextMeshProUGUI[] arrDateCountText;
         public TextMeshProUGUI[] arrCostCountText;
         public GameObject[] arrLockImage;
-        private void Start()
-        {
-            Init();
-        }
+      
 
         public void Init()
         {

@@ -18,7 +18,7 @@ public class testStart : MonoBehaviour
         if (instance != this)
             Destroy(this.gameObject);
 
-        Debug.Log("¾Æ");
+        
     }
 
     void Update()

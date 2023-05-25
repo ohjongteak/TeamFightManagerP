@@ -2874,6 +2874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   summonerManager: {fileID: 1407865543}
+  playerInformation: {fileID: 0}
 --- !u!4 &343477283
 Transform:
   m_ObjectHideFlags: 0
@@ -10187,6 +10188,8 @@ MonoBehaviour:
   mainCanvas: {fileID: 1981600695}
   trainingManager: {fileID: 819745948}
   trainingSummonerSort: {fileID: 819745949}
+  playerInformation: {fileID: 1591208201}
+  scoutManger: {fileID: 646943863}
 --- !u!1 &936585146
 GameObject:
   m_ObjectHideFlags: 0
@@ -15302,7 +15305,9 @@ MonoBehaviour:
       Name: 
       TeamName: 
       TeamLogo: 0
-      Data: 
+      Year: 0
+      Month: 0
+      Week: 0
       Gold: 0
       OpenScoutSlot: 0
       Win: 0
@@ -15311,7 +15316,7 @@ MonoBehaviour:
       League: 0
       OpenSponSlot: 0
       ScoutRemainDate: 
-      hairIndex: 0
+      HairIndex: 0
   PlayerInfoText: {fileID: 0}
 --- !u!4 &1591208202
 Transform:
