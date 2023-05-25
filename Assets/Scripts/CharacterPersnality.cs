@@ -34,8 +34,8 @@ public abstract class CharacterPersnality : MonoBehaviour
     public float attackSpeed;
     public float moveSpeed;
     public float attackRange;
-    [HideInInspector] public float maxSkillCool = 7f; //스킬쿨 임시추가
-    [HideInInspector] public float maxUltimateCool = 15f;
+    [HideInInspector] public float maxSkillCool; //스킬쿨 임시추가
+    [HideInInspector] public float maxUltimateCool;
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
     public float shield;
@@ -78,14 +78,19 @@ public abstract class CharacterPersnality : MonoBehaviour
         UltimateCoolTime();
         AttackCoolTime();
         SkillCoolTime();
+
+
+        maxSkillCool = 7f;
+        maxUltimateCool = 15f;
     }
 
     public void CharaterAction()
     {
         if (isDead || state == CharacterState.hit || isRevive) return;
 
+        if (teamDivid == TeamDivid.enemyTeam) return;
         // 좌우반전
-        if (targetCharacter != null && !targetCharacter.isDead)
+        if (targetCharacter != null && !targetCharacter.isDead && state != CharacterState.ultimate)
         {
             if (targetCharacter.transform.position.x > transform.position.x) transform.localScale = new Vector3(1, 1, 1);
             else if (targetCharacter.transform.position.x < transform.position.x) transform.localScale = new Vector3(-1, 1, 1);
@@ -188,13 +193,9 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public async UniTaskVoid Ultimate()
     {
-        if (ultimateCool >= maxUltimateCool && !targetCharacter.isDead && !isDead)
-        {
-            ultimateCool = 0;
-            Debug.Log("필살기");
-            ChangeState(((int)CharacterState.ultimate));
-        }
-    }    
+        ultimateCool = 0;
+        ChangeState(((int)CharacterState.ultimate));
+    }
 
     public async UniTaskVoid UltimateCoolTime()
     {
