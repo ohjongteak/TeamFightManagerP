@@ -5,7 +5,7 @@
           "positionName" : "전사",
           "characterName" : "기사",
           "unlock" : "true",
-          "healthPoint": 100,
+          "healthPoint": 200,
           "attackDamage": 10,
           "attackSpeed": 2,
           "moveSpeed": 3,
@@ -48,7 +48,7 @@
           "attackDamage": 20,
           "attackSpeed": 0.5,
           "moveSpeed": 4,
-          "attackRange" : 2
+          "attackRange" : 1.5
 
         },
         
@@ -62,6 +62,19 @@
           "attackSpeed": 1.5,
           "moveSpeed": 2,
           "attackRange" : 9
+
+        },
+        
+        {
+          "indexCharacter" :600,
+          "positionName" : "전사",
+          "characterName" : "검사",
+          "unlock" : "true",
+          "healthPoint": 100000,
+          "attackDamage": 17,
+          "attackSpeed": 2,
+          "moveSpeed": 3.5,
+          "attackRange" : 2
 
         }
         
