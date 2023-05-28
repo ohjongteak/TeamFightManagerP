@@ -23,7 +23,7 @@ public class SoldierCharacter : CharacterPersnality
 
         for (int i = 0; i < CharacterStateArray.Length; i++)
         {
-            if (CharacterStateArray[i].indexCharacter == 500) //챔피언의 인덱스 번호값이 같다면 
+            if (CharacterStateArray[i].indexCharacter == 201) //챔피언의 인덱스 번호값이 같다면 
             {
                 //등등 스텟 넣기
                 name = CharacterStateArray[i].characterName;
@@ -33,7 +33,7 @@ public class SoldierCharacter : CharacterPersnality
                 attackSpeed = CharacterStateArray[i].attackSpeed;
                 moveSpeed = CharacterStateArray[i].moveSpeed * 0.5f;
                 attackRange = CharacterStateArray[i].attackRange;
-
+                defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
                 // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리

@@ -29,7 +29,7 @@ public class NinjaCharacter : CharacterPersnality
                 attackSpeed = CharacterStateArray[i].attackSpeed;
                 moveSpeed = CharacterStateArray[i].moveSpeed * 0.5f;
                 attackRange = CharacterStateArray[i].attackRange;
-
+                defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
                 // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리

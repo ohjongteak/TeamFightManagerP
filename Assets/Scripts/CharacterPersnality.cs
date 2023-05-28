@@ -36,6 +36,8 @@ public abstract class CharacterPersnality : MonoBehaviour
     public float attackRange;
     [HideInInspector] public float maxSkillCool; //스킬쿨 임시추가
     [HideInInspector] public float maxUltimateCool;
+     public float buff_defence;
+
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
     public float shield;
@@ -81,14 +83,13 @@ public abstract class CharacterPersnality : MonoBehaviour
 
 
         maxSkillCool = 7f;
-        maxUltimateCool = 15f;
+        maxUltimateCool = 20f;
     }
 
     public void CharaterAction()
     {
         if (isDead || state == CharacterState.hit || isRevive) return;
 
-        if (teamDivid == TeamDivid.enemyTeam) return;
         // 좌우반전
         if (targetCharacter != null && !targetCharacter.isDead && state != CharacterState.ultimate)
         {
@@ -120,13 +121,6 @@ public abstract class CharacterPersnality : MonoBehaviour
                 break;
 
             case CharacterState.attack:
-
-                if (targetCharacter.isDead)
-                {
-                    ChangeState(((int)CharacterState.idle));
-                    return;
-                }
-
                 break;
             case CharacterState.skill:
 
@@ -218,12 +212,12 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         if(shield > 0)
         {
-            shield -= damage - defense;
+            shield -= damage - defense - buff_defence;
 
-            if (shield < 0) damage = damage - shield + defense;
+            if (shield < 0) damage = damage - shield + defense + buff_defence;
         }
 
-        healthPoint -= damage - defense;
+        healthPoint -= damage - defense - buff_defence;
 
         if (healthPoint <= 0)
         {
@@ -320,6 +314,7 @@ public abstract class CharacterPersnality : MonoBehaviour
         animator.enabled = true;
         spriteRenderer.enabled = true;
         isDead = false;
+        buff_defence = 0;
         ChangeState((int)CharacterState.idle);
 
         await UniTask.Delay(300);

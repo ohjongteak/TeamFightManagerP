@@ -39,7 +39,7 @@ public class SpawnManager : MonoBehaviour
 
             //ÀÓ½Ã(»ý¼º¸¸ ³ÀµÖ¾ßµÊ)
             if (teamDivid == TeamDivid.myTeam)
-                characterPersnality = Instantiate(listObjTestPrefab[5], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+                characterPersnality = Instantiate(listObjTestPrefab[0], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
             else
                 characterPersnality = Instantiate(listObjTestPrefab[2], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
 

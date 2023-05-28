@@ -29,6 +29,7 @@ public class CharacterJsonRead : MonoBehaviour
         public float maxHealthPoint;
         public float healthPoint;
         public float attackDamage;
+        public float defence;
         public float attackSpeed;
         public float moveSpeed;
         public CharacterType characterType;

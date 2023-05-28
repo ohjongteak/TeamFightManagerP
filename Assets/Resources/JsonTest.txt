@@ -9,7 +9,22 @@
           "attackDamage": 10,
           "attackSpeed": 2,
           "moveSpeed": 3,
-          "attackRange" : 2
+          "attackRange" : 2,
+          "defence" : 5
+
+        },
+        
+        {
+          "indexCharacter" :101,
+          "positionName" : "전사",
+          "characterName" : "검사",
+          "unlock" : "true",
+          "healthPoint": 100,
+          "attackDamage": 17,
+          "attackSpeed": 2,
+          "moveSpeed": 3.5,
+          "attackRange" : 2,
+          "defence" : 3
 
         },
         
@@ -22,20 +37,35 @@
           "attackDamage": 15,
           "attackSpeed": 1,
           "moveSpeed": 2,
-          "attackRange" : 7
+          "attackRange" : 7,
+          "defence" : 2
+        },
+        
+        {
+          "indexCharacter" :201,
+          "positionName" : "원거리",
+          "characterName" : "소총수",
+          "unlock" : "true",
+          "healthPoint": 60,
+          "attackDamage": 15,
+          "attackSpeed": 1.5,
+          "moveSpeed": 2,
+          "attackRange" : 9,
+          "defence" : 2
 
         },
 
         {
           "indexCharacter" :300,
-          "positionName" : "전사",
+          "positionName" : "전투 보조",
           "characterName" : "몽크",
           "unlock" : "true",
           "healthPoint": 200,
           "attackDamage": 10,
           "attackSpeed": 3,
           "moveSpeed": 3,
-          "attackRange" : 2
+          "attackRange" : 2,
+          "defence" : 4
 
         },
         
@@ -48,33 +78,8 @@
           "attackDamage": 20,
           "attackSpeed": 0.5,
           "moveSpeed": 4,
-          "attackRange" : 1.5
-
-        },
-        
-        {
-          "indexCharacter" :500,
-          "positionName" : "원거리",
-          "characterName" : "소총수",
-          "unlock" : "true",
-          "healthPoint": 60,
-          "attackDamage": 15,
-          "attackSpeed": 1.5,
-          "moveSpeed": 2,
-          "attackRange" : 9
-
-        },
-        
-        {
-          "indexCharacter" :600,
-          "positionName" : "전사",
-          "characterName" : "검사",
-          "unlock" : "true",
-          "healthPoint": 100000,
-          "attackDamage": 17,
-          "attackSpeed": 2,
-          "moveSpeed": 3.5,
-          "attackRange" : 2
+          "attackRange" : 1.5,
+          "defence" : 2
 
         }
         
