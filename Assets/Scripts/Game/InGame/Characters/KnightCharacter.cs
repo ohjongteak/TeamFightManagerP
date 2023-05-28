@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class WarriorCharacter : CharacterPersnality
+public class KnightCharacter : CharacterPersnality
 {
     public override void Init()
     {
@@ -19,8 +19,8 @@ public class WarriorCharacter : CharacterPersnality
 
         for(int i = 0; i < CharacterStateArray.Length; i++) 
         {
-           if(CharacterStateArray[i].indexCharacter == 100) //챔피언의 인덱스 번호값이 같다면 
-           {
+            if (CharacterStateArray[i].indexCharacter == 100) //챔피언의 인덱스 번호값이 같다면 
+            {
                 //등등 스텟 넣기
                 name = CharacterStateArray[i].characterName;
                 maxHealthPoint = CharacterStateArray[i].healthPoint;
@@ -29,17 +29,18 @@ public class WarriorCharacter : CharacterPersnality
                 attackSpeed = CharacterStateArray[i].attackSpeed;
                 moveSpeed = CharacterStateArray[i].moveSpeed * 0.5f;
                 attackRange = CharacterStateArray[i].attackRange;
+                defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
                 // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
                 //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
             }
-
         }
     }
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         Init();
     }
 
@@ -51,43 +52,44 @@ public class WarriorCharacter : CharacterPersnality
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
-        ChangeState((int)CharacterState.idle);
+        AttackCoolTime();
     }
 
     public override IEnumerator CharacterUltimate()
     {
-        float ultimateTime = 4f;
-
         Debug.Log("기사 궁극기 : 방증");
 
         for(int i = 0; i < listTeamCharacters.Count; i++)
         {
-            listTeamCharacters[i].defense += 5f;
+            listTeamCharacters[i].buff_defence += 5f;
         }
 
         Debug.Log("필살기 => 기본");
-        state = CharacterState.idle;
 
         yield return new WaitForSeconds(5f);
 
         for (int i = 0; i < listTeamCharacters.Count; i++)
         {
-            listTeamCharacters[i].defense -= 5f;
+            if(listTeamCharacters[i].buff_defence > 0)
+                listTeamCharacters[i].buff_defence = 0;
         }
-
+        
         Debug.Log("기사 궁극기 종료");
 
-        yield return null;
+        yield break;
     }
 
     public override IEnumerator CharacterSkill()
     {
-        yield return null;
+        yield break;
     }
 
     public override bool isCanSkill()
     {
-        return true;
+        if (targetCharacter != null && !targetCharacter.isDead)
+            return true;
+
+        return false;
     }
 
     public override bool isCanUltimate()

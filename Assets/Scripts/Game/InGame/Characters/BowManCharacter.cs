@@ -32,6 +32,7 @@ public class BowManCharacter : CharacterPersnality
                 attackSpeed = CharacterStateArray[i].attackSpeed;
                 moveSpeed = CharacterStateArray[i].moveSpeed * 0.5f;
                 attackRange = CharacterStateArray[i].attackRange;
+                defense = CharacterStateArray[i].defence;
 
 
                 attackCool = attackSpeed;
