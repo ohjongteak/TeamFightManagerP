@@ -81,7 +81,24 @@ public class KnightCharacter : CharacterPersnality
 
     public override IEnumerator CharacterSkill()
     {
-        yield break;
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
+        CharacterPersnality tauntTarget = targetCharacter;
+        tauntTarget.isTaunt = true;
+        tauntTarget.targetCharacter = this;
+
+        float timer = 0f;
+
+        while (timer < 4f)
+        {
+            yield return waitForSeconds;
+            timer += 0.1f;
+
+            if (tauntTarget.isDead || isDead)
+            {
+                tauntTarget.isTaunt = false;
+                yield break;
+            }
+        }
     }
 
     public override bool isCanSkill()
@@ -94,8 +111,11 @@ public class KnightCharacter : CharacterPersnality
 
     public override bool isCanUltimate()
     {
-        if (targetCharacter != null && !targetCharacter.isDead)
-            return true;
+        for (int i = 0; i < listTeamCharacters.Count; i++)
+        {
+            if (!listTeamCharacters[i].isDead && listTeamCharacters[i].healthPoint < listTeamCharacters[i].maxHealthPoint)
+                return true;
+        }
 
         return false;
     }

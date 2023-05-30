@@ -43,6 +43,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     public float shield;
     public bool isDead = false;
     public bool isFakeUnit;
+    public bool isTaunt = false;
 
     public CharacterState state;
     public TeamDivid teamDivid;
@@ -252,8 +253,6 @@ public abstract class CharacterPersnality : MonoBehaviour
         stageManager.KillScoreRefresh(teamDivid);
         spriteRenderer.enabled = false;
         animator.enabled = false;
-        isRevive = true;
-        targetCharacter = null;
     }
 
     //공격가능범위체크
@@ -268,6 +267,8 @@ public abstract class CharacterPersnality : MonoBehaviour
     //적 탐색
     public void TargetSerch()
     {
+        if (isTaunt) return;
+
         int targetIndex = -1;
         float distance = 1000f;
 
@@ -311,16 +312,24 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         //-----------------체력등 초기화 스크립트 작성필요-------------------
         Init();
+        ResetStat();
         animator.enabled = true;
         spriteRenderer.enabled = true;
-        isDead = false;
-        buff_defence = 0;
-        ChangeState((int)CharacterState.idle);
+        isRevive = true;
 
         await UniTask.Delay(300);
 
         isRevive = false;
         Debug.Log("캐릭터 리젠");
+    }
+
+    private void ResetStat()
+    {
+        isTaunt = false;
+        targetCharacter = null;
+        buff_defence = 0f;
+        isDead = false;
+        ChangeState((int)CharacterState.idle);
     }
 
     //이동제한
