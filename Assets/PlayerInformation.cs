@@ -11,7 +11,7 @@ namespace Framework.UI
 
     }
     [System.Serializable]
-    public class PlayerInfo
+    public class PlayerInfo//플레이어의 팀 및 정보
     {
         public string Name;
         public string TeamName;
@@ -28,7 +28,15 @@ namespace Framework.UI
         public int OpenSponSlot;
         public int[] ScoutRemainDate;
         public int HairIndex;
-        
+        public bool[] arrHaveHeadset;
+        public bool[] arrHaveController;
+        public bool[] arrHaveChair;
+        public bool[] arrHaveUniform;
+        public bool[] arrWearHeadset;
+        public bool[] arrWearController;
+        public bool[] arrWearChair;
+        public bool[] arrWearUniform;
+
     }
 
 
@@ -39,57 +47,64 @@ namespace Framework.UI
         
         // Start is called before the first frame update\
 
-        public void Init()
+        public void Init()//초기화
         {
             PlayerInfoText = Resources.Load("playerInfo") as TextAsset;
             playerInfoCollet = JsonUtility.FromJson<PlayerInfoCollect>(PlayerInfoText.text);
-            // Debug.Log(DateTime.Parse(playerInfoCollet.playerInfo.Date));
+            //Debug.Log(DateTime.Parse(playerInfoCollet.playerInfo.Date));
             //aa.ToOADate(DateTime.Parse(playerInfoCollet.playerInfo.Date);
         }
 
-        public void AfterWeek(int PlusGold =0, int Win=0, int Lose=0)
+        public void AfterWeek(int PlusGold =0, int Win =0, int Lose =0)//한주 지난뒤 플레이어 상태 변경
         {
-            GetPlayerInfo().Gold += PlusGold;
-            GetPlayerInfo().Lose += Lose;
-            GetPlayerInfo().Win += Win;
-            GetPlayerInfo().Week ++;
+            SetPlayerInfo().Gold += PlusGold;
+            SetPlayerInfo().Lose += Lose;
+            SetPlayerInfo().Win += Win;
+            SetPlayerInfo().Week ++;
 
-            for(int i=0; i < GetPlayerInfo().ScoutRemainDate.Length; i++)
+            for(int i=0; i < SetPlayerInfo().ScoutRemainDate.Length; i++)
             {
-                if(GetPlayerInfo().ScoutRemainDate[i] < 6)
+                if(SetPlayerInfo().ScoutRemainDate[i] < 6)
                 {
-                    GetPlayerInfo().ScoutRemainDate[i] -= 1;
+                    SetPlayerInfo().ScoutRemainDate[i] -= 1;
 
-                    if (GetPlayerInfo().ScoutRemainDate[i] <= 0)
+                    if (SetPlayerInfo().ScoutRemainDate[i] <= 0)
                     {
-                        GetPlayerInfo().ScoutRemainDate[i] = 9;
-                        //스카웃 된 사람을 넣어줘야함.
+                        SetPlayerInfo().ScoutRemainDate[i] = 9;//스카웃이 완료됫다면 9로 다시 초기화
+                        //스카웃 일정이 끝나서 스카웃 된 사람을 넣어줘야함.
                     }
                 }
 
             }
 
-            if(GetPlayerInfo().Week >= 5)
+            if(SetPlayerInfo().Week >= 5)//5주차가 되면 초기화
             {
-                GetPlayerInfo().Month += 1;
-                GetPlayerInfo().Week = 1;
+                SetPlayerInfo().Month += 1;//5주차가 되면 1달+
+                SetPlayerInfo().Week = 1;//1주로 초기화
                
-                if(GetPlayerInfo().Month >= 13)
+                if(SetPlayerInfo().Month >= 13)
                 {
-                    GetPlayerInfo().Month = 1;
-                    GetPlayerInfo().Year += 1;
+                    SetPlayerInfo().Month = 1;//12개월이 지났으면 다시 1개월로 초기화
+                    SetPlayerInfo().Year += 1;//1년 추가
                 }
             }
             
 
         }
 
-        public PlayerInfo GetPlayerInfo()
+        public PlayerInfo SetPlayerInfo()//플레이어의 정보 반환
         {
             return playerInfoCollet.playerInfo;
         }
 
-        
+
+        public PlayerInfo GetPlayerInfo()//플레이어의 정보 반환
+        {
+            var playerinfo = playerInfoCollet.playerInfo;
+
+            return playerinfo;
+        }
+
     }
 
   

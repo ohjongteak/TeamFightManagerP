@@ -26,9 +26,9 @@ namespace Framework.UI
         private Transform summonerFacePanel;
         [SerializeField]
         private GameObject summonerPrefab;
-        public void init()
+        public void init()//초기화
         {
-            var summonerInfo = summonerManager.GetSummonerInfo();
+            var summonerInfo = summonerManager.SetSummonerInfo();
 
             for(int i = 0; i <summonerInfo.Count; i++)
             {
@@ -48,9 +48,9 @@ namespace Framework.UI
             summonerAgeText.text = summonerInfo[0].Age.ToString() +"세";
         }
 
-        public void SummonerBox(string name)
+        public void SummonerBox(string name)//선수들 정보가 담겨있는 클릭할수 있는 박스 
         {
-            var summonerInfo = summonerManager.GetSummonerInfo();
+            var summonerInfo = summonerManager.SetSummonerInfo();
 
             Destroy(summonerPrefab);
             for (int i =0; i < listSummonerInfo.Count; i++)

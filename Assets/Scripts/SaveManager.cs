@@ -15,7 +15,7 @@ namespace Framework.UI
         TrainingManager trainingManager;
         void PlayerSummonerSave()
         {
-            SummonerCharacter summonerCharacter = summonerManager.GetSummonerCharacter();
+            SummonerCharacter summonerCharacter = summonerManager.SetSummonerCharacter();
           
             string json = JsonUtility.ToJson(summonerCharacter, true);
             File.WriteAllText(Application.dataPath + "/Resources" + "/PlayerSummoner.json", json);

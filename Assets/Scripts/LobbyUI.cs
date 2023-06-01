@@ -66,10 +66,18 @@ namespace Framework.UI
         private PlayerInformation playerInformation;
         [SerializeField]
         private ScoutManager scoutManger;
-        public void Init()
+
+        public Image imgLeagueLogo;
+        
+        public Image imgTeamLogo;
+
+        [SerializeField]
+        public ImageManager imageManager;
+        
+        public void Init()//초기화 모음
         {
-            _setVoidGoldDelegate += RefreshData;
-            _setVoidGoldDelegate(100);
+            //_setVoidGoldDelegate += RefreshData;
+            //_setVoidGoldDelegate(100);
 
 
             for (int i = 0; i < champListButton.Length; i++)
@@ -85,20 +93,24 @@ namespace Framework.UI
             trainingSummonerSort.init();
             playerInformation.Init();
             scoutManger.Init();
+
+
+            imgLeagueLogo.sprite = imageManager.arrLeagueLogo[playerInformation.GetPlayerInfo().League];
+            imgTeamLogo.sprite = imageManager.arrTeamLogo[playerInformation.GetPlayerInfo().RanKing];
         }
 
-        public void RefreshData(int Gold)
-        {
-            _goldText.text = "" + GameManager.PlayerInfomation.Gold;
-        }
+        //public void RefreshData(int Gold)
+        //{
+        //    _goldText.text = "" + GameManager.PlayerInfomation.Gold;
+        //}
 
-        public void SetGoldDeleGate(int Gold)
-        {
-            GameManager.PlayerInfomation.Gold += Gold;
-            _setVoidGoldDelegate(Gold);
+        //public void SetGoldDeleGate(int Gold)
+        //{
+        //    GameManager.PlayerInfomation.Gold += Gold;
+        //    _setVoidGoldDelegate(Gold);
 
-            Debug.Log(GameManager.PlayerInfomation.Gold);
-        }
+        //    Debug.Log(GameManager.PlayerInfomation.Gold);
+        //}
 
     }
 }

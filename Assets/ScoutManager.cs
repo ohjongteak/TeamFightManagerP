@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 namespace Framework.UI
 {
-    public enum LimitScout
+    public enum LimitScout//선수 스카웃 창 상태
     {
         Lock,
         Searching,
@@ -19,12 +19,12 @@ namespace Framework.UI
 
     }
     [System.Serializable]
-    public class playerScout
+    public class playerScout//스카웃 정보
     {
-        public string name;
-        public string ment;
-        public int date;
-        public int cost;
+        public string name; // 영입될 지역인재 베테랑 슈퍼루키 ... 등등 5가지 종류
+        public string ment;// 영입될 인재의 간략한 정보 
+        public int date;//영입 소요 시간
+        public int cost;//영입에 필요한 골드 
 
     }
 
@@ -49,10 +49,10 @@ namespace Framework.UI
         public TextMeshProUGUI[] arrScoutCountText;
         public TextMeshProUGUI[] arrDateCountText;
         public TextMeshProUGUI[] arrCostCountText;
-        public GameObject[] arrLockImage;
+        public GameObject[] arrLockImage;//영입 잠겨있을때 잠기는 이미지 
       
 
-        public void Init()
+        public void Init()//초기화
         {
             scoutText = Resources.Load("ScoutList") as TextAsset;
             scoutList = JsonUtility.FromJson<ScoutList>(scoutText.text);
@@ -75,7 +75,7 @@ namespace Framework.UI
            
         }
 
-        public void LeftArrowButton(GameObject arrow)
+        public void LeftArrowButton(GameObject arrow)//왼쪽 버튼
         {
             int Index = arrow.transform.GetSiblingIndex();
 
@@ -90,7 +90,7 @@ namespace Framework.UI
 
         }
 
-        public void RightArrowButton(GameObject arrow)
+        public void RightArrowButton(GameObject arrow)//오른쪽 버튼
         {
             int Index = arrow.transform.GetSiblingIndex();
 
@@ -105,7 +105,7 @@ namespace Framework.UI
 
         }
 
-        public void LockImage()
+        public void LockImage() //잠긴상태 체크 후 잠겨있다면 잠긴상태 이미지 true
         {
             for(int i = 0; i<arrlimitScout.Length; i++)
             {

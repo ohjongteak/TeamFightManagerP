@@ -13,9 +13,9 @@ namespace Framework.UI
         [SerializeField]
         private ImageManager imgManager;
 
-        public void Init()
+        public void Init()//√ ±‚»≠
         {
-            var summonerInfo = summonerManager.GetSummonerInfo();
+            var summonerInfo = summonerManager.SetSummonerInfo();
             Transform sortBox = this.transform.GetChild(0).transform.GetChild(0);
             for( int i = 0; i < summonerInfo.Count; i++)
             {

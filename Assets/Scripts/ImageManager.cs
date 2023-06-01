@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class ImageManager : MonoBehaviour
 {
-    public Sprite[] champSprite;
-    public Sprite[] hairSpirte;
-    public Sprite[] conditionArrow;
-
+    public Sprite[] champSprite;//
+    public Sprite[] hairSpirte;//선수들 , 감독의 머리
+    public Sprite[] conditionArrow;// 선수들의 컨디션 
+    public Sprite[] arrTeamLogo;//팀로고들
+    public Sprite[] arrLeagueLogo;//리그로고
+    public Sprite[] arrHeadset;
+    public Sprite[] arrController;
+    public Sprite[] arrChair;
+    public Sprite[] arrUniform;
+     
 }
