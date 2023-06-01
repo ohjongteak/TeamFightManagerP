@@ -26,7 +26,7 @@ namespace Framework.UI
         public void SummonerBox(string name)
         {
             remainText.text = "0";
-            Image[] PointInvestImage = new Image[18];
+            Image[] PointInvestImage = new Image[18];//캐릭터당 투자예정 포인트 박스 최대 18개
             Color Black;
             ColorUtility.TryParseHtmlString("#383a40", out Black);
             for (int i = 0; i < arrStatBoxes.Length; i++)
@@ -53,7 +53,9 @@ namespace Framework.UI
                 arrRemainPointImage[i].color = HardBlack;
             }
             //-------------------------------------초기화----------------------------------------------------
-            var summonerInfo = summonerManager.GetSummonerInfo();
+
+            //--------------------------------------셋팅-----------------------------------------------------
+            var summonerInfo = summonerManager.SetSummonerInfo();
 
            
             for (int i = 0; i < summonerInfo.Count; i++)
@@ -95,7 +97,7 @@ namespace Framework.UI
         }
 
         public void GetIndexCount(Transform MySelf, string Arrow , SummonerCharacterState SummonerInfo , Image[] PointInvestImage)
-        {
+        {// 훈련창 초록색 화살표 작동함수
             int Index = (MySelf.transform.GetSiblingIndex());
 
            switch(Arrow)
@@ -143,7 +145,7 @@ namespace Framework.UI
         }
 
         public void ChangePointColor(SummonerCharacterState summonerInfo, Image[] PointInvestImage)
-        {
+        {// 훈련포인트 노랑색박으로 바꾸기 
             Color Yellow;
             ColorUtility.TryParseHtmlString("#ffbe1b", out Yellow);
 
@@ -157,7 +159,7 @@ namespace Framework.UI
             }
         }
 
-        public void ChangeRemainPointColor(SummonerCharacterState summonerInfo)
+        public void ChangeRemainPointColor(SummonerCharacterState summonerInfo)//남은 훈련포인트 노랑색박스로 바꾸기 
         {
             Color Yellow;
             ColorUtility.TryParseHtmlString("#ffbe1b", out Yellow);
@@ -168,9 +170,9 @@ namespace Framework.UI
             }
         }
 
-        public void SaveTraining()
+        public void SaveTraining()//훈련포인트 스텟 저장
         {
-            var summonerInfo = summonerManager.GetSummonerInfo();
+            var summonerInfo = summonerManager.SetSummonerInfo();
 
 
             for(int i = 0; i < summonerInfo.Count;i++)

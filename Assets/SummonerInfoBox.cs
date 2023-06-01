@@ -14,17 +14,17 @@ namespace Framework.UI
        
 
         // Start is called before the first frame update
-        private void OnMouseEnter()
+        private void OnMouseEnter() //마우스 오버 시 아웃라인 켜기
         {
             this.GetComponent<Outline>().enabled = true;
         }
 
-        private void OnMouseExit()
+        private void OnMouseExit() //마우스 나갈 시 아웃라인 끄기
         {
             this.GetComponent<Outline>().enabled = false;
         }
 
-        public void ChangeColor()
+        public void ChangeColor() 
         {
             Transform[] temp = new Transform[this.transform.parent.childCount];
 
@@ -45,7 +45,7 @@ namespace Framework.UI
 
         }
 
-        public string GetThisName()
+        public string GetThisName()//인덱스 넘겨주기 위한 함수
         {
             return this.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text;  
         }
@@ -55,9 +55,6 @@ namespace Framework.UI
             trainingSummonerSort.SummonerBox(GetThisName());
             trainingManager.SummonerBox(GetThisName());
         }
-
-        
-
 
     }
 }

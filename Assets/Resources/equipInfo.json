@@ -1,0 +1,97 @@
+{
+  "equipInfo": {
+    "arrHeadsetStateType": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arrControllerStateType": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arrChairStateType": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arrUniformStateType": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arrHeadsetStatePoint": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arrControllerStatePoint": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arrChairStatePoint": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arrUniformStatePoint": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+
+    "arrHeadsetName": [
+      "평범한 헤드셋",
+      "안평범한 헤드셋",
+      "레어 헤드셋",
+      "유니크 헤드셋",
+      "전설 헤드셋"
+    ],
+
+    "arrControllerName": [
+      "평범한 컨트롤러",
+      "안평범한 컨트롤러",
+      "레어 컨트롤러",
+      "유니크 컨트롤러",
+      "전설 컨트롤러"
+    ],
+
+    "arrChairName": [
+      "평범한 의자",
+      "안평범한 의자",
+      "레어 의자",
+      "유니크 의자",
+      "전설 의자"
+    ],
+
+    "arrUniformName": [
+      "평범한 의상",
+      "안평범한 의상",
+      "레어 의상",
+      "유니크 의상",
+      "전설 의상"
+    ]
+
+
+
+  }
+
+
+}

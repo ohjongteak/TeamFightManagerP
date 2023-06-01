@@ -15,7 +15,7 @@ public class ChampListSort : MonoBehaviour
 
     [SerializeField]
     private ImageManager imgManager;
-    public void Init()
+    public void Init()//초기화
     {
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
 
@@ -34,11 +34,9 @@ public class ChampListSort : MonoBehaviour
 
         }
 
-       
-
     }
 
-    public void AllChamp()
+    public void AllChamp()//올챔프 버튼 클릭
     {
         for(int i = 0; i<champIntroBox.Count; i++)
         {
@@ -46,14 +44,14 @@ public class ChampListSort : MonoBehaviour
         }
 
     }
-    public void Assasin()
+    public void Assasin()//어썌신 유닛들
     {
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
 
         
     }
 
-    public void Warrior()
+    public void Warrior()//워리어 유닛들
     {
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
 
@@ -69,7 +67,7 @@ public class ChampListSort : MonoBehaviour
 
     }
 
-    public void MarkMan()
+    public void MarkMan()//원거리 유닛들
     {
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
 
@@ -88,7 +86,7 @@ public class ChampListSort : MonoBehaviour
         }
     }
 
-    public void Magicion()
+    public void Magicion()//마법사들
     {
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
 
