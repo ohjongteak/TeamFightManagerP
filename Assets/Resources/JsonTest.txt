@@ -9,7 +9,7 @@
           "attackDamage": 10,
           "attackSpeed": 2,
           "moveSpeed": 3,
-          "attackRange" : 5,
+          "attackRange" : 2,
           "defence" : 5
 
         },
@@ -23,6 +23,20 @@
           "attackDamage": 17,
           "attackSpeed": 2,
           "moveSpeed": 3.5,
+          "attackRange" : 2,
+          "defence" : 3
+
+        },
+
+        {
+          "indexCharacter" :102,
+          "positionName" : "전사",
+          "characterName" : "격투가",
+          "unlock" : "true",
+          "healthPoint": 150,
+          "attackDamage": 13,
+          "attackSpeed": 2,
+          "moveSpeed": 4,
           "attackRange" : 2,
           "defence" : 3
 

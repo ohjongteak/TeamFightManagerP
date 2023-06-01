@@ -40,7 +40,7 @@ public class StageManager : MonoBehaviour
         arrTmpKillScore[0].text = arrTmpKillScore[1].text = "0";
 
         battleState = BattleState.ready;
-        listLTeamCharacters = spawnManager.SummonCharactor(2, TeamDivid.myTeam);
+        listLTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.myTeam);
         listRTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.enemyTeam);        
 
         BattleStart();

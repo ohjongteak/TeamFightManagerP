@@ -66,15 +66,13 @@ public class SoldierCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
-    public override IEnumerator CharacterUltimate()
+    public override void CharacterUltimate()
     {
         Granade granade = Instantiate(objGranade, transform.position, Quaternion.identity).GetComponent<Granade>();
         granade.SetGranade(7f, 40f, targetCharacter.transform.position, listEnemyCharacters);
-        yield break;
-        Debug.Log("필살기 => 기본");
     }
 
-    public override IEnumerator CharacterSkill()
+    public override void CharacterSkill()
     {
         if (!targetCharacter.isDead)
 
@@ -84,7 +82,6 @@ public class SoldierCharacter : CharacterPersnality
             bullet.SetBullet(10f, attackDamage, targetCharacter, objectPool);
         }
 
-        yield break;
         Debug.Log("스킬 => 기본");
     }
 

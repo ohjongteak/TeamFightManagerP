@@ -55,7 +55,7 @@ public class KnightCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
-    public override IEnumerator CharacterUltimate()
+    public override void CharacterUltimate()
     {
         Debug.Log("기사 궁극기 : 방증");
 
@@ -66,20 +66,28 @@ public class KnightCharacter : CharacterPersnality
 
         Debug.Log("필살기 => 기본");
 
+        StartCoroutine(UltimateBuff());
+    }
+
+    IEnumerator UltimateBuff()
+    {
         yield return new WaitForSeconds(5f);
 
         for (int i = 0; i < listTeamCharacters.Count; i++)
         {
-            if(listTeamCharacters[i].buff_defence > 0)
+            if (listTeamCharacters[i].buff_defence > 0)
                 listTeamCharacters[i].buff_defence = 0;
         }
-        
-        Debug.Log("기사 궁극기 종료");
 
-        yield break;
+        Debug.Log("기사 궁극기 종료");
     }
 
-    public override IEnumerator CharacterSkill()
+    public override void CharacterSkill()
+    {
+        StartCoroutine(SkillEffect());
+    }
+
+    IEnumerator SkillEffect()
     {
         WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
         CharacterPersnality tauntTarget = targetCharacter;
