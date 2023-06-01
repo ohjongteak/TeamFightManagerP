@@ -62,7 +62,7 @@ public class SwordmanCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
-    public override IEnumerator CharacterUltimate()
+    public override void CharacterUltimate()
     {
         // 궁극기 좌표
         Vector3 v3Dist = v3TargetPos - transform.position;
@@ -94,14 +94,10 @@ public class SwordmanCharacter : CharacterPersnality
                 listEnemyCharacters[i].Hit(100f);
         }
 
-        Debug.Log("필살기 => 기본");
-
-        yield return new WaitForSeconds(0.5f);
-
         objUltimateEffect.SetActive(false);
     }
 
-    public override IEnumerator CharacterSkill()
+    public override void CharacterSkill()
     {
         skillCount++;
         if (skillCount == 1)
@@ -117,7 +113,6 @@ public class SwordmanCharacter : CharacterPersnality
 
             Debug.Log("스킬 => 기본");
         }
-        yield break;
     }
 
     // 스킬 사용가능 체크

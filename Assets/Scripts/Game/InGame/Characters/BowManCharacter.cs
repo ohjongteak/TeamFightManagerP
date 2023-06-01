@@ -68,16 +68,18 @@ public class BowManCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
-    public override IEnumerator CharacterUltimate()
+    public override void CharacterUltimate()
     {
-        yield return new WaitForSeconds(3f);
-
         TargetSerch();
-        ChangeState((int)CharacterState.idle);
-        Debug.Log("필살기 => 기본");
     }
 
-    public override IEnumerator CharacterSkill()
+    public override void CharacterSkill()
+    {
+        StartCoroutine(SkillEffect());
+        Debug.Log("스킬 => 기본");
+    }
+
+    IEnumerator SkillEffect()
     {
         Vector3 v3MovePoint = targetCharacter.transform.position - transform.position;
         v3MovePoint = v3MovePoint.normalized;
@@ -87,7 +89,6 @@ public class BowManCharacter : CharacterPersnality
             transform.position -= v3MovePoint * 1f * Time.deltaTime;
             yield return null;
         }
-        Debug.Log("스킬 => 기본");
     }
 
     // 스킬 사용가능 체크

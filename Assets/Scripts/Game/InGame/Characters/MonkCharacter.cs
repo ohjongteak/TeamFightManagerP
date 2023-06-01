@@ -56,7 +56,7 @@ public class MonkCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
-    public override IEnumerator CharacterUltimate()
+    public override void CharacterUltimate()
     {
         for (int i = 0; i < listTeamCharacters.Count; i++)
         {
@@ -66,6 +66,11 @@ public class MonkCharacter : CharacterPersnality
 
         Debug.Log("몽크 궁극기 - 쉴드생성");
 
+        StartCoroutine(UltimateBuff());
+    }
+
+    IEnumerator UltimateBuff()
+    {
         yield return new WaitForSeconds(7f);
 
         for (int i = 0; i < listTeamCharacters.Count; i++)
@@ -75,10 +80,9 @@ public class MonkCharacter : CharacterPersnality
 
         Debug.Log("몽크 궁극기 - 쉴드 제거");
 
-        Debug.Log("필살기 => 기본");
     }
 
-    public override IEnumerator CharacterSkill()
+    public override void CharacterSkill()
     {
         for (int i = 0; i < listTeamCharacters.Count; i++)
         {
@@ -94,7 +98,6 @@ public class MonkCharacter : CharacterPersnality
         }
 
         Debug.Log("스킬 => 기본");
-        yield break;
     }
 
     // 스킬 사용가능 체크

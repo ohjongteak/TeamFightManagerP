@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 
 public class NinjaCharacter : CharacterPersnality
 {
+    CharacterPersnality fakeUnit;
+
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
@@ -56,46 +58,50 @@ public class NinjaCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
-    public override IEnumerator CharacterUltimate()
+    public override void CharacterUltimate()
     {
-        if (isFakeUnit) yield break;
+        if (isFakeUnit) return;
 
-        CharacterPersnality characterPersnality =
+        fakeUnit =
         Instantiate(this.gameObject, new Vector3(transform.position.x - 0.5f, transform.position.y - 0.3f, 0f), Quaternion.identity).GetComponent<CharacterPersnality>();
 
-        characterPersnality.teamDivid = teamDivid;
-        characterPersnality.Init();
-        characterPersnality.maxX = maxX;
-        characterPersnality.minX = minX;
-        characterPersnality.maxY = maxY;
-        characterPersnality.minY = minY;
-        characterPersnality.isFakeUnit = true;
-        characterPersnality.isDead = true;
-        characterPersnality.state = CharacterState.idle;
-        characterPersnality.animator.SetBool("Fake", true);
-        characterPersnality.animator.Play("Fake");
-        characterPersnality.BattleStart(listTeamCharacters, listEnemyCharacters);
-        listTeamCharacters.Add(characterPersnality);
+        fakeUnit.teamDivid = teamDivid;
+        fakeUnit.Init();
+        fakeUnit.maxX = maxX;
+        fakeUnit.minX = minX;
+        fakeUnit.maxY = maxY;
+        fakeUnit.minY = minY;
+        fakeUnit.isFakeUnit = true;
+        fakeUnit.isDead = true;
+        fakeUnit.state = CharacterState.idle;
+        fakeUnit.animator.SetBool("Fake", true);
+        fakeUnit.animator.Play("Fake");
+        fakeUnit.BattleStart(listTeamCharacters, listEnemyCharacters);
+        listTeamCharacters.Add(fakeUnit);
         Debug.Log("닌자 궁극기");
 
+        StartCoroutine(ActiveFakeUnit());
+    }
+
+    IEnumerator ActiveFakeUnit()
+    {
         yield return new WaitUntil(() => state != CharacterState.ultimate);
 
-        characterPersnality.animator.SetBool("Fake", false);
-        characterPersnality.isDead = false;
-        characterPersnality.skillCool = skillCool;
+        fakeUnit.animator.SetBool("Fake", false);
+        fakeUnit.isDead = false;
+        fakeUnit.skillCool = skillCool;
         TargetSerch();
 
         Debug.Log("필살기 => 기본");
     }
 
-    public override IEnumerator CharacterSkill()
+    public override void CharacterSkill()
     {
         float pointX = targetCharacter.transform.position.x;
         float pointY = targetCharacter.transform.position.y;
         transform.position = new Vector2(pointX + Random.Range(-0.2f, 0.3f), pointY + Random.Range(-0.2f, 0.3f));
         targetCharacter.Hit(attackDamage * 1.5f);
         Debug.Log("스킬 => 기본");
-        yield break;
     }
 
     // 스킬 사용가능 체크

@@ -22,6 +22,15 @@ public enum CharacterState
     dead = 6
 }
 
+public enum Debuff
+{
+    none,
+    stun,
+    freeze,
+    airborne,
+    slow
+}
+
 public abstract class CharacterPersnality : MonoBehaviour
 {
     [HideInInspector] public StageManager stageManager;
@@ -59,7 +68,8 @@ public abstract class CharacterPersnality : MonoBehaviour
     [HideInInspector] public List<CharacterPersnality> listTeamCharacters;
     [HideInInspector] public List<CharacterPersnality> listEnemyCharacters;
     [HideInInspector] public Animator animator;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer sprHitMotion;
 
     // 이동제한용
     [HideInInspector] public float minX, maxX, minY, maxY;
@@ -67,8 +77,8 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public abstract void Init();
     public abstract void CharacterAttack();
-    public abstract IEnumerator CharacterUltimate();
-    public abstract IEnumerator CharacterSkill();
+    public abstract void CharacterUltimate();
+    public abstract void CharacterSkill();
     public abstract bool isCanSkill();
     public abstract bool isCanUltimate();
 
@@ -77,14 +87,13 @@ public abstract class CharacterPersnality : MonoBehaviour
     {
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
-        // 스킬쿨타임도 추가필요
+
+        maxSkillCool = 700f;
+        maxUltimateCool = 1f;
+
         UltimateCoolTime();
         AttackCoolTime();
         SkillCoolTime();
-
-
-        maxSkillCool = 7f;
-        maxUltimateCool = 20f;
     }
 
     public void CharaterAction()
@@ -92,10 +101,10 @@ public abstract class CharacterPersnality : MonoBehaviour
         if (isDead || state == CharacterState.hit || isRevive) return;
 
         // 좌우반전
-        if (targetCharacter != null && !targetCharacter.isDead && state != CharacterState.ultimate)
+        if (targetCharacter != null && !targetCharacter.isDead && state != CharacterState.ultimate && state != CharacterState.hit)
         {
-            if (targetCharacter.transform.position.x > transform.position.x) transform.localScale = new Vector3(1, 1, 1);
-            else if (targetCharacter.transform.position.x < transform.position.x) transform.localScale = new Vector3(-1, 1, 1);
+            if (targetCharacter.transform.position.x > transform.position.x) spriteRenderer.flipX = false;
+            else if (targetCharacter.transform.position.x < transform.position.x) spriteRenderer.flipX = true;
         }
 
         switch (state)
@@ -160,6 +169,8 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public async UniTaskVoid AttackCoolTime()
     {
+        if (state != CharacterState.attack) return;
+
         attackCool = 0f;
         while (attackSpeed > attackCool)
         {
@@ -201,13 +212,11 @@ public abstract class CharacterPersnality : MonoBehaviour
         {
             ultimateCool += Time.deltaTime;
 
-            if (maxUltimateCool <= ultimateCool) break;
-
             await UniTask.Yield();
         }
     }
 
-    public void Hit(float attackDamage)
+    public async UniTaskVoid Hit(float attackDamage, Debuff debuff = Debuff.none)
     {
         float damage = attackDamage;
 
@@ -224,6 +233,46 @@ public abstract class CharacterPersnality : MonoBehaviour
         {
             isDead = true;
             ChangeState(((int)CharacterState.dead));
+        }
+        else if (debuff != Debuff.none)
+        {
+            await ActiveDebuff(debuff);
+        }
+    }
+
+    private IEnumerator ActiveDebuff(Debuff debuff)
+    {
+        switch(debuff)
+        {
+            case Debuff.airborne:
+                float time = 3f;
+                float gravity = 0.4f;
+                float posY = 0f;
+                sprHitMotion.enabled = true;
+                spriteRenderer.enabled = false;
+                sprHitMotion.flipX = spriteRenderer.flipX;
+
+                while (time > 0)
+                {
+                    posY += gravity * Time.fixedDeltaTime;
+                    sprHitMotion.transform.localPosition = new Vector2(0f, posY);
+                    time -= Time.fixedDeltaTime;
+                    gravity -= 0.002f;
+                    yield return new WaitForFixedUpdate();
+                }
+
+                while (time < 3f && posY > 0)
+                {
+                    posY -= gravity * Time.fixedDeltaTime;
+                    sprHitMotion.transform.localPosition = new Vector2(0f, posY);
+                    time += Time.fixedDeltaTime;
+                    gravity += 0.002f;
+                    yield return new WaitForFixedUpdate();
+                }
+                sprHitMotion.enabled = false;
+                spriteRenderer.enabled = true;
+                ChangeState((int)CharacterState.idle);
+                break;
         }
     }
 
@@ -248,7 +297,6 @@ public abstract class CharacterPersnality : MonoBehaviour
             return;
         }
 
-        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
         ReviveCharater();
         stageManager.KillScoreRefresh(teamDivid);
         spriteRenderer.enabled = false;
