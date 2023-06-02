@@ -45,7 +45,6 @@ public class FighterCharacter : CharacterPersnality
     {
         animator = GetComponent<Animator>();
         ultimateRange = 3f;
-        Init();
     }
 
     private void Update()
@@ -63,9 +62,7 @@ public class FighterCharacter : CharacterPersnality
         for(int i = 0; i < listEnemyCharacters.Count; i++)
         {
             if (Vector2.Distance(listEnemyCharacters[i].transform.position, transform.position) < ultimateRange)
-            {
                 listEnemyCharacters[i].Hit(attackDamage * 1.3f, Debuff.airborne);
-            }
         }
         Debug.Log("격투가 궁극기 : 범위 에어본");
     }

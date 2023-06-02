@@ -47,7 +47,6 @@ public class SoldierCharacter : CharacterPersnality
     {
         objectPool = GetComponent<ObjectPool>();
         animator = GetComponent<Animator>();
-        Init();
     }
 
     private void Update()

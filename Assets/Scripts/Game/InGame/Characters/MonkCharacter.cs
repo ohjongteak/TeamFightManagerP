@@ -42,7 +42,6 @@ public class MonkCharacter : CharacterPersnality
     private void Start()
     {
         animator = GetComponent<Animator>();
-        Init();
     }
 
     private void Update()
