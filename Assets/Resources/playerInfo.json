@@ -20,7 +20,73 @@
       9
 
     ],
-    "HairIndex": 1
+    "HairIndex": 1,
+    "arrHaveHeadset": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ],
+    "arrHaveController": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ],
+    "arrHaveChair": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ],
+    "arrHaveUniform": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ],
+    "arrWearHeadset": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ],
+    "arrWearController": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ],
+    "arrWearChair": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ],
+    "arrWearUniform": [
+      1,
+      0,
+      0,
+      0,
+      0
+
+    ]
+
+
 
 
   }

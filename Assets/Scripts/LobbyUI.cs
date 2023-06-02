@@ -73,6 +73,8 @@ namespace Framework.UI
 
         [SerializeField]
         public ImageManager imageManager;
+        [SerializeField]
+        private EquipmentManager equipmentManager;
         
         public void Init()//초기화 모음
         {
@@ -93,6 +95,7 @@ namespace Framework.UI
             trainingSummonerSort.init();
             playerInformation.Init();
             scoutManger.Init();
+            equipmentManager.Init();
 
 
             imgLeagueLogo.sprite = imageManager.arrLeagueLogo[playerInformation.GetPlayerInfo().League];
