@@ -1,97 +1,105 @@
-{
-  "equipInfo": {
-    "arrHeadsetStateType": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-    "arrControllerStateType": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-    "arrChairStateType": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-    "arrUniformStateType": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-    "arrHeadsetStatePoint": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-    "arrControllerStatePoint": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-    "arrChairStatePoint": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-    "arrUniformStatePoint": [
-      0,
-      1,
-      2,
-      3,
-      4
-    ],
-
-    "arrHeadsetName": [
-      "Æò¹üÇÑ Çìµå¼Â",
-      "¾ÈÆò¹üÇÑ Çìµå¼Â",
-      "·¹¾î Çìµå¼Â",
-      "À¯´ÏÅ© Çìµå¼Â",
-      "Àü¼³ Çìµå¼Â"
-    ],
-
-    "arrControllerName": [
-      "Æò¹üÇÑ ÄÁÆ®·Ñ·¯",
-      "¾ÈÆò¹üÇÑ ÄÁÆ®·Ñ·¯",
-      "·¹¾î ÄÁÆ®·Ñ·¯",
-      "À¯´ÏÅ© ÄÁÆ®·Ñ·¯",
-      "Àü¼³ ÄÁÆ®·Ñ·¯"
-    ],
-
-    "arrChairName": [
-      "Æò¹üÇÑ ÀÇÀÚ",
-      "¾ÈÆò¹üÇÑ ÀÇÀÚ",
-      "·¹¾î ÀÇÀÚ",
-      "À¯´ÏÅ© ÀÇÀÚ",
-      "Àü¼³ ÀÇÀÚ"
-    ],
-
-    "arrUniformName": [
-      "Æò¹üÇÑ ÀÇ»ó",
-      "¾ÈÆò¹üÇÑ ÀÇ»ó",
-      "·¹¾î ÀÇ»ó",
-      "À¯´ÏÅ© ÀÇ»ó",
-      "Àü¼³ ÀÇ»ó"
-    ]
+ï»¿{
+  "equipInfo": [
+    {
+      "indexItem": 100,
+      "ItemName": "í‰ë²”í•œí—¤ë“œì…‹",
+      "unlock": "true",
+      "BonusStatCount": 10,
+      "BonusType": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ]
 
 
 
-  }
+    },
+
+    {
+      "indexCharacter": 101,
+      "positionName": "ì „ì‚¬",
+      "characterName": "ê²€ì‚¬",
+      "unlock": "true",
+      "healthPoint": 100,
+      "attackDamage": 17,
+      "attackSpeed": 2,
+      "moveSpeed": 3.5,
+      "attackRange": 2,
+      "defence": 3
+
+    },
+
+    {
+      "indexCharacter": 102,
+      "positionName": "ì „ì‚¬",
+      "characterName": "ê²©íˆ¬ê°€",
+      "unlock": "true",
+      "healthPoint": 150,
+      "attackDamage": 13,
+      "attackSpeed": 2,
+      "moveSpeed": 4,
+      "attackRange": 2,
+      "defence": 3
+
+    },
+
+    {
+      "indexCharacter": 200,
+      "positionName": "ì›ê±°ë¦¬",
+      "characterName": "ê¶ìˆ˜",
+      "unlock": "true",
+      "healthPoint": 50,
+      "attackDamage": 15,
+      "attackSpeed": 1,
+      "moveSpeed": 2,
+      "attackRange": 7,
+      "defence": 2
+    },
+
+    {
+      "indexCharacter": 201,
+      "positionName": "ì›ê±°ë¦¬",
+      "characterName": "ì†Œì´ìˆ˜",
+      "unlock": "true",
+      "healthPoint": 60,
+      "attackDamage": 15,
+      "attackSpeed": 1.5,
+      "moveSpeed": 2,
+      "attackRange": 9,
+      "defence": 2
+
+    },
+
+    {
+      "indexCharacter": 300,
+      "positionName": "ì „íˆ¬ ë³´ì¡°",
+      "characterName": "ëª½í¬",
+      "unlock": "true",
+      "healthPoint": 200,
+      "attackDamage": 10,
+      "attackSpeed": 3,
+      "moveSpeed": 3,
+      "attackRange": 2,
+      "defence": 4
+
+    },
+
+    {
+      "indexCharacter": 400,
+      "positionName": "ì•”ì‚´ì",
+      "characterName": "ë‹Œì",
+      "unlock": "true",
+      "healthPoint": 70,
+      "attackDamage": 20,
+      "attackSpeed": 0.5,
+      "moveSpeed": 4,
+      "attackRange": 1.5,
+      "defence": 2
+
+    }
 
 
 }

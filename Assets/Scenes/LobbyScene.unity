@@ -12835,7 +12835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.16470589, b: 0.18823531, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14204,6 +14204,7 @@ MonoBehaviour:
   imgLeagueLogo: {fileID: 1644995990}
   imgTeamLogo: {fileID: 421630026}
   imageManager: {fileID: 305683496}
+  equipmentManager: {fileID: 1888625100}
 --- !u!1 &936585146
 GameObject:
   m_ObjectHideFlags: 0
@@ -16977,7 +16978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.16470589, b: 0.18823531, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20930,7 +20931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.16470589, b: 0.18823531, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -25741,10 +25742,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e953aa9ab1185be4886d6299cd601fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wearHeadset: {fileID: 1178224428}
-  wearController: {fileID: 1548511865}
-  wearChair: {fileID: 826235955}
-  wearUniform: {fileID: 2143976458}
+  arrEquipChild:
+  - {fileID: 1839907083}
+  - {fileID: 855415804}
+  - {fileID: 294644883}
+  - {fileID: 740165113}
   imgManager: {fileID: 305683496}
   equipInfoCollet:
     equipInfo:
@@ -25756,7 +25758,12 @@ MonoBehaviour:
       arrControllerStatePoint: 
       arrChairStatePoint: 
       arrUniformStatePoint: 
+      arrHeadsetName: []
+      arrControllerName: []
+      arrChairName: []
+      arrUniformName: []
   equipInfoText: {fileID: 0}
+  playerInformation: {fileID: 1591208201}
 --- !u!114 &1888625101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29789,7 +29796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.16470589, b: 0.18823531, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
