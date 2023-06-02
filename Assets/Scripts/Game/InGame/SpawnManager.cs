@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
             characterPersnality.SetLimitMoveStage(v2MinPos, v2MaxPos);
             characterPersnality.isFakeUnit = false;
             characterPersnality.v2SpawnPoint = teamDivid == TeamDivid.myTeam ? objSpawnL.transform.position : objSpawnR.transform.position;
-
+            characterPersnality.Init();
             characterPersnalities.Add(characterPersnality);
         }
 

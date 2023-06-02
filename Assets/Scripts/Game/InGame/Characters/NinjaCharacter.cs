@@ -44,7 +44,6 @@ public class NinjaCharacter : CharacterPersnality
     private void Start()
     {
         animator = GetComponent<Animator>();
-        Init();
     }
 
     private void Update()

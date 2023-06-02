@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+
 
 public enum TeamDivid
 {
@@ -88,12 +90,14 @@ public abstract class CharacterPersnality : MonoBehaviour
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
 
-        maxSkillCool = 700f;
-        maxUltimateCool = 1f;
+        maxSkillCool = 1f;
+        maxUltimateCool = 30f;
 
         UltimateCoolTime();
         AttackCoolTime();
         SkillCoolTime();
+
+        if (teamDivid == TeamDivid.enemyTeam) Hit(0f, Debuff.airborne);
     }
 
     public void CharaterAction()
@@ -236,39 +240,23 @@ public abstract class CharacterPersnality : MonoBehaviour
         }
         else if (debuff != Debuff.none)
         {
-            await ActiveDebuff(debuff);
+            ActiveDebuff(debuff);
         }
     }
 
-    private IEnumerator ActiveDebuff(Debuff debuff)
+    private async UniTaskVoid ActiveDebuff(Debuff debuff)
     {
+        ChangeState((int)CharacterState.hit);
         switch(debuff)
         {
             case Debuff.airborne:
-                float time = 3f;
-                float gravity = 0.4f;
-                float posY = 0f;
+
                 sprHitMotion.enabled = true;
                 spriteRenderer.enabled = false;
                 sprHitMotion.flipX = spriteRenderer.flipX;
 
-                while (time > 0)
-                {
-                    posY += gravity * Time.fixedDeltaTime;
-                    sprHitMotion.transform.localPosition = new Vector2(0f, posY);
-                    time -= Time.fixedDeltaTime;
-                    gravity -= 0.002f;
-                    yield return new WaitForFixedUpdate();
-                }
+                await sprHitMotion.transform.DOLocalJump(Vector2.zero, 1.5f, 1, 1f).SetEase(Ease.Linear);
 
-                while (time < 3f && posY > 0)
-                {
-                    posY -= gravity * Time.fixedDeltaTime;
-                    sprHitMotion.transform.localPosition = new Vector2(0f, posY);
-                    time += Time.fixedDeltaTime;
-                    gravity += 0.002f;
-                    yield return new WaitForFixedUpdate();
-                }
                 sprHitMotion.enabled = false;
                 spriteRenderer.enabled = true;
                 ChangeState((int)CharacterState.idle);

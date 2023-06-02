@@ -53,19 +53,19 @@
     <UnityVersion>2020.3.22f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\PlayerLoopTimerTest.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\Shims.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\AsyncTest.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\CoroutineToUniTaskTest.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\WhenAnyTest.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\Preserve.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\DelayTest.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\GenericsWhenAllAny.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\CachelikeTest.cs" />
-    <Compile Include="Assets\UniTask-master\src\UniTask\Assets\Tests\RunTest.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\PlayerLoopTimerTest.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\Shims.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\AsyncTest.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\CoroutineToUniTaskTest.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\WhenAnyTest.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\Preserve.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\DelayTest.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\GenericsWhenAllAny.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\CachelikeTest.cs" />
+    <Compile Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\RunTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\UniTask-master\src\UniTask\Assets\Tests\UniTask.Tests.asmdef" />
+    <None Include="Assets\Plugins\UniTask\src\UniTask\Assets\Tests\UniTask.Tests.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -283,6 +283,9 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\Program Files\Unity\Hub\Editor\2020.3.22f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
