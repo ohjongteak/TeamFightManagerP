@@ -44,11 +44,6 @@ public class KnightCharacter : CharacterPersnality
         Init();
     }
 
-    private void Update()
-    {
-
-    }
-
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
