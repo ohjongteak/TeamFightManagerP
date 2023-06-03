@@ -90,14 +90,12 @@ public abstract class CharacterPersnality : MonoBehaviour
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
 
-        maxSkillCool = 1f;
+        maxSkillCool = 10f;
         maxUltimateCool = 30f;
 
         UltimateCoolTime();
         AttackCoolTime();
         SkillCoolTime();
-
-        if (teamDivid == TeamDivid.enemyTeam) Hit(0f, Debuff.airborne);
     }
 
     public void CharaterAction()
@@ -105,7 +103,7 @@ public abstract class CharacterPersnality : MonoBehaviour
         if (isDead || state == CharacterState.hit || isRevive) return;
 
         // 좌우반전
-        if (targetCharacter != null && !targetCharacter.isDead && state != CharacterState.ultimate && state != CharacterState.hit)
+        if (targetCharacter != null && !targetCharacter.isDead && (state == CharacterState.idle || state == CharacterState.walk || state == CharacterState.attack))
         {
             if (targetCharacter.transform.position.x > transform.position.x) spriteRenderer.flipX = false;
             else if (targetCharacter.transform.position.x < transform.position.x) spriteRenderer.flipX = true;
@@ -264,17 +262,13 @@ public abstract class CharacterPersnality : MonoBehaviour
         }
     }
 
-    public async UniTaskVoid KnockBack(Vector3 v3AttackPos)
+    public async void KnockBack(Vector3 v3KnockBackPos)
     {
         ChangeState((int)CharacterState.hit);
-        Vector3 v3MovePoint = v3AttackPos - transform.position;
-        v3MovePoint = v3MovePoint.normalized;
 
-        while (state == CharacterState.hit && !isDead)
-        {
-            transform.position -= v3MovePoint * 0.5f * Time.deltaTime;
-            await UniTask.Yield();
-        }
+        await transform.DOMove(v3KnockBackPos, 0.6f).SetEase(Ease.Linear);
+
+        ChangeState((int)CharacterState.idle);
     }
 
     public void Retire()
@@ -294,7 +288,7 @@ public abstract class CharacterPersnality : MonoBehaviour
     //공격가능범위체크
     private bool isCanAttackRange()
     {
-        if (Vector2.Distance(transform.position, targetCharacter.transform.position) <= attackRange * 0.5f)
+        if (Vector2.Distance(transform.position, targetCharacter.transform.position) <= attackRange)
             return true;
 
         return false;
@@ -329,7 +323,7 @@ public abstract class CharacterPersnality : MonoBehaviour
 
         if (state == CharacterState.ultimate) return;
 
-        if (Vector2.Distance(transform.position, targetCharacter.transform.position) > attackRange * 0.5f)
+        if (Vector2.Distance(transform.position, targetCharacter.transform.position) > attackRange)
             ChangeState(((int)CharacterState.walk));
         else if(attackCool >= attackSpeed)
             ChangeState(((int)CharacterState.attack));
@@ -434,6 +428,10 @@ public abstract class CharacterPersnality : MonoBehaviour
                 animator.Play("Hit");
                 break;
             case CharacterState.dead:
+                sprHitMotion.enabled = false;
+                spriteRenderer.enabled = true;
+                DOTween.Kill(transform);
+
                 animator.SetBool("Dead", true);
                 animator.Play("Dead");
                 break;

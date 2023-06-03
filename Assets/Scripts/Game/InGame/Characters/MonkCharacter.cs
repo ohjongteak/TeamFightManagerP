@@ -44,11 +44,6 @@ public class MonkCharacter : CharacterPersnality
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-
-    }
-
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);

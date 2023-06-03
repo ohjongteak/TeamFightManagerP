@@ -49,11 +49,6 @@ public class BowManCharacter : CharacterPersnality
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-
-    }
-
     public override void CharacterAttack()
     {
         if (state == CharacterState.ultimate) UltimateTarget();
