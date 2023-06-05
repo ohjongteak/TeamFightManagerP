@@ -9,9 +9,6 @@ public class ImageManager : MonoBehaviour
     public Sprite[] conditionArrow;// 선수들의 컨디션 
     public Sprite[] arrTeamLogo;//팀로고들
     public Sprite[] arrLeagueLogo;//리그로고
-    public Sprite[] arrHeadset;
-    public Sprite[] arrController;
-    public Sprite[] arrChair;
-    public Sprite[] arrUniform;
+    public Sprite[] arrEquipItem;
      
 }

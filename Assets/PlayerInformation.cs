@@ -32,10 +32,10 @@ namespace Framework.UI
         public bool[] arrHaveController;
         public bool[] arrHaveChair;
         public bool[] arrHaveUniform;
-        public bool[] arrWearHeadset;
-        public bool[] arrWearController;
-        public bool[] arrWearChair;
-        public bool[] arrWearUniform;
+        public int wearHeadset;
+        public int wearController;
+        public int wearChair;
+        public int wearUniform;
 
     }
 

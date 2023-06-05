@@ -1,105 +1,657 @@
 ﻿{
   "equipInfo": [
+
     {
-      "indexItem": 100,
+      "itemIndex":1000,
       "ItemName": "평범한헤드셋",
       "unlock": "true",
-      "BonusStatCount": 10,
-      "BonusType": [
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        3
+
+      ],
+
+      "arrBonusType": [
         0,
         0,
         0,
         0,
         1,
         1
-      ]
-
-
-
-    },
-
-    {
-      "indexCharacter": 101,
-      "positionName": "전사",
-      "characterName": "검사",
-      "unlock": "true",
-      "healthPoint": 100,
-      "attackDamage": 17,
-      "attackSpeed": 2,
-      "moveSpeed": 3.5,
-      "attackRange": 2,
-      "defence": 3
+      ],
+      "arrTypeMastery": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 100
 
     },
 
     {
-      "indexCharacter": 102,
-      "positionName": "전사",
-      "characterName": "격투가",
-      "unlock": "true",
-      "healthPoint": 150,
-      "attackDamage": 13,
-      "attackSpeed": 2,
-      "moveSpeed": 4,
-      "attackRange": 2,
-      "defence": 3
+      "itemIndex": 1001,
+      "ItemName": "안평범한헤드셋",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        2
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "arrTypeMastery": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 101
 
     },
 
     {
-      "indexCharacter": 200,
-      "positionName": "원거리",
-      "characterName": "궁수",
-      "unlock": "true",
-      "healthPoint": 50,
-      "attackDamage": 15,
-      "attackSpeed": 1,
-      "moveSpeed": 2,
-      "attackRange": 7,
-      "defence": 2
-    },
+      "itemIndex": 1002,
+      "ItemName": "레어 헤드셋",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        2
 
-    {
-      "indexCharacter": 201,
-      "positionName": "원거리",
-      "characterName": "소총수",
-      "unlock": "true",
-      "healthPoint": 60,
-      "attackDamage": 15,
-      "attackSpeed": 1.5,
-      "moveSpeed": 2,
-      "attackRange": 9,
-      "defence": 2
+      ],
 
-    },
-
-    {
-      "indexCharacter": 300,
-      "positionName": "전투 보조",
-      "characterName": "몽크",
-      "unlock": "true",
-      "healthPoint": 200,
-      "attackDamage": 10,
-      "attackSpeed": 3,
-      "moveSpeed": 3,
-      "attackRange": 2,
-      "defence": 4
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrChampMastery": 0
 
     },
 
     {
-      "indexCharacter": 400,
-      "positionName": "암살자",
-      "characterName": "닌자",
+      "itemIndex": 1003,
+      "ItemName": "유니크 헤드셋",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 1004,
+      "ItemName": "전설 헤드셋",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+
+    },
+
+    {
+      "itemIndex": 2000,
+      "ItemName": "평범한 키보드",
       "unlock": "true",
-      "healthPoint": 70,
-      "attackDamage": 20,
-      "attackSpeed": 0.5,
-      "moveSpeed": 4,
-      "attackRange": 1.5,
-      "defence": 2
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 2001,
+      "ItemName": "안평범한 키보드",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 2002,
+      "ItemName": "레어 키보드",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 2003,
+      "ItemName": "유니크 키보드",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 2004,
+      "ItemName": "전설 키보드",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 3000,
+      "ItemName": "평범한 의자",
+      "unlock": "true",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+
+    },
+
+    {
+      "itemIndex": 3001,
+      "ItemName": "안평범한 의자",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+
+    },
+
+    {
+
+      "itemIndex": 3002,
+      "ItemName": "레어 의자",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 3003,
+      "ItemName": "유니크 의자",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+      "itemIndex": 3004,
+      "ItemName": "전설 의자",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+
+    {
+      "itemIndex": 4000,
+      "ItemName": "평범한 유니폼",
+      "unlock": "true",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+
+    {
+      "itemIndex": 4001,
+      "ItemName": "안평범한 유니폼",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+
+    {
+
+      "itemIndex": 4002,
+      "ItemName": "레어 유니폼",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+    },
+    {
+      "itemIndex": 4003,
+      "ItemName": "유니크 유니폼",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
+
+    },
+
+    {
+      "itemIndex": 4004,
+      "ItemName": "전설 유니폼",
+      "unlock": "false",
+      "arrBonusStatCount": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+
+      ],
+
+      "arrBonusType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "arrTypeMastery": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ChampMastery": 0
 
     }
 
+  ]
 
 }

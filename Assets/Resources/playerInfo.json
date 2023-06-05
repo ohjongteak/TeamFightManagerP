@@ -53,41 +53,13 @@
       0
 
     ],
-    "arrWearHeadset": [
-      1,
-      0,
-      0,
-      0,
-      0
+    "wearHeadset": 1000,
 
-    ],
-    "arrWearController": [
-      1,
-      0,
-      0,
-      0,
-      0
+    "wearController": 2000,
 
-    ],
-    "arrWearChair": [
-      1,
-      0,
-      0,
-      0,
-      0
+    "wearChair": 3000,
 
-    ],
-    "arrWearUniform": [
-      1,
-      0,
-      0,
-      0,
-      0
-
-    ]
-
-
-
+    "wearUniform": 4000
 
   }
        
