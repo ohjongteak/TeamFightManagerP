@@ -95,7 +95,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.25
-    functionName: CharacterAttack
+    functionName: SkillAttack
     data: 
     objectReferenceParameter: {fileID: 1069667293104830339, guid: d1a6d1361cd780143a63d5d73a0c5f39, type: 3}
     floatParameter: 0

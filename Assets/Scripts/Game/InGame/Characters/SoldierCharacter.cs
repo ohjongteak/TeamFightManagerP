@@ -48,12 +48,6 @@ public class SoldierCharacter : CharacterPersnality
         objectPool = GetComponent<ObjectPool>();
         animator = GetComponent<Animator>();
     }
-
-    private void Update()
-    {
-
-    }
-
     public override void CharacterAttack()
     {
         if (!targetCharacter.isDead)

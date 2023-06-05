@@ -9,7 +9,7 @@
           "attackDamage": 10,
           "attackSpeed": 2,
           "moveSpeed": 3,
-          "attackRange" : 2,
+          "attackRange" : 1,
           "defence" : 5
 
         },
@@ -23,7 +23,7 @@
           "attackDamage": 17,
           "attackSpeed": 2,
           "moveSpeed": 3.5,
-          "attackRange" : 2,
+          "attackRange" : 1,
           "defence" : 3
 
         },
@@ -37,7 +37,7 @@
           "attackDamage": 13,
           "attackSpeed": 2,
           "moveSpeed": 4,
-          "attackRange" : 2,
+          "attackRange" : 1,
           "defence" : 3
 
         },
@@ -51,7 +51,7 @@
           "attackDamage": 15,
           "attackSpeed": 1,
           "moveSpeed": 2,
-          "attackRange" : 7,
+          "attackRange" : 3.5,
           "defence" : 2
         },
         
@@ -64,7 +64,7 @@
           "attackDamage": 15,
           "attackSpeed": 1.5,
           "moveSpeed": 2,
-          "attackRange" : 9,
+          "attackRange" : 4.5,
           "defence" : 2
 
         },
@@ -78,7 +78,7 @@
           "attackDamage": 10,
           "attackSpeed": 3,
           "moveSpeed": 3,
-          "attackRange" : 2,
+          "attackRange" : 1,
           "defence" : 4
 
         },
@@ -92,7 +92,7 @@
           "attackDamage": 20,
           "attackSpeed": 0.5,
           "moveSpeed": 4,
-          "attackRange" : 1.5,
+          "attackRange" : 0.75,
           "defence" : 2
 
         }

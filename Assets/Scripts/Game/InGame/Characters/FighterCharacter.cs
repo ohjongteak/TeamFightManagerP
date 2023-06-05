@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 public class FighterCharacter : CharacterPersnality
 {
     float ultimateRange;
+    int skillIndex = 0;
+    Vector3 v3KnockBackPos;
     
     public override void Init()
     {
@@ -47,10 +50,6 @@ public class FighterCharacter : CharacterPersnality
         ultimateRange = 3f;
     }
 
-    private void Update()
-    {
-    }
-
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
@@ -69,13 +68,13 @@ public class FighterCharacter : CharacterPersnality
 
     public override void CharacterSkill()
     {
-
+        ActiveSkill();
     }
 
     // 스킬 사용가능 체크
     public override bool isCanSkill()
     {
-        if (targetCharacter != null && !targetCharacter.isDead && Vector2.Distance(transform.position, targetCharacter.transform.position) <= attackRange * 0.5f)
+        if (targetCharacter != null && !targetCharacter.isDead && Vector2.Distance(transform.position, targetCharacter.transform.position) <= attackRange)
             return true;
 
         return false;
@@ -89,5 +88,42 @@ public class FighterCharacter : CharacterPersnality
             return true;
 
         return false;
+    }
+
+    public void SkillAttack()
+    {
+        targetCharacter.Hit(attackDamage);
+        Vector3 v3Dist = targetCharacter.transform.position - transform.position;
+        Vector3 v3Dir = v3Dist.normalized;
+        Vector3 v3HitPos = transform.position + v3Dir * 2f;
+        targetCharacter.KnockBack(v3HitPos);
+        v3KnockBackPos = transform.position + v3Dir * 1.3f;
+    }
+
+    private async UniTask ActiveSkill()
+    {
+        Vector3 v3Dist, v3Dir, v3SkillPos = Vector3.zero;
+        float animSpeed = animator.speed;
+
+        if (skillIndex == 0)
+        {
+            float distance = Vector2.Distance(transform.position, targetCharacter.transform.position);
+            v3Dist = targetCharacter.transform.position - transform.position;
+            v3Dir = v3Dist.normalized;
+            v3SkillPos = transform.position + v3Dir * (distance * 1.8f);
+            skillIndex++;
+        }
+        else
+        {
+            v3SkillPos = v3KnockBackPos;
+            skillIndex = 0;
+        }
+
+        animator.speed = 0f;
+        await transform.DOMove(v3SkillPos, 0.4f).SetEase(Ease.Linear);
+        animator.speed = animSpeed;
+
+
+        await UniTask.Yield();
     }
 }
