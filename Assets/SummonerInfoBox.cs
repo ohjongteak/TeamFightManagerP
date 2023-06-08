@@ -2,26 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.EventSystems;
 namespace Framework.UI
 { 
-    public class SummonerInfoBox : MonoBehaviour
+    public class SummonerInfoBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
 
         public TrainingSummonerSort trainingSummonerSort;
         [SerializeField]
         public TrainingManager trainingManager;
-       
 
+        [SerializeField]
+        private Outline outline;
         // Start is called before the first frame update
-        private void OnMouseEnter() //마우스 오버 시 아웃라인 켜기
+
+        private void Start()
         {
-            this.GetComponent<Outline>().enabled = true;
+            outline = this.GetComponent<Outline>();
         }
 
-        private void OnMouseExit() //마우스 나갈 시 아웃라인 끄기
+        public void OnPointerExit(PointerEventData eventData)
         {
-            this.GetComponent<Outline>().enabled = false;
+            outline.enabled = false;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            outline.enabled = true;
         }
 
         public void ChangeColor() 

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ChampionListButtonChange : MonoBehaviour
+using UnityEngine.EventSystems;
+public class ChampionListButtonChange : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Image thisImage;
@@ -13,14 +14,14 @@ public class ChampionListButtonChange : MonoBehaviour
     public CharacterType myCharacterType;
     // Start is called before the first frame update
 
-    private void OnMouseEnter()
-    {
-        outline.enabled = true;
-    }
-
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         outline.enabled = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        outline.enabled = true;
     }
 
     public void ChangeBoxSize()
