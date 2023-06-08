@@ -61,10 +61,24 @@
           "characterName" : "소총수",
           "unlock" : "true",
           "healthPoint": 60,
-          "attackDamage": 15,
+          "attackDamage": 20,
           "attackSpeed": 1.5,
           "moveSpeed": 2,
           "attackRange" : 4.5,
+          "defence" : 2
+
+        },
+
+        {
+          "indexCharacter" :202,
+          "positionName" : "원거리",
+          "characterName" : "도박사",
+          "unlock" : "true",
+          "healthPoint": 600000000,
+          "attackDamage": 15,
+          "attackSpeed": 1,
+          "moveSpeed": 2,
+          "attackRange" : 3,
           "defence" : 2
 
         },

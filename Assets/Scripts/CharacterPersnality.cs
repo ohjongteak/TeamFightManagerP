@@ -49,12 +49,14 @@ public abstract class CharacterPersnality : MonoBehaviour
     [HideInInspector] public float maxUltimateCool;
      public float buff_defence;
 
+    private bool isUseUltimate = false;
     public CharacterType myCharacterType;
     public CharacterJsonRead characterJsonRead;
-    public float shield;
     public bool isDead = false;
     public bool isFakeUnit;
     public bool isTaunt = false;
+    public float shield;
+    [HideInInspector] public Queue<float> quShield;
 
     public CharacterState state;
     public TeamDivid teamDivid;
@@ -90,8 +92,8 @@ public abstract class CharacterPersnality : MonoBehaviour
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
 
-        maxSkillCool = 10f;
-        maxUltimateCool = 30f;
+        maxSkillCool = 10000f;
+        maxUltimateCool = 1f;
 
         UltimateCoolTime();
         AttackCoolTime();
@@ -103,7 +105,7 @@ public abstract class CharacterPersnality : MonoBehaviour
         if (isDead || state == CharacterState.hit || isRevive) return;
 
         // ÁÂ¿ì¹ÝÀü
-        if (targetCharacter != null && !targetCharacter.isDead && (state == CharacterState.idle || state == CharacterState.walk || state == CharacterState.attack))
+        if (targetCharacter != null && !targetCharacter.isDead && (state == CharacterState.idle || state == CharacterState.walk))
         {
             if (targetCharacter.transform.position.x > transform.position.x) spriteRenderer.flipX = false;
             else if (targetCharacter.transform.position.x < transform.position.x) spriteRenderer.flipX = true;
@@ -202,16 +204,19 @@ public abstract class CharacterPersnality : MonoBehaviour
     public async UniTaskVoid Ultimate()
     {
         ultimateCool = 0;
+        isUseUltimate = true;
         ChangeState(((int)CharacterState.ultimate));
     }
 
     public async UniTaskVoid UltimateCoolTime()
     {
-        if (isFakeUnit) return;
+        if (isFakeUnit || isUseUltimate) return;
 
         ultimateCool = 0f;
         while (maxUltimateCool > ultimateCool)
         {
+            if (isUseUltimate) break;
+
             ultimateCool += Time.deltaTime;
 
             await UniTask.Yield();
@@ -269,6 +274,11 @@ public abstract class CharacterPersnality : MonoBehaviour
         await transform.DOMove(v3KnockBackPos, 0.6f).SetEase(Ease.Linear);
 
         ChangeState((int)CharacterState.idle);
+    }
+
+    public void SetShield()
+    {
+        //////////////////////////////////////////////
     }
 
     public void Retire()

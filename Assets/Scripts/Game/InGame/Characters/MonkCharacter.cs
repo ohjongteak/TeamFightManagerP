@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 
 public class MonkCharacter : CharacterPersnality
 {
+    List<CharacterPersnality> listBuffCharacter = new List<CharacterPersnality>();
+
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
@@ -55,7 +57,11 @@ public class MonkCharacter : CharacterPersnality
         for (int i = 0; i < listTeamCharacters.Count; i++)
         {
             if (!listTeamCharacters[i].isDead)
+            {
                 listTeamCharacters[i].shield += 50;
+                listTeamCharacters[i].moveSpeed += 0.5f;
+                listBuffCharacter.Add(listTeamCharacters[i]);
+            }
         }
 
         Debug.Log("몽크 궁극기 - 쉴드생성");
@@ -67,9 +73,9 @@ public class MonkCharacter : CharacterPersnality
     {
         yield return new WaitForSeconds(7f);
 
-        for (int i = 0; i < listTeamCharacters.Count; i++)
+        for (int i = 0; i < listBuffCharacter.Count; i++)
         {
-            listTeamCharacters[i].shield = 0;
+            listBuffCharacter[i].moveSpeed -= 0.5f;
         }
 
         Debug.Log("몽크 궁극기 - 쉴드 제거");
