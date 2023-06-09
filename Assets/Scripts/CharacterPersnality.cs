@@ -55,8 +55,9 @@ public abstract class CharacterPersnality : MonoBehaviour
     public bool isDead = false;
     public bool isFakeUnit;
     public bool isTaunt = false;
-    public float shield;
-    [HideInInspector] public Queue<float> quShield;
+
+    [Header("½¯µå")] public float shield;
+    [HideInInspector] public List<(float, float)> listShield = new List<(float, float)>();
 
     public CharacterState state;
     public TeamDivid teamDivid;
@@ -92,8 +93,8 @@ public abstract class CharacterPersnality : MonoBehaviour
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
 
-        maxSkillCool = 10000f;
-        maxUltimateCool = 1f;
+        maxSkillCool = 10f;
+        maxUltimateCool = 30f;
 
         UltimateCoolTime();
         AttackCoolTime();
@@ -225,16 +226,19 @@ public abstract class CharacterPersnality : MonoBehaviour
 
     public async UniTaskVoid Hit(float attackDamage, Debuff debuff = Debuff.none)
     {
-        float damage = attackDamage;
+        float damage = attackDamage - defense - buff_defence;
 
         if(shield > 0)
         {
-            shield -= damage - defense - buff_defence;
+            if (damage > 0)
+            {
+                HitShield(damage);
+            }
 
-            if (shield < 0) damage = damage - shield + defense + buff_defence;
+            if (shield < damage) damage -= shield;
         }
 
-        healthPoint -= damage - defense - buff_defence;
+        healthPoint -= damage;
 
         if (healthPoint <= 0)
         {
@@ -276,9 +280,61 @@ public abstract class CharacterPersnality : MonoBehaviour
         ChangeState((int)CharacterState.idle);
     }
 
-    public void SetShield()
+    public void HitShield(float shieldPower, float duration = 0)
     {
-        //////////////////////////////////////////////
+        if (duration > 0)
+        {
+            listShield.Add((shieldPower, duration));
+
+            if (listShield.Count == 1) ShiledDuration();
+        }
+        else
+        {
+            float shieldGauge = listShield[0].Item1 - shieldPower;
+
+            while (shieldGauge < 0)
+            {
+                shieldGauge = listShield[1].Item1 - shieldGauge;
+                listShield.RemoveAt(0);
+            }
+
+            listShield[0] = (shieldGauge, listShield[0].Item2);
+        }
+
+        float totalShield = 0f;
+        for (int i = 0; i < listShield.Count; i++)
+        {
+            totalShield += listShield[i].Item1;
+        }
+
+        shield = totalShield;
+    }
+
+    private async UniTask ShiledDuration()
+    {
+        while (listShield.Count > 0)
+        {
+            for (int i = 0; i < listShield.Count; i++)
+            {
+                float shiledTime = Mathf.Floor((listShield[i].Item2 - 0.1f) * 10f) / 10f;
+                listShield[i] = (listShield[i].Item1, shiledTime);
+
+                if (listShield[i].Item2 <= 0f)
+                {
+                    listShield.RemoveAt(i);
+
+                    if (listShield.Count > 0)
+                    {
+                        for (int j = 0; j < listShield.Count; j++)
+                            shield += listShield[j].Item1;
+                    }
+                    else
+                        shield = 0f;
+                }
+
+                await UniTask.Delay(System.TimeSpan.FromSeconds(0.1f));
+            }
+        }
     }
 
     public void Retire()
