@@ -1,0 +1,2 @@
+E:\TeamFightManagerP\obj\Debug\UniTask.Addressables.csproj.AssemblyReference.cache
+E:\TeamFightManagerP\obj\Debug\UniTask.Addressables.csproj.CoreCompileInputs.cache
