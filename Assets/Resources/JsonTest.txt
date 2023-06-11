@@ -74,7 +74,7 @@
           "positionName" : "원거리",
           "characterName" : "도박사",
           "unlock" : "true",
-          "healthPoint": 600000000,
+          "healthPoint": 60,
           "attackDamage": 15,
           "attackSpeed": 1,
           "moveSpeed": 2,

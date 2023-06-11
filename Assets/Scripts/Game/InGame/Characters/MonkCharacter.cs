@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
+
+// 쉴드 5초지속
 
 public class MonkCharacter : CharacterPersnality
 {
@@ -58,7 +59,7 @@ public class MonkCharacter : CharacterPersnality
         {
             if (!listTeamCharacters[i].isDead)
             {
-                listTeamCharacters[i].shield += 50;
+                listTeamCharacters[i].HitShield(50f, 5f);
                 listTeamCharacters[i].moveSpeed += 0.5f;
                 listBuffCharacter.Add(listTeamCharacters[i]);
             }
@@ -78,7 +79,7 @@ public class MonkCharacter : CharacterPersnality
             listBuffCharacter[i].moveSpeed -= 0.5f;
         }
 
-        Debug.Log("몽크 궁극기 - 쉴드 제거");
+        Debug.Log("몽크 궁극기 - 버프 제거");
 
     }
 
