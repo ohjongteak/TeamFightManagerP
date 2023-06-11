@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+using Newtonsoft.Json;
 namespace Framework.UI
 {
     public class SummonerLoadManager : MonoBehaviour
@@ -18,7 +18,7 @@ namespace Framework.UI
             try
             {
                 summonerStateText = Resources.Load("PlayerSummoner") as TextAsset;
-                summonerCharacterList = JsonUtility.FromJson<SummonerCharacter>(summonerStateText.text);
+                summonerCharacterList = JsonConvert.DeserializeObject<SummonerCharacter>(summonerStateText.text);
             }
             catch
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Newtonsoft.Json;
 namespace Framework.UI
 {
     public enum LimitScout//선수 스카웃 창 상태
@@ -55,7 +56,7 @@ namespace Framework.UI
         public void Init()//초기화
         {
             scoutText = Resources.Load("ScoutList") as TextAsset;
-            scoutList = JsonUtility.FromJson<ScoutList>(scoutText.text);
+            scoutList = JsonConvert.DeserializeObject<ScoutList>(scoutText.text);
 
             for(int i = 0; i < arrScoutSlots.Length; i++)
             {

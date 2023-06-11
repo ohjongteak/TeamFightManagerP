@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+using Newtonsoft.Json;
 namespace Framework.UI
 {
     public class SaveManager : MonoBehaviour
@@ -17,9 +17,9 @@ namespace Framework.UI
         {
             SummonerCharacter summonerCharacter = summonerManager.SetSummonerCharacter();
           
-            string json = JsonUtility.ToJson(summonerCharacter, true);
+            string json = JsonConvert.SerializeObject(summonerCharacter);
             File.WriteAllText(Application.dataPath + "/Resources" + "/PlayerSummoner.json", json);
-
+            
         }
 
         void PlayerInformationSave()

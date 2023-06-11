@@ -157,7 +157,7 @@ namespace Framework.UI
             GameObject playerSummoner = Instantiate(summonerPrefab, parent);
             playerSummoner.transform.GetChild(0).GetComponent<Image>().sprite = imgManager.hairSpirte[summonerStateList[i].hairIndex];
 
-
+            
 
             return playerSummoner;
         }

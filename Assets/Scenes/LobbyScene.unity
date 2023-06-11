@@ -15616,7 +15616,7 @@ GameObject:
   - component: {fileID: 913867403}
   - component: {fileID: 913867402}
   m_Layer: 5
-  m_Name: EquipmentBackGround
+  m_Name: EquipChangBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29699,14 +29699,14 @@ MonoBehaviour:
   equipInfoText: {fileID: 0}
   playerInformation: {fileID: 1591208201}
   attackText: {fileID: 506108710}
-  deffenceText: {fileID: 1020042655}
-  equipBonusAttack: 0
-  equipBonusDefence: 0
+  defenceText: {fileID: 1020042655}
+  champStatBonus: 0
   itemInfoBox:
   - {fileID: 1839907088}
   - {fileID: 1905848722}
   - {fileID: 1244151667}
   - {fileID: 928978964}
+  equipChangeBG: {fileID: 0}
 --- !u!114 &1888625101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31049,6 +31049,7 @@ GameObject:
   - component: {fileID: 1981600695}
   - component: {fileID: 1981600694}
   - component: {fileID: 1981600693}
+  - component: {fileID: 1981600697}
   m_Layer: 5
   m_Name: MainCanvas
   m_TagString: Untagged
@@ -31154,6 +31155,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1981600697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981600692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc5c03bf01d4c94fbfad4a5c5d3f4f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pra:
+    aa:
+      nonono: 0
+      yesyes: 
 --- !u!1 &1982460027
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Newtonsoft.Json;
 public class CharacterJsonRead : MonoBehaviour
 {
 
@@ -10,7 +10,7 @@ public class CharacterJsonRead : MonoBehaviour
     // Start is called before the first frame update
     public void Init()
     {
-        characterStateList = JsonUtility.FromJson<CharacterStateList>(textJson.text);
+        characterStateList = JsonConvert.DeserializeObject<CharacterStateList>(textJson.text);
         //Debug.Log(aa.characterState[0].Name);
     }
 

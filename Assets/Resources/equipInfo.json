@@ -24,13 +24,19 @@
         1
       ],
       "arrTypeMastery": [
+        2,
         1,
-        0,
         0,
         0,
         0
       ],
-      "ChampMastery": 100
+
+      "dicChampMastery": {
+        "기사": 1,
+        "궁수": 2
+      }
+
+
 
     },
 
@@ -63,10 +69,14 @@
         0,
         0
       ],
-      "ChampMastery": 101
 
+
+      "dicChampMastery": {
+        "0": 1
+        
+
+      }
     },
-
     {
       "itemIndex": 1002,
       "ItemName": "레어 헤드셋",
@@ -96,7 +106,11 @@
         0,
         0
       ],
-      "arrChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
 
     },
 
@@ -129,7 +143,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -161,7 +179,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
 
     },
 
@@ -194,7 +216,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -226,7 +252,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -258,7 +288,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -290,7 +324,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -322,7 +360,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -354,7 +396,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
 
     },
 
@@ -387,7 +433,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
 
     },
 
@@ -421,7 +471,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -453,7 +507,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -485,7 +543,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
 
@@ -518,7 +580,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
 
@@ -551,7 +617,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
 
     {
@@ -584,7 +654,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
     },
     {
       "itemIndex": 4003,
@@ -615,7 +689,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
 
     },
 
@@ -648,7 +726,11 @@
         0,
         0
       ],
-      "ChampMastery": 0
+      "dicChampMastery": {
+        "0": 1
+
+
+      }
 
     }
 

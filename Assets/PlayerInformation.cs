@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
 namespace Framework.UI
 {
     [System.Serializable]
@@ -50,7 +51,7 @@ namespace Framework.UI
         public void Init()//√ ±‚»≠
         {
             PlayerInfoText = Resources.Load("playerInfo") as TextAsset;
-            playerInfoCollet = JsonUtility.FromJson<PlayerInfoCollect>(PlayerInfoText.text);
+            playerInfoCollet = JsonConvert.DeserializeObject<PlayerInfoCollect>(PlayerInfoText.text);
             //Debug.Log(DateTime.Parse(playerInfoCollet.playerInfo.Date));
             //aa.ToOADate(DateTime.Parse(playerInfoCollet.playerInfo.Date);
         }
