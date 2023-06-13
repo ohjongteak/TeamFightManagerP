@@ -9,18 +9,13 @@ public class FighterCharacter : CharacterPersnality
     float ultimateRange;
     int skillIndex = 0;
     Vector3 v3KnockBackPos;
-    
+
+    // 캐릭터 데이터 입력
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
 
-        //공격할 대상자를 리스트에 넣기 거리를 계산해서 가장 가까운 거리에 있는 적을 공격하기 위함
-        //for (int i = 0; i < listEnemy.Count; i++)
-        //    listEnemyDistance.Add(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
-
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
-
-        //Debug.Log(CharacterStateList[0]);
 
         for (int i = 0; i < CharacterStateArray.Length; i++)
         {
@@ -37,9 +32,6 @@ public class FighterCharacter : CharacterPersnality
                 defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
-                // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
-                //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
-
             }
         }
     }
@@ -50,25 +42,28 @@ public class FighterCharacter : CharacterPersnality
         ultimateRange = 3f;
     }
 
+    // 캐릭터 공격 (애니메이션 이벤트로 사용중)
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
         AttackCoolTime();
     }
 
+    // 캐릭터 스킬 (애니메이션 이벤트로 사용중)
+    public override void CharacterSkill()
+    {
+        ActiveSkill();
+    }
+
+    // 캐릭터 궁극기 (애니메이션 이벤트로 사용중) - 범위 공격(에어본)
     public override void CharacterUltimate()
     {
-        for(int i = 0; i < listEnemyCharacters.Count; i++)
+        for (int i = 0; i < listEnemyCharacters.Count; i++)
         {
             if (Vector2.Distance(listEnemyCharacters[i].transform.position, transform.position) < ultimateRange)
                 listEnemyCharacters[i].Hit(attackDamage * 1.3f, Debuff.airborne);
         }
         Debug.Log("격투가 궁극기 : 범위 에어본");
-    }
-
-    public override void CharacterSkill()
-    {
-        ActiveSkill();
     }
 
     // 스킬 사용가능 체크
@@ -80,6 +75,7 @@ public class FighterCharacter : CharacterPersnality
         return false;
     }
 
+    // 궁극기 사용가능 체크
     public override bool isCanUltimate()
     {
         float distance = Vector2.Distance(transform.position, targetCharacter.transform.position);
@@ -90,6 +86,7 @@ public class FighterCharacter : CharacterPersnality
         return false;
     }
 
+    // 스킬공격 - 적 넉백
     public void SkillAttack()
     {
         targetCharacter.Hit(attackDamage);
@@ -100,7 +97,8 @@ public class FighterCharacter : CharacterPersnality
         v3KnockBackPos = transform.position + v3Dir * 1.3f;
     }
 
-    private async UniTask ActiveSkill()
+    // 스킬 모션에따라 적주변 정해진 위치 이동
+    private async void ActiveSkill()
     {
         Vector3 v3Dist, v3Dir, v3SkillPos = Vector3.zero;
         float animSpeed = animator.speed;

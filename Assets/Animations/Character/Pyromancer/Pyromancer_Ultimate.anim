@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pyromancer_Ultimate
+  serializedVersion: 6
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 2236e4f0c9d8e4c47a6f135b601e3825, type: 3}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: c76bd831159fee847a2490f2564b21e8, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 764a2d493dd7ab3448d392d234115803, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 0896effa561c8ce4fb55a1add6b88262, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 2b8e0d3d2236e54448815ab4d4dfcb29, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: e7acf6b9eb6d947409883ce32f8e8e8f, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 1d80006038c3d61498a53359cd78d8b2, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 204eb187db2e71444b16484d747e5d01, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 8f9417fc83ed2b842ab47cdd8c384b0c, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: ee03c762a8dcd6548b8a0c58f029517a, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 2c30b778e3afd9643819874becda025f, type: 3}
+    - time: 0.9166667
+      value: {fileID: 21300000, guid: 8d8f6a2076e9cb344ab16099dfe00d9c, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: 20631ea9117d11e4f9d31cdb589bb6ce, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+  m_SampleRate: 12
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 2236e4f0c9d8e4c47a6f135b601e3825, type: 3}
+    - {fileID: 21300000, guid: c76bd831159fee847a2490f2564b21e8, type: 3}
+    - {fileID: 21300000, guid: 764a2d493dd7ab3448d392d234115803, type: 3}
+    - {fileID: 21300000, guid: 0896effa561c8ce4fb55a1add6b88262, type: 3}
+    - {fileID: 21300000, guid: 2b8e0d3d2236e54448815ab4d4dfcb29, type: 3}
+    - {fileID: 21300000, guid: e7acf6b9eb6d947409883ce32f8e8e8f, type: 3}
+    - {fileID: 21300000, guid: 1d80006038c3d61498a53359cd78d8b2, type: 3}
+    - {fileID: 21300000, guid: 204eb187db2e71444b16484d747e5d01, type: 3}
+    - {fileID: 21300000, guid: 8f9417fc83ed2b842ab47cdd8c384b0c, type: 3}
+    - {fileID: 21300000, guid: ee03c762a8dcd6548b8a0c58f029517a, type: 3}
+    - {fileID: 21300000, guid: 2c30b778e3afd9643819874becda025f, type: 3}
+    - {fileID: 21300000, guid: 8d8f6a2076e9cb344ab16099dfe00d9c, type: 3}
+    - {fileID: 21300000, guid: 20631ea9117d11e4f9d31cdb589bb6ce, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 1.0833334
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 1.0833334
+    functionName: ChangeState
+    data: 
+    objectReferenceParameter: {fileID: 1069667293104830339, guid: 0fff6f7b6d506b142a6e8c46559c8d06, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

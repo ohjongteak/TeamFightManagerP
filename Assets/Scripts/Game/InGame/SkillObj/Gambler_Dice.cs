@@ -16,7 +16,9 @@ public class Gambler_Dice : MonoBehaviour
         skillAnim = GetComponent<Animator>();
     }
 
-    public async UniTask ActiveDice()
+    // 주사위 애니메이션 보여줄 주사위 눈 스프라이트 설정
+    // 주사위 눈의 값만큼 스킬공격횟수 캐릭터에 입력
+    public async void ActiveDice()
     {
         int diceCount = 0;
         int diceIndex = -1;
@@ -38,11 +40,13 @@ public class Gambler_Dice : MonoBehaviour
         skillAnim.SetInteger("DiceCount", diceCount);
     }
     
+    // 주사위 애니메이션 종료시 안보이도록 설정
     public void BreakDice()
     {
         sprSkillDice.sprite = null;
     }
     
+    // 스킬 종료시 오브젝트 비활성
     public void EndSkill()
     {
         gameObject.SetActive(false);

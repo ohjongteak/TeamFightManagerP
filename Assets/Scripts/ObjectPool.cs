@@ -27,6 +27,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    // Queue에 오브젝트 추가
     private Bullet CreateNewObject()
     {
         var newObj = Instantiate(poolingObjectPrefab).GetComponent<Bullet>();
@@ -35,6 +36,7 @@ public class ObjectPool : MonoBehaviour
         return newObj;
     }
 
+    // Queue에 빼서 오브젝트 사용
     public Bullet GetObject()
     {
         if (Instance.quPoolingObject.Count > 0)
@@ -53,6 +55,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    // 사용한 오브젝트 다시 Queue에 추가
     public void ReturnObject(Bullet obj)
     {
         obj.gameObject.SetActive(false);

@@ -9,16 +9,12 @@ public class Granade : MonoBehaviour
     private Vector2 v2TargetPos;
     private List<CharacterPersnality> listEnemy;
 
-    public GameObject test;
-    public float testDistance;
-
     void FixedUpdate()
     {
+        // 적위치가 아닌 궁극기 시전시 적이 있던 좌표에 공격
+        // 이동 후 범위 데미지
         if (Vector2.Distance(transform.position, v2TargetPos) > 0.3f)
         {
-            //Vector3 dir = target.transform.position - transform.position;
-            //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.position = Vector2.MoveTowards(transform.position, v2TargetPos, speed * Time.deltaTime);
         }
         else
@@ -34,6 +30,7 @@ public class Granade : MonoBehaviour
         }
     }
 
+    // 필요변수 입력
     public void SetGranade(float bulletSpeed, float bulletDamage, Vector2 v2Tartget, List<CharacterPersnality> listEnemyCharacters)
     {
         speed = bulletSpeed;

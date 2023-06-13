@@ -8,7 +8,7 @@
           "healthPoint": 200,
           "attackDamage": 10,
           "attackSpeed": 2,
-          "moveSpeed": 3,
+          "moveSpeed": 0,
           "attackRange" : 1,
           "defence" : 5
 
@@ -107,6 +107,20 @@
           "attackSpeed": 0.5,
           "moveSpeed": 4,
           "attackRange" : 0.75,
+          "defence" : 2
+
+        },
+        
+        {
+          "indexCharacter" :500,
+          "positionName" : "마법사",
+          "characterName" : "화염술사",
+          "unlock" : "true",
+          "healthPoint": 70,
+          "attackDamage": 10,
+          "attackSpeed": 3,
+          "moveSpeed": 2.5,
+          "attackRange" : 2.5,
           "defence" : 2
 
         }
