@@ -6,7 +6,16 @@ using TMPro;
 using Newtonsoft.Json;
 namespace Framework.UI
 {
-   
+    public enum BonusStatType
+    {
+        attackBonus,
+        defenceBonus,
+        attackSpeedBonus,
+        coolTimeBonus,
+        champTypeBonus,
+        champMasteryBonus
+    }
+
 
     [System.Serializable]
     public class EquipInfoCollect
@@ -25,7 +34,7 @@ namespace Framework.UI
         public int[] arrBonusType;
         public int[] arrTypeMastery;
         public Dictionary<int, int> dicChampMastery;
-      
+
 
     }
     [System.Serializable]
@@ -55,35 +64,45 @@ namespace Framework.UI
         private int defenceBonus;
         private int attackSpeedBonus;
         private int coolTimeBonus;
- 
+
         public Queue<int> quChampTypeBonus = new Queue<int>();// 
         public Queue<int> quChampBonusIndex = new Queue<int>();
         public int champStatBonus;
-        [SerializeField]
-        private ItemInfoBox[] itemInfoBox  = new ItemInfoBox[4];
+
         [SerializeField]
         private GameObject equipChangeBG;
+        [SerializeField]
+        List<EquipInfo> equipInfo;
+
+
+
+
         public void Init()
         {
-            
+
             equipInfoText = Resources.Load("equipInfo") as TextAsset;
             equipInfoCollet = JsonConvert.DeserializeObject<EquipInfoCollect>(equipInfoText.text);
-            var equipInfo = equipInfoCollet.equipInfo;
+            equipInfo = equipInfoCollet.equipInfo;
             var equipExplain = equipInfoCollet.equipExplain;
             var characterState = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>().characterStateList.characterState;
 
             int[] arrWearUniform = {playerInformation.GetPlayerInfo().wearHeadset, playerInformation.GetPlayerInfo().wearController,
                 playerInformation.GetPlayerInfo().wearChair, playerInformation.GetPlayerInfo().wearUniform };
 
-            for(int i = 0; i <arrWearUniform.Length; i++)
+
+
+
+
+            for (int i = 0; i < arrWearUniform.Length; i++)
             {
-                equipSetting(equipInfo, equipExplain, characterState, arrWearUniform[i], i);
+                ChangeSetting(equipExplain, characterState, arrWearUniform[i], i, arrEquipChild[i].GetChild(1).GetComponent<TextMeshProUGUI>()
+                    , arrEquipChild[i].GetChild(2).GetComponent<TextMeshProUGUI>(), arrEquipChild[i].GetChild(0).GetComponent<Image>());
             }
 
             attackText.text = "+" + attackBonus;
             defenceText.text = "+" + defenceBonus;
 
-           
+
             //if (equipInfo[0].dicChampMastery.Count > 0)
             //{
             //    for (int i = 0; i < equipInfo[0].dicChampMastery.Count; i++)
@@ -96,59 +115,58 @@ namespace Framework.UI
             //Debug.Log(equipInfo[0].dicChampMastery[]);
         }
 
-        public void equipSetting(List<EquipInfo> equipInfo, equipExplain equipExplain, CharacterJsonRead.CharacterState[] characterState, int itemIndex, int equipIndex)
+        public void ChangeSetting(equipExplain equipExplain, CharacterJsonRead.CharacterState[] characterState, int itemIndex, int equipIndex,
+            TextMeshProUGUI itemName, TextMeshProUGUI itemEffect, Image itemImage = null)
         {
 
             for (int i = 0; i < equipInfoCollet.equipInfo.Count; i++)
             {
                 if (equipInfoCollet.equipInfo[i].itemIndex == itemIndex)
                 {
-                    arrEquipChild[equipIndex].GetChild(0).GetComponent<Image>().sprite = imgManager.arrEquipItem[i];
-                    arrEquipChild[equipIndex].GetChild(1).GetComponent<TextMeshProUGUI>().text = equipInfo[i].ItemName;
+                    if (itemImage != null)
+                        itemImage.sprite = imgManager.arrEquipItem[i];
+
+                    itemName.text = equipInfo[i].ItemName;
+                    //equipChild.GetChild(1).GetComponent<TextMeshProUGUI>().text = equipInfo[i].ItemName;
 
                     for (int z = 0; z < 6; z++)
                     {
                         if (equipInfo[i].arrBonusType[z] > 0)
                         {
-                            if (z == 0)//공격력
+                            if (z == (int)BonusStatType.attackBonus)//공격력
                             {
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += equipExplain.arrTypeMent[z];
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += " +" + equipInfo[i].arrBonusStatCount[z] + " ";
-
+                                itemEffect.text += equipExplain.arrTypeMent[z] + " +" + equipInfo[i].arrBonusStatCount[z] + " ";
                                 attackBonus += equipInfo[i].arrBonusStatCount[z];
-                                
                             }
 
-                            if (z == 1)//방어력
+                            if (z == (int)BonusStatType.defenceBonus)//방어력
                             {
-
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += equipExplain.arrTypeMent[z];
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += " +" + equipInfo[i].arrBonusStatCount[z] + " ";
+                                itemEffect.text += equipExplain.arrTypeMent[z] + " +" + equipInfo[i].arrBonusStatCount[z] + " ";
                                 defenceBonus += equipInfo[i].arrBonusStatCount[z];
                             }
 
-                            if (z == 2)//공격속도
+                            if (z == (int)BonusStatType.attackSpeedBonus)//공격속도
                             {
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += equipExplain.arrTypeMent[z];
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += " +" + equipInfo[i].arrBonusStatCount[z] + " ";
+                                itemEffect.text += equipExplain.arrTypeMent[z] + " +" + equipInfo[i].arrBonusStatCount[z] + " ";
+
                                 attackSpeedBonus += equipInfo[i].arrBonusStatCount[z];
                             }
 
-                            if (z == 3)//쿨타임
+                            if (z == (int)BonusStatType.coolTimeBonus)//쿨타임
                             {
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += equipExplain.arrTypeMent[z];
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += " +" + equipInfo[i].arrBonusStatCount[z] + "%" + " ";
+                                itemEffect.text += equipExplain.arrTypeMent[z] + " +" + equipInfo[i].arrBonusStatCount[z] + "%" + " ";
+
                                 coolTimeBonus += equipInfo[i].arrBonusStatCount[z];
                             }
 
 
-                            if (z == 4)//계열 숙련도
-                            {   
+                            if (z == (int)BonusStatType.champTypeBonus)//계열 숙련도
+                            {
                                 for (int x = 0; x < equipInfo[equipIndex].arrTypeMastery.Length; x++)
                                 {
                                     if (equipInfo[equipIndex].arrTypeMastery[x] > 0)
-                                    {   
-                                        arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += equipExplain.arrTypeMastery[x] +"+" + equipInfo[equipIndex].arrTypeMastery[x];
+                                    {
+                                        itemEffect.text += " " + equipExplain.arrTypeMastery[x] + "+" + equipInfo[equipIndex].arrTypeMastery[x];
                                         //arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += " +" + equipInfo[i].arrBonusStatCount[z] + " ";
                                         //브레이크는 걸어주지 않는다 2개 이상 있을수 있기때문
                                     }
@@ -157,23 +175,24 @@ namespace Framework.UI
 
                             }
 
-                            if (z == 5)//특정 챔피언
+                            if (z == (int)BonusStatType.champMasteryBonus)//특정 챔피언
                             {
-                                for (int x = 0; x < characterState.Length; x++)
+                                foreach (int key in equipInfo[i].dicChampMastery.Keys)
                                 {
-                                    if (characterState[x].indexCharacter == equipInfo[i].dicChampMastery[])
+                                    for (int x = 0; x < characterState.Length; x++)
                                     {
-                                        arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += characterState[x].characterName;
-                                        //브레이크는 걸어주지 않는다 2개 이상 있을수 있기때문
+                                        if (characterState[x].indexCharacter == key)
+                                        {
+                                            itemEffect.text += " " + characterState[x].characterName
+                                                + equipExplain.arrTypeMent[z] + "+" + equipInfo[i].dicChampMastery[key];
+                                            break;
+                                        }
                                     }
-                                }
 
-                                arrEquipChild[equipIndex].GetChild(2).GetComponent<TextMeshProUGUI>().text += equipExplain.arrTypeMent[z];
+                                }
 
                             }
                         }
-
-                       
                     }
 
                 }
@@ -182,10 +201,47 @@ namespace Framework.UI
 
         }
 
-        public void OpenEquipChangeButton(int index)
+        public void OpenEquipChangeButton(int index)//장비 바꾸기 버튼 눌렀을 때 셋팅
         {
-            //itemInfoBox[index]
+            int[] arrWearUniform = {playerInformation.GetPlayerInfo().wearHeadset, playerInformation.GetPlayerInfo().wearController,
+                playerInformation.GetPlayerInfo().wearChair, playerInformation.GetPlayerInfo().wearUniform };
+
+            var equipExplain = equipInfoCollet.equipExplain;
+            var characterState = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>().characterStateList.characterState;
+
+            var bgChild = equipChangeBG.transform.GetChild(0);
+            var wearingEquip = bgChild.transform.Find("WearItemInfoBox");
+
+
+
+            for (int i = 0; i < equipInfo.Count; i++)
+            {
+                if (equipInfoCollet.equipInfo[i].itemIndex == arrWearUniform[index])
+                {
+                    ChangeSetting(equipExplain, characterState, arrWearUniform[index], i,
+                        wearingEquip.GetChild(0).GetComponent<TextMeshProUGUI>(), wearingEquip.GetChild(2).GetComponent<TextMeshProUGUI>());
+
+                }
+            }
+
+
+
+            for (int i = 0; i < equipInfo.Count; i++)
+            {
+                if (int.Parse(equipInfo[i].itemIndex.ToString()[index].ToString()) == i)
+                    Debug.Log(equipInfo[i].itemIndex.ToString()[index]);
+            }
+
+            //for (int i = 0; i < equipInfo.Count; i++)
+            //{
+            //    if(equipInfo[i].itemIndex.ToString()[index +1] == 1)
+            //    Debug.Log(equipInfo[i].itemIndex.ToString()[index +1]);
+            //}
+            // Debug.Log(arrWearUniform[index]);
             equipChangeBG.gameObject.SetActive(true);
+
+
+
         }
 
         public float GetCoolTimeBonus()//선수 전체의 쿨타임 지속 버프
@@ -219,9 +275,9 @@ namespace Framework.UI
         {
             List<int> listTypeBonus = new List<int>();
 
-            for (int i = 0; i<quChampTypeBonus.Count; i++)
+            for (int i = 0; i < quChampTypeBonus.Count; i++)
             {
-                if(quChampTypeBonus.Peek() > 0)
+                if (quChampTypeBonus.Peek() > 0)
                 {
                     listTypeBonus.Add(quChampTypeBonus.Dequeue());
 
@@ -234,8 +290,6 @@ namespace Framework.UI
 
         public int GetChampStatBonus(int Index)//찾고있는 챔피언의 이름만 넣으면 스텟을 찾을 수 있음
         {
-            var equipInfo = equipInfoCollet.equipInfo;
-
             int champBonus = 0;
 
             for (int i = 0; i < equipInfo.Count; i++)
@@ -247,19 +301,19 @@ namespace Framework.UI
                 catch (System.Exception e)
                 {
                     Debug.LogException(e);
-                   
+
                 }
-               
+
             }
 
             return champBonus;
         }
-       
+
 
 
 
     }
 
-    
+
 
 }
