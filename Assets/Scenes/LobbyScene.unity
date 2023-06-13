@@ -29701,12 +29701,8 @@ MonoBehaviour:
   attackText: {fileID: 506108710}
   defenceText: {fileID: 1020042655}
   champStatBonus: 0
-  itemInfoBox:
-  - {fileID: 1839907088}
-  - {fileID: 1905848722}
-  - {fileID: 1244151667}
-  - {fileID: 928978964}
-  equipChangeBG: {fileID: 0}
+  equipChangeBG: {fileID: 913867400}
+  equipInfo: []
 --- !u!114 &1888625101
 MonoBehaviour:
   m_ObjectHideFlags: 0
