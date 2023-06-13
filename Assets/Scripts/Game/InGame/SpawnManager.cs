@@ -37,17 +37,12 @@ public class SpawnManager : MonoBehaviour
 
             CharacterPersnality characterPersnality = null;
 
-            //임시(팀별 유닛 생성위치)
+            //임시(생성만 냅둬야됨)
             if (teamDivid == TeamDivid.myTeam)
-                spawnPos = new Vector3(spawnPos.x, spawnPos.y, 0f);
+                characterPersnality = Instantiate(listObjTestPrefab[7], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
             else
-                spawnPos = new Vector3(spawnPos.x, spawnPos.y, 0f);
+                characterPersnality = Instantiate(listObjTestPrefab[7], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
 
-            // 유니생성
-            if (i == 0) characterPersnality = Instantiate(listObjTestPrefab[7], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
-            else characterPersnality = Instantiate(listObjTestPrefab[2], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
-
-            // 추가 입력
             characterPersnality.state = CharacterState.idle;
             characterPersnality.teamDivid = teamDivid;
             characterPersnality.SetLimitMoveStage(v2MinPos, v2MaxPos);

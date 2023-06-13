@@ -8,10 +8,8 @@ public class Bullet : MonoBehaviour
     private float damage;
     private CharacterPersnality target;
     private bool isHitEffect;
-    private Animator animator;
-    private CircleCollider2D circleCollider;
     public ObjectPool objectPool;
-    
+    private Animator animator;
 
     private void Start()
     {
@@ -31,8 +29,7 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                if (animator.GetBool("Hit")) transform.position = target.transform.position;
-                else gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
         }
         
@@ -40,20 +37,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == target.gameObject)
+        if (collision.gameObject == target.gameObject && !animator.GetBool("Hit"))
         {
-            
-            if (damage > 0) // °ø°Ý
-                target.Hit(damage);
-            else // ½¯µå
-                target.HitShield(damage * -1f, 3f);
+            target.Hit(damage);
 
             if (!isHitEffect) objectPool.ReturnObject(this);
-            else
-            {
-                circleCollider.enabled = false;
-                animator.SetBool("Hit", true);
-            }
+            else animator.SetBool("Hit", true);
+
+            //gameObject.SetActive(false);
         }
     }
 
@@ -63,9 +54,6 @@ public class Bullet : MonoBehaviour
         damage = bulletDamage;
         target = targetCharacter;
         isHitEffect = isEffect;
-
-        if(circleCollider == null) circleCollider = GetComponent<CircleCollider2D>();
-        circleCollider.enabled = true;
 
         if (this.objectPool == null) this.objectPool = objectPool;
     }

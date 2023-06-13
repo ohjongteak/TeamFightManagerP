@@ -80,7 +80,7 @@ public class GamblerCharacter : CharacterPersnality
 
         Gambler_SlotMachine slotMachine = Instantiate(ovjSlotMachine, v2UltiPos, Quaternion.identity).GetComponent<Gambler_SlotMachine>();
 
-        float random = UnityEngine.Random.Range(0, 5);
+        float random = UnityEngine.Random.Range(0, 2);
 
         // 0 = 방어, 1~9 = 공격 
         if(random == 0)

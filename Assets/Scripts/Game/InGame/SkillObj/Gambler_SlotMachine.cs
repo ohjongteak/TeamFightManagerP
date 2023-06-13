@@ -44,6 +44,8 @@ public class Gambler_SlotMachine : MonoBehaviour
         int power = Random.Range(1, 100);
         int number = Random.Range(1, 30);
 
+        if (!isAttack) power *= -1;
+
         if (isAttack) iconSprite = arrIconSprite[0];
         else iconSprite = arrIconSprite[1];
 
@@ -84,9 +86,7 @@ public class Gambler_SlotMachine : MonoBehaviour
             }
         }
 
-        await UniTask.Delay(System.TimeSpan.FromSeconds(1f));
-
-        for (int i = 0; i < number; i++)
+        for(int i = 0; i < number; i++)
         {
             Chip(power);
 
@@ -110,8 +110,6 @@ public class Gambler_SlotMachine : MonoBehaviour
         CharacterPersnality target = characters[Random.Range(0, indexNum)];
 
         while (target.isDead) target = characters[Random.Range(0, indexNum)];
-
-        if (!isAttack) damage *= -1;
 
         Bullet bullet = objectPool.GetObject();
         bullet.transform.position = transform.position;

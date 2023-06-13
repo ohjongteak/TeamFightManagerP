@@ -10,7 +10,7 @@ public class ObjectPool : MonoBehaviour
 
     [SerializeField] private GameObject poolingObjectPrefab;
 
-    Queue<Bullet> quPoolingObject = new Queue<Bullet>();
+    Queue<Bullet> poolingObjectQueue = new Queue<Bullet>();
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < initCount; i++)
         {
-            quPoolingObject.Enqueue(CreateNewObject());
+            poolingObjectQueue.Enqueue(CreateNewObject());
         }
     }
 
@@ -37,9 +37,9 @@ public class ObjectPool : MonoBehaviour
 
     public Bullet GetObject()
     {
-        if (Instance.quPoolingObject.Count > 0)
+        if (Instance.poolingObjectQueue.Count > 0)
         {
-            var obj = Instance.quPoolingObject.Dequeue();
+            var obj = Instance.poolingObjectQueue.Dequeue();
             obj.transform.SetParent(null);
             obj.gameObject.SetActive(true);
             return obj;
@@ -57,6 +57,6 @@ public class ObjectPool : MonoBehaviour
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(objParent.transform);
-        Instance.quPoolingObject.Enqueue(obj);
+        Instance.poolingObjectQueue.Enqueue(obj);
     }
 }
