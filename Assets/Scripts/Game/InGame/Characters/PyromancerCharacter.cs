@@ -10,6 +10,7 @@ public class PyromancerCharacter : CharacterPersnality
     [SerializeField] private GameObject objSpiritPrefab;
     private Fire fireBomb;
     private Pyromancer_Spirit sprit;
+    public bool isSummonSpirit;
 
     // 캐릭터 데이터 입력
     public override void Init()
@@ -42,7 +43,8 @@ public class PyromancerCharacter : CharacterPersnality
         animator = GetComponent<Animator>();
         fireBomb = Instantiate(objFireBombPrefab, transform.position, Quaternion.identity).GetComponent<Fire>();
         sprit = Instantiate(objSpiritPrefab, transform.position, Quaternion.identity).GetComponent<Pyromancer_Spirit>();
-        sprit.SettingSpirit(attackDamage, 1f, listEnemyCharacters);
+        sprit.SettingSpirit(attackDamage, 1f, this, listEnemyCharacters);
+        isSummonSpirit = false;
     }
 
     // 캐릭터 공격 (애니메이션 이벤트로 사용중) - 범위 공격(오브젝트 ON/OFF)
@@ -60,6 +62,8 @@ public class PyromancerCharacter : CharacterPersnality
     // 캐릭터 스킬 (애니메이션 이벤트로 사용중) - 몬스터 소환
     public override void CharacterSkill()
     {
+        skillCool = 0f;
+        Debug.Log("=============");
         sprit.transform.position = targetCharacter.transform.position;
         sprit.gameObject.SetActive(true);
         sprit.SummonSprit();
@@ -77,9 +81,12 @@ public class PyromancerCharacter : CharacterPersnality
     // 스킬 사용가능 체크
     public override bool isCanSkill()
     {
-        if (Vector2.Distance(targetCharacter.transform.position,transform.position) <= attackRange
-            && !sprit.gameObject.activeSelf && targetCharacter != null && !targetCharacter.isDead)
+        if (Vector2.Distance(targetCharacter.transform.position, transform.position) <= attackRange
+            && !isSummonSpirit && targetCharacter != null && !targetCharacter.isDead)
+        {
+            isSummonSpirit = true;
             return true;
+        }
 
         return false;
     }

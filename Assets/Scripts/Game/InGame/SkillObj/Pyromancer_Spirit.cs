@@ -13,6 +13,7 @@ public class Pyromancer_Spirit : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private int targetIndex;
+    private PyromancerCharacter pyromancer;
 
     // 공격스텟
     private float damage;
@@ -43,6 +44,7 @@ public class Pyromancer_Spirit : MonoBehaviour
             objCircle.SetActive(false);
             objCircle.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
 
+            pyromancer.isSummonSpirit = false;
             animator.SetBool("Dead", true);
         }
         else if (attackCool > attackSpeed && CanAttack())
@@ -149,8 +151,9 @@ public class Pyromancer_Spirit : MonoBehaviour
     }
 
     // 소환수 변수 입력
-    public void SettingSpirit(float spiritDamage, float spiritAttackSpeed, List<CharacterPersnality> listCharacters)
+    public void SettingSpirit(float spiritDamage, float spiritAttackSpeed, PyromancerCharacter pyromancerCharacter ,List<CharacterPersnality> listCharacters)
     {
+        pyromancer = pyromancerCharacter;
         listEnemeyCharacters = listCharacters;
         damage = spiritDamage;
         attackSpeed = spiritAttackSpeed;
