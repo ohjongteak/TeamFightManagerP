@@ -16,6 +16,16 @@ namespace Framework.UI
         champMasteryBonus
     }
 
+    public enum itemType
+    {
+        None,
+        Headset,
+        Controller,
+        Chair,
+        Uniform,
+        
+    }
+
 
     [System.Serializable]
     public class EquipInfoCollect
@@ -118,6 +128,8 @@ namespace Framework.UI
         public void ChangeSetting(equipExplain equipExplain, CharacterJsonRead.CharacterState[] characterState, int itemIndex, int equipIndex,
             TextMeshProUGUI itemName, TextMeshProUGUI itemEffect, Image itemImage = null)
         {
+            itemName.text = "";
+            itemEffect.text = "";
 
             for (int i = 0; i < equipInfoCollet.equipInfo.Count; i++)
             {
@@ -211,7 +223,7 @@ namespace Framework.UI
 
             var bgChild = equipChangeBG.transform.GetChild(0);
             var wearingEquip = bgChild.transform.Find("WearItemInfoBox");
-
+            var changeBoxEquip = bgChild.transform.Find("ChangeItemInfoBox");
 
 
             for (int i = 0; i < equipInfo.Count; i++)
@@ -221,23 +233,77 @@ namespace Framework.UI
                     ChangeSetting(equipExplain, characterState, arrWearUniform[index], i,
                         wearingEquip.GetChild(0).GetComponent<TextMeshProUGUI>(), wearingEquip.GetChild(2).GetComponent<TextMeshProUGUI>());
 
+                    ChangeSetting(equipExplain, characterState, arrWearUniform[index], i,
+                       changeBoxEquip.GetChild(0).GetComponent<TextMeshProUGUI>(), changeBoxEquip.GetChild(1).GetComponent<TextMeshProUGUI>());
+
                 }
             }
 
 
+            List<Sprite> listAA= new List<Sprite>();
 
-            for (int i = 0; i < equipInfo.Count; i++)
+            var aa = bgChild.transform.Find("itemImage");
+
+            for(int pp = 0; pp < aa.childCount; pp++)
+                listAA.Add( aa.GetChild(pp).GetChild(0).GetComponent<Image>().sprite);//아이템의 모든 리스트
+
+            List<Sprite> headsetAllItem = new List<Sprite>();//중간부터 접근하기 위해서 List선언
+            int forBreakCount =0;
+
+            for (int i = 0; i < equipInfo.Count; i++ )
             {
-                if (int.Parse(equipInfo[i].itemIndex.ToString()[index].ToString()) == i)
-                    Debug.Log(equipInfo[i].itemIndex.ToString()[index]);
+               
+
+                    switch (int.Parse(equipInfo[i].itemIndex.ToString()[index].ToString()))
+                    {
+
+                        case (int)itemType.Headset:
+
+                        Debug.Log(equipInfo[i].ItemName);
+
+                        if (equipInfo[i].unlock == true)//해금된것 먼저 앞열에 넣어주기
+                            headsetAllItem.Add(imgManager.arrEquipItem[i]);
+
+
+                        forBreakCount++;
+                        break;
+
+                        case (int)itemType.Controller:
+
+                        headsetAllItem.Add(imgManager.arrEquipItem[i]);
+                        forBreakCount++;
+
+                        break;
+                        case (int)itemType.Chair:
+
+                        headsetAllItem.Add(imgManager.arrEquipItem[i]);
+                        forBreakCount++;
+
+                        break;
+                        case (int)itemType.Uniform:
+
+                        headsetAllItem.Add(imgManager.arrEquipItem[i]);
+                        forBreakCount++;
+                        break;
+
+                    }
+
+                    if (forBreakCount >= 5)
+                    {
+                        break;
+                    }
+
             }
 
-            //for (int i = 0; i < equipInfo.Count; i++)
+            for (int aac = 0; aac < headsetAllItem.Count; aac++)
+                Debug.Log(headsetAllItem[aac] + "이기맞나");
+
+            //    for (int i = 0; i < equipInfo.Count; i++)
             //{
-            //    if(equipInfo[i].itemIndex.ToString()[index +1] == 1)
-            //    Debug.Log(equipInfo[i].itemIndex.ToString()[index +1]);
+            //    if (equipInfo[i].itemIndex.ToString()[index + 1] == 1)
+            //        Debug.Log(equipInfo[i].itemIndex.ToString()[index + 1]);
             //}
-            // Debug.Log(arrWearUniform[index]);
+            //Debug.Log(arrWearUniform[index]);
             equipChangeBG.gameObject.SetActive(true);
 
 

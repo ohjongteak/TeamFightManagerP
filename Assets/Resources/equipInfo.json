@@ -43,7 +43,7 @@
     {
       "itemIndex": 1001,
       "ItemName": "안평범한헤드셋",
-      "unlock": "false",
+      "unlock": "true",
       "arrBonusStatCount": [
         0,
         0,
@@ -192,8 +192,8 @@
       "ItemName": "평범한 키보드",
       "unlock": "true",
       "arrBonusStatCount": [
-        0,
-        0,
+        1,
+        1,
         0,
         0,
         0,
@@ -202,8 +202,8 @@
       ],
 
       "arrBonusType": [
-        0,
-        0,
+        1,
+        1,
         0,
         0,
         0,
