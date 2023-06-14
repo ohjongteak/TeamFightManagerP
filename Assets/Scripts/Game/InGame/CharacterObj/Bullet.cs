@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     private float damage;
     private CharacterPersnality target;
     private bool isHitEffect;
+    private bool isMove;
     private Animator animator;
     private CircleCollider2D circleCollider;
     public ObjectPool objectPool;
@@ -22,15 +23,19 @@ public class Bullet : MonoBehaviour
     {
         if (target != null)
         {
-            if (!target.isDead)
+            if (isMove)
             {
+                Vector3 dir = target.transform.position - transform.position;
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
                 transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             }
             else
             {
                 // 애니메이션 투사체 Hit 이펙트 적위치에서 보여지도록
                 if (animator.GetBool("Hit")) transform.position = target.transform.position;
-                else gameObject.SetActive(false);
+                else objectPool.ReturnObject(this);
             }
         }
         
@@ -40,6 +45,8 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject == target.gameObject)
         {
+            isMove = false;
+
             if (damage > 0) // 공격
                 target.Hit(damage);
             else // 아군 쉴드 버프
@@ -60,8 +67,9 @@ public class Bullet : MonoBehaviour
         damage = bulletDamage;
         target = targetCharacter;
         isHitEffect = isEffect;
+        isMove = true;
 
-        if(circleCollider == null) circleCollider = GetComponent<CircleCollider2D>();
+        if (circleCollider == null) circleCollider = GetComponent<CircleCollider2D>();
         circleCollider.enabled = true;
 
         if (this.objectPool == null) this.objectPool = objectPool;

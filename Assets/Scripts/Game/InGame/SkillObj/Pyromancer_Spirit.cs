@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class Pyromancer_Spirit : MonoBehaviour
 {
     [SerializeField] private GameObject objCircle;
     [SerializeField] private GameObject objSummonEffect;
     [HideInInspector] public List<CharacterPersnality> listEnemeyCharacters;
+    [HideInInspector] public PyromancerCharacter pyromancer = null;
     private ObjectPool objectPool;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private int targetIndex;
-    private PyromancerCharacter pyromancer;
 
     // 공격스텟
     private float damage;
@@ -24,7 +25,6 @@ public class Pyromancer_Spirit : MonoBehaviour
     private float time;
 
     // 상태확인 변수
-    private bool isAttack;
     private bool isAlive;
     //1.2
 
@@ -33,44 +33,46 @@ public class Pyromancer_Spirit : MonoBehaviour
         objectPool = GetComponent<ObjectPool>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        isAttack = false;
         isAlive = false;
     }
 
     private void FixedUpdate()
     {
-        if (time <= 0 && isAlive)
-        {////////////////////// 여기부터 작업
-            objCircle.SetActive(false);
-            objCircle.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
+        if (!isAlive) return;
 
-            pyromancer.isSummonSpirit = false;
+        //Debug.Log(CanAttack());
+        if (time <= 0)
+        {
+            objCircle.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
+            objCircle.SetActive(false);
+
             animator.SetBool("Dead", true);
         }
-        else if (attackCool > attackSpeed && CanAttack())
+        else if (attackCool >= attackSpeed && CanAttack())
         {
             if (listEnemeyCharacters[targetIndex].transform.position.x > transform.position.x) spriteRenderer.flipX = false;
             else if (listEnemeyCharacters[targetIndex].transform.position.x < transform.position.x) spriteRenderer.flipX = true;
 
-            attackCool = 0f;
             animator.SetBool("Attack", true);
+            AttackCoolTime();
         }
     }
 
     // 소환수 생성
     public async void SummonSprit()
     {
+        objCircle.SetActive(true);
         attackCool = 0f;
         time = 6.1f;
-        isAlive = true;
 
         await objCircle.transform.DOScale(1.2f, 2.5f).SetEase(Ease.Linear);
         //await UniTask.Delay(System.TimeSpan.FromSeconds(2f));
 
         animator.enabled = true;
         objSummonEffect.SetActive(true);
-        DeadCount();
+        isAlive = true;
         AttackCoolTime();
+        DeadCount();
     }
 
     // 소환수 공격(애니메이션 이벤트로 사용중) - 투사체 공격(Object Pool)
@@ -80,27 +82,29 @@ public class Pyromancer_Spirit : MonoBehaviour
         {
             Bullet bullet = objectPool.GetObject();
             bullet.transform.position = transform.position;
-            bullet.SetBullet(10f, damage, listEnemeyCharacters[targetIndex], objectPool);
+            bullet.SetBullet(1.5f, damage, listEnemeyCharacters[targetIndex], objectPool, true);
         }
         attackCool = 0f;
         animator.SetBool("Attack", false);
-        AttackCoolTime();
-        isAttack = true;
     }
 
     // 소환수 제거(애니메이션 이벤트로 사용중)
     public void SpiritDead()
     {
+        isAlive = false;
         animator.SetBool("Dead", false);
+        pyromancer.isSummonSpirit = false;
+        animator.enabled = false;
+        spriteRenderer.sprite = null;
         gameObject.SetActive(false);
     }
 
     // 공격가능체크 - 적이 범위내에 있는지 확인
     private bool CanAttack()
     {
-        if (isAttack) return false;
+        if (animator.GetBool("Attack")) return false;
 
-        float tempDistance = 1000f;
+        float tempDistance;
         float distance = 1000f;
         targetIndex = -1;
 
@@ -110,7 +114,7 @@ public class Pyromancer_Spirit : MonoBehaviour
 
             tempDistance = Vector2.Distance(listEnemeyCharacters[i].transform.position, transform.position);
 
-            if (tempDistance <= 0.6f && distance < tempDistance)
+            if (tempDistance <= 1.2f && tempDistance < distance)
             {
                 distance = tempDistance;
                 targetIndex = i;
@@ -126,15 +130,16 @@ public class Pyromancer_Spirit : MonoBehaviour
     // 공격 쿨타임
     private async void AttackCoolTime()
     {
+        attackCool = 0f;
         while (attackSpeed > attackCool)
         {
             if (time <= 0f) return;
 
-            attackCool += Time.fixedDeltaTime;
+            attackCool += 0.1f;
 
             if (attackSpeed <= attackCool) break;
 
-            await UniTask.Yield();
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }
     }
 
@@ -143,18 +148,16 @@ public class Pyromancer_Spirit : MonoBehaviour
     {
         while (time > 0f)
         {
-            Debug.Log(time);
             time = Mathf.Floor((time - 0.1f) * 10f) / 10f;
 
-            await UniTask.Delay(System.TimeSpan.FromSeconds(0.1f));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }
     }
 
     // 소환수 변수 입력
-    public void SettingSpirit(float spiritDamage, float spiritAttackSpeed, PyromancerCharacter pyromancerCharacter ,List<CharacterPersnality> listCharacters)
+    public void SettingSpirit(float spiritDamage, float spiritAttackSpeed)
     {
-        pyromancer = pyromancerCharacter;
-        listEnemeyCharacters = listCharacters;
+        transform.position = new Vector2(1000f, 1000f);
         damage = spiritDamage;
         attackSpeed = spiritAttackSpeed;
     }

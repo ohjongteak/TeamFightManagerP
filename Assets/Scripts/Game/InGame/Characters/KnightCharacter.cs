@@ -53,14 +53,10 @@ public class KnightCharacter : CharacterPersnality
     // 캐릭터 궁극기 (애니메이션 이벤트로 사용중) - 아군 방어력 버프
     public override void CharacterUltimate()
     {
-        Debug.Log("기사 궁극기 : 방증");
-
         for (int i = 0; i < listTeamCharacters.Count; i++)
         {
             listTeamCharacters[i].buff_defence += 5f;
         }
-
-        Debug.Log("필살기 => 기본");
 
         StartCoroutine(UltimateBuff());
     }
@@ -75,8 +71,6 @@ public class KnightCharacter : CharacterPersnality
             if (listTeamCharacters[i].buff_defence > 0)
                 listTeamCharacters[i].buff_defence = 0;
         }
-
-        Debug.Log("기사 궁극기 종료");
     }
 
     // 도발 지속시간

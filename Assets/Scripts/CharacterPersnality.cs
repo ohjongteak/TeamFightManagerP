@@ -98,8 +98,8 @@ public abstract class CharacterPersnality : MonoBehaviour
         listTeamCharacters = listTeam;
         listEnemyCharacters = listEnemy;
 
-        maxSkillCool = 5f;
-        maxUltimateCool = 30f;
+        maxSkillCool = 10f;
+        maxUltimateCool = 1f;
 
         UltimateCoolTime();
         AttackCoolTime();
@@ -142,6 +142,8 @@ public abstract class CharacterPersnality : MonoBehaviour
                 break;
 
             case CharacterState.attack:
+                if (attackSpeed <= attackCool)
+                    attackCool = 0f;
                 break;
             case CharacterState.skill:
                 if (maxSkillCool <= skillCool)

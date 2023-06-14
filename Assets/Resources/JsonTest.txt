@@ -118,7 +118,7 @@
           "unlock" : "true",
           "healthPoint": 70,
           "attackDamage": 10,
-          "attackSpeed": 3,
+          "attackSpeed": 30000000,
           "moveSpeed": 2.5,
           "attackRange" : 2.5,
           "defence" : 2

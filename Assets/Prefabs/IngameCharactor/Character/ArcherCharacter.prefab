@@ -49,32 +49,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29e59187af3aa64ea72da8456967150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageManager: {fileID: 0}
+  characterJsonRead: {fileID: 0}
   indexCharacter: 0
   maxHealthPoint: 0
   healthPoint: 0
   defense: 0
   attackDamage: 0
   attackSpeed: 0
-  moveSpeed: 0
   attackRange: 0
-  maxSkillCool: 10
-  maxUltimateCool: 15
-  buff_defence: 0
-  myCharacterType: 0
-  characterJsonRead: {fileID: 0}
+  moveSpeed: 0
+  state: 0
+  teamDivid: 0
   shield: 0
   isDead: 0
   isFakeUnit: 0
-  isTaunt: 0
-  state: 0
-  teamDivid: 0
-  targetCharacter: {fileID: 0}
+  v2SpawnPoint: {x: 0, y: 0}
+  maxSkillCool: 10
+  maxUltimateCool: 15
   attackCool: 0
   skillCool: 0
-  v2SpawnPoint: {x: 0, y: 0}
+  buff_defence: 0
+  isTaunt: 0
+  targetCharacter: {fileID: 0}
   listTeamCharacters: []
   listEnemyCharacters: []
+  stageManager: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 4349293156670810215}
   sprHitMotion: {fileID: 1661688348852810183}
@@ -108,18 +107,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.11}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.28, y: 1.28}
-    newSize: {x: 1.86, y: 1.86}
+    newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.8}
+  m_Size: {x: 0.3, y: 0.5}
   m_EdgeRadius: 0
 --- !u!50 &-7714691795229278410
 Rigidbody2D:
@@ -187,7 +186,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

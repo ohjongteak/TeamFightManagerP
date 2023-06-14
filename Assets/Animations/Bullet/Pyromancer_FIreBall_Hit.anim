@@ -74,4 +74,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.33333334
+    functionName: ReturnBullet
+    data: 
+    objectReferenceParameter: {fileID: 7016315583850653528, guid: e41584b532b25284194e12068a28e3f5, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
