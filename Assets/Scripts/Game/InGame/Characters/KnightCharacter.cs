@@ -34,7 +34,6 @@ public class KnightCharacter : CharacterPersnality
     private void Start()
     {
         animator = GetComponent<Animator>();
-        Init();
     }
 
     // 캐릭터 공격 (애니메이션 이벤트로 사용중) - 단일 공격
