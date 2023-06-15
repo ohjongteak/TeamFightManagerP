@@ -6,21 +6,15 @@ using Cysharp.Threading.Tasks;
 public class SoldierCharacter : CharacterPersnality
 {
     private ObjectPool objectPool;
-    private int enemyIndex = 0;
     public GameObject objGranade;
 
+    // 캐릭터 데이터 입력
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
 
-        //공격할 대상자를 리스트에 넣기 거리를 계산해서 가장 가까운 거리에 있는 적을 공격하기 위함
-        //for (int i = 0; i < listEnemy.Count; i++)
-        //    listEnemyDistance.Add(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
-
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
-        
-        //Debug.Log(CharacterStateList[0]);
-
+      
         for (int i = 0; i < CharacterStateArray.Length; i++)
         {
             if (CharacterStateArray[i].indexCharacter == 201) //챔피언의 인덱스 번호값이 같다면 
@@ -36,9 +30,6 @@ public class SoldierCharacter : CharacterPersnality
                 defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
-                // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
-                //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
-
             }
         }
     }
@@ -48,6 +39,8 @@ public class SoldierCharacter : CharacterPersnality
         objectPool = GetComponent<ObjectPool>();
         animator = GetComponent<Animator>();
     }
+
+    // 캐릭터 공격 (애니메이션 이벤트로 사용중) - 투사체 공격(Object Pool)
     public override void CharacterAttack()
     {
         if (!targetCharacter.isDead)
@@ -59,23 +52,23 @@ public class SoldierCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
-    public override void CharacterUltimate()
-    {
-        Granade granade = Instantiate(objGranade, transform.position, Quaternion.identity).GetComponent<Granade>();
-        granade.SetGranade(7f, 40f, targetCharacter.transform.position, listEnemyCharacters);
-    }
-
+    // 캐릭터 스킬 (애니메이션 이벤트로 사용중) - 연속 공격(기존공격과 동일하게 사용)
     public override void CharacterSkill()
     {
         if (!targetCharacter.isDead)
-
         {
             Bullet bullet = objectPool.GetObject();
             bullet.transform.position = transform.position;
             bullet.SetBullet(10f, attackDamage, targetCharacter, objectPool);
         }
+        SkillCoolTime();
+    }
 
-        Debug.Log("스킬 => 기본");
+    // 캐릭터 궁극기 (애니메이션 이벤트로 사용중) - 범위공격(투사체 생성)
+    public override void CharacterUltimate()
+    {
+        Granade granade = Instantiate(objGranade, transform.position, Quaternion.identity).GetComponent<Granade>();
+        granade.SetGranade(7f, 40f, targetCharacter.transform.position, listEnemyCharacters);
     }
 
     // 스킬 사용가능 체크
@@ -87,6 +80,7 @@ public class SoldierCharacter : CharacterPersnality
         return false;
     }
 
+    // 궁극기 사용가능 체크
     public override bool isCanUltimate()
     {
         if (targetCharacter != null && !targetCharacter.isDead)

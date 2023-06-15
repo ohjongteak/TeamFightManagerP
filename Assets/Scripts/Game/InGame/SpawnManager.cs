@@ -19,6 +19,7 @@ public class SpawnManager : MonoBehaviour
     [Header("테스트용")]
     [SerializeField] List<GameObject> listObjTestPrefab;
 
+    // 캐릭터 생성, 변수입력
     public List<CharacterPersnality> SummonCharactor(int unitCount, TeamDivid teamDivid)
     {
         List<CharacterPersnality> characterPersnalities = new List<CharacterPersnality>();
@@ -37,12 +38,23 @@ public class SpawnManager : MonoBehaviour
 
             CharacterPersnality characterPersnality = null;
 
-            //임시(생성만 냅둬야됨)
+            //임시(팀별 유닛 생성위치)
             if (teamDivid == TeamDivid.myTeam)
-                characterPersnality = Instantiate(listObjTestPrefab[7], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            {
+                spawnPos = new Vector3(spawnPos.x, spawnPos.y, 0f);
+                characterPersnality = Instantiate(listObjTestPrefab[8], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            }
             else
-                characterPersnality = Instantiate(listObjTestPrefab[7], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            {
+                spawnPos = new Vector3(spawnPos.x, spawnPos.y, 0f);
+                characterPersnality = Instantiate(listObjTestPrefab[0], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            }
 
+            // 유니생성
+            //if (i == 0) characterPersnality = Instantiate(listObjTestPrefab[8], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+            //else characterPersnality = Instantiate(listObjTestPrefab[0], new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity, objSpawnBox.transform).GetComponent<CharacterPersnality>();
+
+            // 추가 입력
             characterPersnality.state = CharacterState.idle;
             characterPersnality.teamDivid = teamDivid;
             characterPersnality.SetLimitMoveStage(v2MinPos, v2MaxPos);
@@ -55,6 +67,7 @@ public class SpawnManager : MonoBehaviour
         return characterPersnalities;
     }
 
+    // 소환 좌표
     private List<Vector3> ListSpwanPos(Vector2 spawnCenterPos, int _n)
     {
         List<Vector3> listSpawnPos = new List<Vector3>();

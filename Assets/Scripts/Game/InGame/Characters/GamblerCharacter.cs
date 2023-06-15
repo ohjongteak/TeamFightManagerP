@@ -12,17 +12,12 @@ public class GamblerCharacter : CharacterPersnality
     [SerializeField] private GameObject objCoin;
     [SerializeField] private GameObject ovjSlotMachine;
 
+    // 캐릭터 데이터 입력
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
 
-        //공격할 대상자를 리스트에 넣기 거리를 계산해서 가장 가까운 거리에 있는 적을 공격하기 위함
-        //for (int i = 0; i < listEnemy.Count; i++)
-        //    listEnemyDistance.Add(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
-
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
-
-        //Debug.Log(CharacterStateList[0]);
 
         for (int i = 0; i < CharacterStateArray.Length; i++)
         {
@@ -39,9 +34,6 @@ public class GamblerCharacter : CharacterPersnality
                 defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
-                // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
-                //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
-
             }
         }
     }
@@ -51,6 +43,8 @@ public class GamblerCharacter : CharacterPersnality
         objectPool = GetComponent<ObjectPool>();
         animator = GetComponent<Animator>();
     }
+
+    // 캐릭터 공격 (애니메이션 이벤트로 사용중) - 투사체 공격(Object Pool)
     public override void CharacterAttack()
     {
         if (!targetCharacter.isDead)
@@ -64,6 +58,14 @@ public class GamblerCharacter : CharacterPersnality
         AttackCoolTime();
     }
 
+    // 캐릭터 스킬 (애니메이션 이벤트로 사용중) - 랜덤 횟수 추가공격
+    public override void CharacterSkill()
+    {
+        objDiceSkill.gameObject.SetActive(true);
+        Debug.Log("스킬 => 기본");
+    }
+
+    // 캐릭터 궁극기 (애니메이션 이벤트로 사용중) - 슬롯머신 생성
     public override void CharacterUltimate()
     {
         objCoin.SetActive(false);
@@ -95,12 +97,6 @@ public class GamblerCharacter : CharacterPersnality
         }
     }
 
-    public override void CharacterSkill()
-    {
-        objDiceSkill.gameObject.SetActive(true);
-        Debug.Log("스킬 => 기본");
-    }
-
     // 스킬 사용가능 체크
     public override bool isCanSkill()
     {
@@ -110,6 +106,7 @@ public class GamblerCharacter : CharacterPersnality
         return false;
     }
 
+    // 궁극기 사용가능 체크
     public override bool isCanUltimate()
     {
         if (targetCharacter != null && !targetCharacter.isDead)
@@ -118,7 +115,8 @@ public class GamblerCharacter : CharacterPersnality
         return false;
     }
 
-    public async UniTask SkillAttack()
+    // 스킬 공격
+    public async void SkillAttack()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
         Bullet bullet;
@@ -134,5 +132,6 @@ public class GamblerCharacter : CharacterPersnality
         }
     }
 
+    // 스킬 이펙트 오브젝트
     public void ActiveCoinEffect() => objCoin.SetActive(true);
 }

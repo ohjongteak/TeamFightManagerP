@@ -25,6 +25,7 @@ public class Gambler_SlotMachine : MonoBehaviour
         ActiveSlotMachine();
     }
 
+    // 슬롯머신생성 후 떨어지는 모션
     private async void ActiveSlotMachine()
     {
         float posY = transform.position.y - 1.35f;
@@ -33,7 +34,10 @@ public class Gambler_SlotMachine : MonoBehaviour
         animator.enabled = true;
     }
 
-    public async UniTask RandomSlot()
+    // 슬롯머신
+    // ? 00 - ?표부터 설정 후 뒤 숫자 랜덤값 적용
+    // ? 00 - 윗줄?가 설정되면 아래?는 동일적용, 그 후 숫자 랜덤값적용
+    public async void RandomSlot()
     {
         float delayTime = 0.05f;
         System.TimeSpan time = System.TimeSpan.FromSeconds(delayTime);
@@ -97,6 +101,7 @@ public class Gambler_SlotMachine : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    // 궁극기 공격 - 랜덤 타겟에게 공격(적), 쉴드버프(아군) 기능 투사체 생성
     private void Chip(int damage)
     {
         int indexNum = characters.Count;

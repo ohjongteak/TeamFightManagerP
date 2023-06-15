@@ -11,17 +11,12 @@ public class SwordmanCharacter : CharacterPersnality
     Vector2 v2StartPos;
     [SerializeField] private GameObject objUltimate;
 
+    // 캐릭터 데이터 입력
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
 
-        //공격할 대상자를 리스트에 넣기 거리를 계산해서 가장 가까운 거리에 있는 적을 공격하기 위함
-        //for (int i = 0; i < listEnemy.Count; i++)
-        //    listEnemyDistance.Add(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
-
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
-
-        //Debug.Log(CharacterStateList[0]);
 
         for (int i = 0; i < CharacterStateArray.Length; i++)
         {
@@ -38,9 +33,6 @@ public class SwordmanCharacter : CharacterPersnality
                 defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
-                // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
-                //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
-
             }
         }
     }
@@ -49,13 +41,35 @@ public class SwordmanCharacter : CharacterPersnality
     {
         animator = GetComponent<Animator>();
     }
-    
+
+    // 캐릭터 공격 (애니메이션 이벤트로 사용중) - 단일타겟공격
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
         AttackCoolTime();
     }
 
+    // 캐릭터 스킬 (애니메이션 이벤트로 사용중) - 연속 공격(모션에 따라 데미지가 변경됨)
+    public override void CharacterSkill()
+    {
+        skillCount++;
+        if (skillCount == 1)
+        {
+            if (targetCharacter != null && !targetCharacter.isDead)
+                targetCharacter.Hit(attackDamage);
+        }
+        else
+        {
+            skillCount = 0;
+            if (targetCharacter != null && !targetCharacter.isDead)
+                targetCharacter.Hit((int)(attackDamage * 0.4f));
+
+            Debug.Log("스킬 => 기본");
+        }
+        SkillCoolTime();
+    }
+
+    // 캐릭터 궁극기 (애니메이션 이벤트로 사용중) - 캐릭터 순간이동, 범위공격
     public override void CharacterUltimate()
     {
         // 궁극기 좌표
@@ -64,7 +78,7 @@ public class SwordmanCharacter : CharacterPersnality
         Vector3 v3UltimatePos = transform.position + v3Dir * ultimateRange;
         v3UltimatePos = new Vector2(Mathf.Clamp(v3UltimatePos.x, minX, maxX), Mathf.Clamp(v3UltimatePos.y, minY, maxY));
 
-        // 이펙트 생성
+        // 이펙트 생성 - 임시오브젝트 사용중
         Vector3 v3CenterPos = (transform.position + v3UltimatePos) * 0.5f;
         float angle = Mathf.Atan2(v3Dir.y, v3Dir.x) * Mathf.Rad2Deg;
         GameObject objUltimateEffect = Instantiate(objUltimate, v3CenterPos, Quaternion.AngleAxis(angle - 90, Vector3.forward));
@@ -91,24 +105,6 @@ public class SwordmanCharacter : CharacterPersnality
         objUltimateEffect.SetActive(false);
     }
 
-    public override void CharacterSkill()
-    {
-        skillCount++;
-        if (skillCount == 1)
-        {
-            if (targetCharacter != null && !targetCharacter.isDead)
-                targetCharacter.Hit(attackDamage);
-        }
-        else
-        {
-            skillCount = 0;
-            if (targetCharacter != null && !targetCharacter.isDead)
-                targetCharacter.Hit((int)(attackDamage * 0.4f));
-
-            Debug.Log("스킬 => 기본");
-        }
-    }
-
     // 스킬 사용가능 체크
     public override bool isCanSkill()
     {
@@ -118,6 +114,7 @@ public class SwordmanCharacter : CharacterPersnality
         return false;
     }
 
+    // 궁극기 사용가능 체크
     public override bool isCanUltimate()
     {
         float distance = Vector2.Distance(transform.position, targetCharacter.transform.position);
@@ -128,12 +125,14 @@ public class SwordmanCharacter : CharacterPersnality
         return false;
     }
 
+    // 궁극기 애니메이션 - 이동전 적 좌표등 저장
     public void UltimateSet()
     {
         v3TargetPos = targetCharacter.transform.position;
         v2StartPos = transform.position;
     }
 
+    // 범위안에 적이 있는지 체크
     private bool IsInside(Vector2 B, Vector2[] arrV2SquarePos)
     {
         //crosses는 점q와 오른쪽 반직선과 다각형과의 교점의 개수

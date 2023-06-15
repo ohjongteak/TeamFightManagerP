@@ -8,8 +8,11 @@ public class Bullet : MonoBehaviour
     private float damage;
     private CharacterPersnality target;
     private bool isHitEffect;
-    public ObjectPool objectPool;
+    private bool isMove;
     private Animator animator;
+    private CircleCollider2D circleCollider;
+    public ObjectPool objectPool;
+    
 
     private void Start()
     {
@@ -20,16 +23,19 @@ public class Bullet : MonoBehaviour
     {
         if (target != null)
         {
-            if (!target.isDead)
+            if (isMove)
             {
-                //Vector3 dir = target.transform.position - transform.position;
-                //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                Vector3 dir = target.transform.position - transform.position;
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
                 transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             }
             else
             {
-                gameObject.SetActive(false);
+                // 애니메이션 투사체 Hit 이펙트 적위치에서 보여지도록
+                if (animator.GetBool("Hit")) transform.position = target.transform.position;
+                else objectPool.ReturnObject(this);
             }
         }
         
@@ -37,14 +43,21 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == target.gameObject && !animator.GetBool("Hit"))
+        if (collision.gameObject == target.gameObject)
         {
-            target.Hit(damage);
+            isMove = false;
+
+            if (damage > 0) // 공격
+                target.Hit(damage);
+            else // 아군 쉴드 버프
+                target.HitShield(damage * -1f, 3f);
 
             if (!isHitEffect) objectPool.ReturnObject(this);
-            else animator.SetBool("Hit", true);
-
-            //gameObject.SetActive(false);
+            else
+            {
+                circleCollider.enabled = false;
+                animator.SetBool("Hit", true);
+            }
         }
     }
 
@@ -54,6 +67,10 @@ public class Bullet : MonoBehaviour
         damage = bulletDamage;
         target = targetCharacter;
         isHitEffect = isEffect;
+        isMove = true;
+
+        if (circleCollider == null) circleCollider = GetComponent<CircleCollider2D>();
+        circleCollider.enabled = true;
 
         if (this.objectPool == null) this.objectPool = objectPool;
     }

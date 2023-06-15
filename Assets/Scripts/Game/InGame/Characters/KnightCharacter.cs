@@ -5,17 +5,12 @@ using Cysharp.Threading.Tasks;
 
 public class KnightCharacter : CharacterPersnality
 {
+    // 캐릭터 데이터 입력
     public override void Init()
     {
         characterJsonRead = GameObject.Find("CharaceterState").GetComponent<CharacterJsonRead>();
 
-        //공격할 대상자를 리스트에 넣기 거리를 계산해서 가장 가까운 거리에 있는 적을 공격하기 위함
-        //for (int i = 0; i < listEnemy.Count; i++)
-        //    listEnemyDistance.Add(Vector2.Distance(listEnemy[i].transform.position, this.transform.position));
-    
         var CharacterStateArray = characterJsonRead.characterStateList.characterState;
-
-        //Debug.Log(CharacterStateList[0]);
 
         for(int i = 0; i < CharacterStateArray.Length; i++) 
         {
@@ -32,8 +27,6 @@ public class KnightCharacter : CharacterPersnality
                 defense = CharacterStateArray[i].defence;
 
                 attackCool = attackSpeed;
-                // 2가지 문제를 가지고 있는데 인덱스 번호값의 처리
-                //Init함수를 Start에서 바로 실행해주면 JsonReader가 값을 넣기전에 실행되서 Out Of Range 현상이 발생한다는점
             }
         }
     }
@@ -44,26 +37,31 @@ public class KnightCharacter : CharacterPersnality
         Init();
     }
 
+    // 캐릭터 공격 (애니메이션 이벤트로 사용중) - 단일 공격
     public override void CharacterAttack()
     {
         targetCharacter.Hit(attackDamage);
         AttackCoolTime();
     }
 
+    // 캐릭터 스킬 (애니메이션 이벤트로 사용중) - 도발(디버프)
+    public override void CharacterSkill()
+    {
+        StartCoroutine(TauntTime());
+    }
+
+    // 캐릭터 궁극기 (애니메이션 이벤트로 사용중) - 아군 방어력 버프
     public override void CharacterUltimate()
     {
-        Debug.Log("기사 궁극기 : 방증");
-
-        for(int i = 0; i < listTeamCharacters.Count; i++)
+        for (int i = 0; i < listTeamCharacters.Count; i++)
         {
             listTeamCharacters[i].buff_defence += 5f;
         }
 
-        Debug.Log("필살기 => 기본");
-
         StartCoroutine(UltimateBuff());
     }
 
+    // 궁극기 버프 지속시간
     IEnumerator UltimateBuff()
     {
         yield return new WaitForSeconds(5f);
@@ -73,16 +71,10 @@ public class KnightCharacter : CharacterPersnality
             if (listTeamCharacters[i].buff_defence > 0)
                 listTeamCharacters[i].buff_defence = 0;
         }
-
-        Debug.Log("기사 궁극기 종료");
     }
 
-    public override void CharacterSkill()
-    {
-        StartCoroutine(SkillEffect());
-    }
-
-    IEnumerator SkillEffect()
+    // 도발 지속시간
+    IEnumerator TauntTime()
     {
         WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
         CharacterPersnality tauntTarget = targetCharacter;
@@ -104,6 +96,7 @@ public class KnightCharacter : CharacterPersnality
         }
     }
 
+    // 스킬 사용가능 체크
     public override bool isCanSkill()
     {
         if (targetCharacter != null && !targetCharacter.isDead)
@@ -112,6 +105,7 @@ public class KnightCharacter : CharacterPersnality
         return false;
     }
 
+    // 궁극기 사용가능 체크
     public override bool isCanUltimate()
     {
         for (int i = 0; i < listTeamCharacters.Count; i++)

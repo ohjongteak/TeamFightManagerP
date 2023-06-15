@@ -33,7 +33,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Text gameTurn;
     [SerializeField] private TextMeshProUGUI gameResult;
 
-    // Start is called before the first frame update
     void Start()
     {
         gameTurn.text = battleState.ToString();
@@ -41,12 +40,12 @@ public class StageManager : MonoBehaviour
 
         battleState = BattleState.ready;
         listLTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.myTeam);
-        listRTeamCharacters = spawnManager.SummonCharactor(1, TeamDivid.enemyTeam);        
+        listRTeamCharacters = spawnManager.SummonCharactor(2, TeamDivid.enemyTeam);        
 
         BattleStart();
     }
 
-    // Update is called once per frame
+    // 스테이지 상태별 유닛 상태 입력 - 추후 추가예정
     private void FixedUpdate()
     {
         if (battleState == BattleState.battle)
@@ -63,7 +62,8 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    private async UniTaskVoid BattleStart()
+    // 전투 시작
+    private async void BattleStart()
     {
         await UniTask.Delay(new TimeSpan(0, 0, 5));
 
@@ -80,11 +80,12 @@ public class StageManager : MonoBehaviour
         }
 
         battleState = BattleState.battle;
-        IngameTimer();
+        InGameTimer();
         gameTurn.text = battleState.ToString();
     }
 
-    private async UniTaskVoid IngameTimer()
+    // 대결 제한시간 타이머
+    private async void InGameTimer()
     {
         while (timer > 0)
         {
@@ -109,6 +110,7 @@ public class StageManager : MonoBehaviour
         ResultGame();
     }
 
+    // 킬카운트 텍스트 설정
     public void KillScoreRefresh(TeamDivid teamDivid)
     {
         int teamIndex = teamDivid != TeamDivid.myTeam ? 0 : 1;
@@ -117,6 +119,7 @@ public class StageManager : MonoBehaviour
         arrTmpKillScore[teamIndex].text = arrKillScore[teamIndex].ToString();
     }
 
+    // 승부 결과
     private void ResultGame()
     {
         battleState = BattleState.endBattle;
